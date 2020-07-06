@@ -32,13 +32,13 @@ COPY sources.list /etc/apt/
 RUN apt-get update
 
 # set up java
-RUN apt-get install -y openjdk-8-jdk
+RUN apt-get --no-install-recommends install -y openjdk-8-jdk
 ENV JAVA_HOME /docker-java-home
 
 # install dev packages
-RUN apt-get install -y apt-utils vim python2.7 python-pip zip net-tools procps
-RUN apt-get install -y openjdk-8-dbg gdb git cmake python2.7-dbg
-RUN apt-get install -y libz-dev
+RUN apt-get --no-install-recommends install -y apt-utils vim python2.7 python-pip zip net-tools procps
+RUN apt-get --no-install-recommends install -y openjdk-8-dbg gdb git cmake python2.7-dbg
+RUN apt-get --no-install-recommends install -y libz-dev
 RUN mkdir /root/.pip
 COPY pip.conf /root/.pip/
 RUN pip install virtualenv
