@@ -38,7 +38,10 @@ import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.io.Serializable;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.FutureTask;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 /**
  * machine learning node has input and output,MLMapFunction is a util function to help create MLFlatMapOp class object.
@@ -51,7 +54,10 @@ public class MLMapFunction<IN, OUT> implements Closeable, Serializable {
 	private TypeInformation<IN> inTI;
 	private TypeInformation<OUT> outTI;
 	private MLContext mlContext;
-	private FutureTask<Void> serverFuture;
+	private ExecutorService serverService;
+    private ExecutorService collectorService;
+	private Future collectorTaskFuture;
+	private Future nodeServerTaskFuture;
 	private ExecutionMode mode;
 	private transient DataExchange<IN, OUT> dataExchange;
 	private volatile Collector<OUT> collector = null;
@@ -80,16 +86,36 @@ public class MLMapFunction<IN, OUT> implements Closeable, Serializable {
 
 		dataExchange = new DataExchange<>(mlContext);
 
-		try {
-			serverFuture = new FutureTask<>(new NodeServer(mlContext, role.name()), null);
-			Thread t = new Thread(serverFuture);
+		serverService = Executors.newFixedThreadPool(1, r -> {
+			Thread t = new Thread(r);
 			t.setDaemon(true);
 			t.setName("NodeServer_" + mlContext.getIdentity());
-			t.start();
-		} catch (Exception e) {
-			LOG.error("Fail to start node service.", e);
-			throw new IOException(e.getMessage());
-		}
+			return t;
+		});
+		nodeServerTaskFuture = serverService.submit(new NodeServer(mlContext, role.name()));
+
+		collectorService = Executors.newFixedThreadPool(1, r -> {
+			Thread t = new Thread(r);
+			t.setDaemon(true);
+			t.setName("ResultCollector_" + mlContext.getIdentity());
+			return t;
+		});
+		collectorTaskFuture = collectorService.submit(() -> {
+			while (true) {
+				if (collector == null) {
+					try {
+						LOG.info("collector is still null, sleep 1 second...");
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				} else {
+					break;
+				}
+			}
+			drainRead(collector, true);
+		});
+
 		System.out.println("start:" + mlContext.getRoleName() + " index:" + mlContext.getIndex());
 	}
 
@@ -103,31 +129,87 @@ public class MLMapFunction<IN, OUT> implements Closeable, Serializable {
 		}
 
 		// wait for tf thread finish
+		closeCollector();
+		closeNodeServer();
+
+
+		LOG.info("Records output: " + dataExchange.getReadRecords());
+
+		if (mlContext != null) {
+			try {
+				mlContext.close();
+			} catch (IOException e) {
+				LOG.error("Fail to close mlContext.", e);
+			}
+			mlContext = null;
+		}
+	}
+
+	/**
+	 * stop node server
+	 */
+	private void closeNodeServer() {
+		LOG.info("try to close node server");
+		if (serverService == null) {
+			LOG.info("node server has been closed");
+			return;
+		}
+
 		try {
-			if (serverFuture != null && !serverFuture.isCancelled()) {
-				serverFuture.get();
-			}
-			//as in batch mode, we can't user timer to drain queue, so drain it here
-			drainRead(collector, true);
-		} catch (InterruptedException e) {
-			LOG.error("Interrupted waiting for server join {}.", e.getMessage());
-			serverFuture.cancel(true);
-		} catch (ExecutionException e) {
-			LOG.error(mlContext.getIdentity() + " node server failed");
-			throw new RuntimeException(e);
+			nodeServerTaskFuture.get();
+		} catch (InterruptedException | ExecutionException e) {
+			LOG.warn("failed to join node server task" + " index:" + mlContext.getIndex());
+			e.printStackTrace();
 		} finally {
-			serverFuture = null;
-
-			LOG.info("Records output: " + dataExchange.getReadRecords());
-
-			if (mlContext != null) {
-				try {
-					mlContext.close();
-				} catch (IOException e) {
-					LOG.error("Fail to close mlContext.", e);
+			serverService.shutdown();
+			try {
+				if (!serverService.awaitTermination(10, TimeUnit.SECONDS)) {
+					LOG.warn("failed to shutdown node server" + " index:" + mlContext.getIndex());
 				}
-				mlContext = null;
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+				LOG.warn("failed to shutdown node server" + " index:" + mlContext.getIndex());
+			} finally {
+				if (!serverService.isShutdown()) {
+					serverService.shutdownNow();
+				}
 			}
+			nodeServerTaskFuture = null;
+			serverService = null;
+		}
+	}
+
+	/**
+	 * stop result collector
+	 */
+	private void closeCollector() {
+		LOG.info("try to close collector service");
+		if (collectorService == null) {
+			LOG.info("collector service has been closed");
+			return;
+		}
+
+		try {
+			collectorTaskFuture.get();
+		} catch (InterruptedException | ExecutionException e) {
+			LOG.warn("failed to join collector task" + " index:" + mlContext.getIndex());
+			e.printStackTrace();
+		} finally {
+			collectorService.shutdown();
+			try {
+				if (!collectorService.awaitTermination(10, TimeUnit.SECONDS)) {
+					LOG.warn("failed to shutdown result collector" + " index:" + mlContext.getIndex());
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+				LOG.warn("failed to shutdown result collector" + " index:" + mlContext.getIndex());
+			} finally {
+				if (!collectorService.isShutdown()) {
+					collectorService.shutdownNow();
+				}
+			}
+			collectorTaskFuture = null;
+			collectorService = null;
 		}
 	}
 
@@ -143,7 +225,7 @@ public class MLMapFunction<IN, OUT> implements Closeable, Serializable {
 		//put the read & write in a loop to avoid dead lock between write queue and read queue.
 		boolean writeSuccess = false;
 		do {
-			drainRead(out, false);
+//			drainRead(out, false);
 
 			writeSuccess = dataExchange.write(value);
 			if (!writeSuccess) {
@@ -167,7 +249,8 @@ public class MLMapFunction<IN, OUT> implements Closeable, Serializable {
 				}
 			} catch (InterruptedIOException iioe) {
 				LOG.info("{} Reading from is interrupted, canceling the server", mlContext.getIdentity());
-				serverFuture.cancel(true);
+				closeCollector();
+				closeNodeServer();
 			} catch (IOException e) {
 				LOG.error("Fail to read data from python.", e);
 			}
