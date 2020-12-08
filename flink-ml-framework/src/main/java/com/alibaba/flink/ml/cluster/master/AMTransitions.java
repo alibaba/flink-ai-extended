@@ -395,4 +395,59 @@ public class AMTransitions {
 			}
 		}
 	}
+
+	public static class CountAndStopJob extends AMTransition
+	implements MultipleArcTransition<AbstractAMStateMachine, AMEvent, AMStatus>{
+
+		public CountAndStopJob(AbstractAMStateMachine stateMachine){
+			super(stateMachine);
+		}
+		@Override
+		public AMStatus transition(AbstractAMStateMachine amStateMachine, AMEvent amEvent) throws InvalidStateTransitionException {
+			if (amEvent.getType().equals(AMEventType.FAIL_NODE)){
+				amMeta.setCount();
+				LOG.info("the python script has falled down " + amMeta.getCount() + " times");
+				if (amMeta.getCount() >= 2){
+					amService.stopAllNodes();
+					try {
+						amMeta.saveAMStatus(AMStatus.AM_FINISH, getInternalState());
+					} catch (IOException e) {
+						e.printStackTrace();
+						throw new InvalidStateTransitionException(getInternalState(), amEvent);
+					}
+					amService.stopService();
+					if (eventReporter != null) {
+						eventReporter.jobKill();
+					}
+					return AMStatus.AM_FINISH;
+				}
+				else {
+					NodeSpec nodeSpec;
+					long version = 0;
+					RegisterFailedNodeRequest request = (RegisterFailedNodeRequest) amEvent.getMessage();
+					nodeSpec = request.getNodeSpec();
+					version = request.getVersion();
+					LOG.info("Fail Node:" + ProtoUtil.protoToJson(nodeSpec));
+					try {
+						amMeta.saveFailedNode(nodeSpec);
+						amMeta.saveAMStatus(AMStatus.AM_FAILOVER, AMStatus.AM_RUNNING);
+						if (eventReporter != null) {
+							eventReporter.nodeFail(nodeSpec2Str(nodeSpec));
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+						throw new InvalidStateTransitionException(amStateMachine.getInternalState(), amEvent);
+					}
+					AMEvent restartEvent = new AMEvent(AMEventType.RESTART_CLUSTER, null, version);
+					LOG.info("put restart event to state machine:" + version);
+					boolean res = amStateMachine.sendEvent(restartEvent);
+					if (!res) {
+						throw new InvalidStateTransitionException(amStateMachine.getInternalState(), amEvent);
+					}
+					return AMStatus.AM_FAILOVER;
+				}
+			}
+			return AMStatus.AM_FINISH;
+		}
+	}
 }

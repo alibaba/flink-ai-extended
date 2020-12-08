@@ -41,8 +41,11 @@ public class AMMetaImpl implements AMMeta {
 
 	Storage storage;
 
+	private int count;
+
 	public AMMetaImpl(MLContext MLContext) {
 		storage = StorageFactory.getStorageInstance(MLContext.getProperties());
+		count = 0;
 	}
 
 	@Override
@@ -256,4 +259,15 @@ public class AMMetaImpl implements AMMeta {
 	public void clear() {
 		storage.clear();
 	}
+
+    @Override
+    public void setCount() {
+        this.count += 1;
+    }
+
+    @Override
+    public int getCount() {
+        return this.count;
+    }
+
 }

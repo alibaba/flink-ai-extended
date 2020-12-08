@@ -66,8 +66,8 @@ public class TFAMStateMachineImpl extends AbstractAMStateMachine {
 				.addTransition(AMStatus.AM_RUNNING, AMStatus.AM_FINISH,
 						AMEventType.FINISH_CLUSTER,
 						new AMTransitions.FinishCluster(this))
-				.addTransition(AMStatus.AM_RUNNING, AMStatus.AM_FAILOVER, AMEventType.FAIL_NODE,
-						new AMTransitions.FailNode(this))
+//				.addTransition(AMStatus.AM_RUNNING, AMStatus.AM_FAILOVER, AMEventType.FAIL_NODE,
+//						new AMTransitions.FailNode(this))
 				.addTransition(AMStatus.AM_RUNNING, AMStatus.AM_FAILOVER, AMEventType.REGISTER_NODE,
 						new AMTransitions.FailNode(this))
 				.addTransition(AMStatus.AM_RUNNING, AMStatus.AM_FINISH, AMEventType.STOP_JOB,
@@ -76,6 +76,10 @@ public class TFAMStateMachineImpl extends AbstractAMStateMachine {
 						new AMTransitions.RestartCluster(this))
 				.addTransition(AMStatus.AM_FAILOVER, AMStatus.AM_FINISH, AMEventType.STOP_JOB,
 						new AMTransitions.StopJob(this))
+				.addTransition(AMStatus.AM_RUNNING,
+						EnumSet.of(AMStatus.AM_FAILOVER, AMStatus.AM_FINISH),
+						AMEventType.FAIL_NODE,
+						new AMTransitions.CountAndStopJob(this))
 				// some ignore message
 				.addTransition(AMStatus.AM_FAILOVER, AMStatus.AM_FAILOVER, AMEventType.FINISH_NODE,
 						new AMTransitions.IgnoreMessage(this))

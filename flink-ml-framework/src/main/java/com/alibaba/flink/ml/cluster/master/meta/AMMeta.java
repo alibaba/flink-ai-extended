@@ -154,4 +154,8 @@ public interface AMMeta {
 	 */
 	void clear();
 
+	void setCount();
+
+	int getCount();
+
 }
