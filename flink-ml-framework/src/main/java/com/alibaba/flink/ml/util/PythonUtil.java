@@ -120,7 +120,8 @@ public class PythonUtil {
 		String pythonPath = findChildByName(envDir, "site-packages").getAbsolutePath();
 		// TODO: support different virtual env for process scriptRunner?
 		String tfPath = pythonPath + "/com/alibaba/flink/ml";
-		String libJvm = "libjvm.so";
+		// String libJvm = "libjvm.so";
+		String libJvm = SystemUtils.IS_OS_MAC ? "libjvm.dylib" : "libjvm.so";
 		String jvmPath = findChildByName(new File(System.getenv("JAVA_HOME")), libJvm).getParent();
 		mlContext.putEnvProperty(MLConstants.LD_LIBRARY_PATH,
 				Joiner.on(File.pathSeparator).join(new String[] { tfPath, jvmPath }));
