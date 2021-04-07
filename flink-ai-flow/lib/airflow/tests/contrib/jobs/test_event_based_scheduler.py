@@ -60,7 +60,7 @@ class TestEventBasedScheduler(unittest.TestCase):
         db.clear_db_task_execution()
         db.clear_db_message()
         self.scheduler = None
-        self.port = 50102
+        self.port = 50103
         self.storage = MemoryEventStorage()
         self.master = NotificationMaster(NotificationService(self.storage), self.port)
         self.master.run()
@@ -388,3 +388,15 @@ class TestEventBasedScheduler(unittest.TestCase):
                 self.assertTrue(ti.state in [State.SUCCESS, State.KILLED])
             for te in session.query(TaskExecution).filter(TaskExecution.dag_id == EVENT_BASED_SCHEDULER_DAG):
                 self.assertTrue(te.state in [State.SUCCESS, State.KILLED])
+
+    # def test_vvp_dag(self):
+    #     file_path = '/tmp/airflow/test_vvp_dag.py'
+    #     # file_path = '../../dags/test_vvp_dag.py'
+    #     scheduler = EventBasedSchedulerJob(
+    #         dag_directory=file_path,
+    #         server_uri="localhost:{}".format(self.port),
+    #         max_runs=-1,
+    #         refresh_dag_dir_interval=5
+    #     )
+    #     print("scheduler starting")
+    #     scheduler.run()
