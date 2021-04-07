@@ -89,9 +89,17 @@ def build_workflow():
 
 def run_workflow():
     build_workflow()
-    af.set_project_config_file(project_path+ '/project.yaml')
-    res = af.run(project_path, dag_id='stream_dag_example', scheduler_type=SchedulerType.AIFLOW)
-    af.wait_workflow_execution_finished(res)
+    print(project_path)
+    af.set_project_config_file(project_path + '/project.yaml')
+
+    # res = af.run(project_path, dag_id='stream_dag_example', scheduler_type=SchedulerType.AIRFLOW)
+    # af.wait_workflow_execution_finished(res)
+
+    transform_dag = 'stream_dag_example22'
+    af.deploy_to_airflow(project_path, dag_id=transform_dag)
+    context = af.run(project_path=project_path,
+                     dag_id=transform_dag,
+                     scheduler_type=SchedulerType.AIRFLOW)
 
 
 if __name__ == '__main__':

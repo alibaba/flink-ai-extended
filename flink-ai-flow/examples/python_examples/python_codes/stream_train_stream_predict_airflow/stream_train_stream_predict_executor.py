@@ -67,6 +67,7 @@ class TrainModel(Executor):
 
     def execute(self, function_context: FunctionContext, input_list: List) -> List:
         print("### {}".format(self.__class__.__name__))
+        cnt = 1
         def train(df):
             print("Do train")
             # https://scikit-learn.org/stable/auto_examples/linear_model/plot_sparse_logistic_regression_mnist.html
@@ -84,8 +85,12 @@ class TrainModel(Executor):
             print(model_version)
 
             # if af.get_model_by_name(model.name) is None:
-            af.register_model_version(model=model, model_path=model_path, current_stage=ModelVersionStage.GENERATED)
+            # af.register_model_version()
+            # af.get_latest_validated_model_version()
+            # af.send_event()
+            af.register_model_version(model=model, model_path=model_path)
             print("Register done")
+            # af.send_event('logistic-regression', model_version, 'MODEL_GENERATED')
             # else:
             #     print("update model")
             #     af.update_model_version(model_name=model.name, model_version=model_version, model_path=model_path, current_stage=ModelVersionStage.GENERATED)
@@ -120,27 +125,33 @@ class TransformEvaluate(Executor):
         return [[StandardScaler().fit_transform(x_test), y_test]]
 
 
+class EvaluateWatcher(EventWatcher):
+    def __init__(self):
+        super().__init__()
+        self.events = []
+    def process(self, notifications):
+        for notification in notifications:
+            print(self.__class__.__name__)
+            print(notification)
+            self.events.append(notification)
+
 class EvaluateModel(Executor):
 
     def __init__(self):
         super().__init__()
         self.model_path = None
         self.model_version = None
+        self.watcher = EvaluateWatcher()
 
     def setup(self, function_context: FunctionContext):
         print("### {} setup {}".format(self.__class__.__name__, function_context.node_spec.model.name))
-        class EvaluateWatcher(EventWatcher):
-            def __init__(self):
-                super().__init__()
-                self.events = []
-            def process(self, notifications):
-                for notification in notifications:
-                    print(self.__class__.__name__)
-                    print(notification)
-                    self.events.append(notification)
-        notifications = af.start_listen_event(key=function_context.node_spec.model.name, watcher=EvaluateWatcher())
-        self.model_path = json.loads(notifications[len(notifications) - 1].value).get('_model_path')
-        self.model_version = json.loads(notifications[len(notifications) - 1].value).get('_model_version')
+
+
+        af.start_listen_event(key=function_context.node_spec.model.name, watcher=self.watcher)
+        # while len(self.watcher.events) == 0:
+        #     pass
+        self.model_path = json.loads(self.watcher.events[len(self.watcher.events) - 1].value).get('_model_path')
+        self.model_version = json.loads(self.watcher.events[len(self.watcher.events) - 1].value).get('_model_version')
 
     def execute(self, function_context: FunctionContext, input_list: List) -> List:
         print("### {}".format(self.__class__.__name__))
@@ -148,6 +159,7 @@ class EvaluateModel(Executor):
         clf = load(self.model_path)
         scores = cross_val_score(clf, x_evaluate, y_evaluate, cv=5)
         evaluate_artifact = af.get_artifact_by_name('evaluate_artifact').stream_uri
+        print(evaluate_artifact)
         with open(evaluate_artifact, 'a') as f:
             f.write('model version[{}] scores: {}\n'.format(self.model_version, scores))
         return []

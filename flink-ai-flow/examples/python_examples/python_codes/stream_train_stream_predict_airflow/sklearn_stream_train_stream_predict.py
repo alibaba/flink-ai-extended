@@ -42,7 +42,7 @@ def run_job():
         evaluate_transform = af.transform(input_data_list=[evaluate_read_example],
                                           executor=PythonObjectExecutor(python_object=TransformEvaluate()))
         evaluate_artifact = af.register_artifact(name='evaluate_artifact',
-                                                 stream_uri='./evaluate_model')
+                                                 stream_uri=get_file_dir(__file__) + '/evaluate_model')
         evaluate_channel = af.evaluate(input_data_list=[evaluate_transform],
                                        model_info=train_model,
                                        executor=PythonObjectExecutor(python_object=EvaluateModel()))
@@ -92,7 +92,7 @@ def run_job():
     af.start_before_control_dependency(predict_channel, validate_channel)
 
     # Run workflow
-    transform_dag = 'stream_train_stream_predict_airflow'
+    transform_dag = 'stream_train_stream_predict_airflow25'
     af.deploy_to_airflow(project_root_path, dag_id=transform_dag)
     context = af.run(project_path=project_root_path,
                      dag_id=transform_dag,

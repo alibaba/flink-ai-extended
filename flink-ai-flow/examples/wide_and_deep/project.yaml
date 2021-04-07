@@ -1,0 +1,5 @@
+project_name: test_1_project
+master_ip: localhost
+master_port: 50051
+notification_uri: localhost:50052
+airflow_deploy_path: /tmp/test_airflow
