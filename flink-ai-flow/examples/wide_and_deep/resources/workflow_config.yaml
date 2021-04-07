@@ -1,0 +1,23 @@
+census_batch_train:
+  platform: local
+  engine: flink
+  job_name: census_batch_train
+  flink_home: /Users/nicholas/Software/Flink
+  local_mode: cluster
+  language_type: PYTHON
+
+census_stream_train:
+  platform: local
+  engine: flink
+  job_name: census_stream_train
+  flink_home: /Users/nicholas/Software/Flink
+  local_mode: cluster
+  language_type: PYTHON
+
+census_stream_predict:
+  platform: local
+  engine: flink
+  job_name: census_stream_predict
+  flink_home: /Users/nicholas/Software/Flink
+  local_mode: cluster
+  language_type: PYTHON
