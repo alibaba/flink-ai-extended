@@ -168,7 +168,7 @@ class AIFlowHandler(EventHandler):
             event_type = met_config.event_type
 
             if met_config.condition == MetCondition.SUFFICIENT:
-                if (key, event_type) not in event_map:
+                if (namespace, key, event_type) not in event_map:
                     continue
                 event: BaseEvent = event_map[(namespace, key, event_type)]
                 v, event_time = event.value, event.create_time

@@ -24,4 +24,4 @@ notification_uri: localhost:50052
 # for built-in scheduler this option should be disabled.
 # for airflow scheduler this option should be enabled.
 # the following config is the airflow deployment path, whose format is like: /path/airflow/airflow_deploy
-airflow_deploy_path: /usr/local/airflow/airflow_deploy
+airflow_deploy_path: /Users/kenken/airflow/airflow_deploy
