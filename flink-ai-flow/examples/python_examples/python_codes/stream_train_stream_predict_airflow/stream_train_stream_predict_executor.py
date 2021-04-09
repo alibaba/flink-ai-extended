@@ -1,7 +1,10 @@
 import json
 import os
+import queue
 import threading
 import time
+
+from ai_flow.common.constants import DEFAULT_NAMESPACE
 from typing import List
 import numpy as np
 from joblib import dump, load
@@ -12,11 +15,12 @@ from sklearn.utils import check_random_state
 from streamz import Stream
 import ai_flow as af
 from ai_flow import ModelMeta
-from ai_flow.model_center.entity.model_version_stage import ModelVersionStage
-from notification_service.base_notification import EventWatcher
+from ai_flow.model_center.entity.model_version_stage import ModelVersionStage, ModelVersionEventType
+from notification_service.base_notification import EventWatcher, BaseEvent
 from python_ai_flow import FunctionContext, Executor, ExampleExecutor
 from ai_flow.common.path_util import get_file_dir
-from ai_flow.model_center.entity.model_version_stage import MODEL_VERSION_TO_EVENT_TYPE, ModelVersionEventType
+
+
 class ExampleTrainThread(threading.Thread):
 
     def __init__(self, stream_uri):
@@ -25,12 +29,12 @@ class ExampleTrainThread(threading.Thread):
         self.stream = Stream()
 
     def run(self) -> None:
-        for i in range(0, 20):
+        for i in range(0, 3):
             f = np.load(self.stream_uri)
             x_train, y_train = f['x_train'], f['y_train']
             f.close()
             self.stream.emit((x_train, y_train))
-            time.sleep(2)
+            time.sleep(60)
 
 
 class ExampleTrain(ExampleExecutor):
@@ -129,18 +133,25 @@ class EvaluateModel(Executor):
 
     def setup(self, function_context: FunctionContext):
         print("### {} setup {}".format(self.__class__.__name__, function_context.node_spec.model.name))
+
         class EvaluateWatcher(EventWatcher):
             def __init__(self):
-                super().__init__()
-                self.events = []
-            def process(self, notifications):
-                for notification in notifications:
-                    print(self.__class__.__name__)
-                    print(notification)
-                    self.events.append(notification)
-        notifications = af.start_listen_event(key=function_context.node_spec.model.name, watcher=EvaluateWatcher())
-        self.model_path = json.loads(notifications[len(notifications) - 1].value).get('_model_path')
-        self.model_version = json.loads(notifications[len(notifications) - 1].value).get('_model_version')
+                self.queue: queue.Queue = queue.Queue(1)
+
+            def process(self, events: List[BaseEvent]):
+                print("events: " + str(events))
+                self.queue.put(events[0])
+
+            def get_result(self) -> object:
+                return self.queue.get()
+        watcher = EvaluateWatcher()
+        af.start_listen_event(key=function_context.node_spec.model.name,
+                              watcher=watcher,
+                              namespace=DEFAULT_NAMESPACE,
+                              event_type=ModelVersionEventType.MODEL_GENERATED)
+        event = watcher.get_result()
+        self.model_path = json.loads(event.value).get('_model_path')
+        self.model_version = json.loads(event.value).get('_model_version')
 
     def execute(self, function_context: FunctionContext, input_list: List) -> List:
         print("### {}".format(self.__class__.__name__))

@@ -43,15 +43,28 @@ def list_events(key: str, version: int = None) -> list:
     return get_ai_flow_client().list_events(key=key, version=version)
 
 
-def start_listen_event(key: str, watcher: EventWatcher, version=None):
+def start_listen_event(key: str,
+                       watcher: EventWatcher,
+                       namespace: str = None,
+                       version: int = None,
+                       event_type: str = None,
+                       start_time: int = None):
     """
     Start listen specific `key` or `version` events in Notification Service.
 
-    :param key: Key of event for listening.
-    :param watcher: Watcher instance for listening notification.
-    :param version: (Optional) Version of event for listening.
+    :param key: Key of notification for listening.
+    :param watcher: Watcher instance for listening.
+    :param namespace: Namespace of the event for listening.
+    :param version: (Optional) The version of the events must greater than this version.
+    :param event_type: (Optional) Type of the events for listening.
+    :param start_time: (Optional) Start time of the events for listening.
     """
-    get_ai_flow_client().start_listen_event(key=key, watcher=watcher, version=version)
+    get_ai_flow_client().start_listen_event(key=key,
+                                            watcher=watcher,
+                                            namespace=namespace,
+                                            version=version,
+                                            event_type=event_type,
+                                            start_time=start_time)
 
 
 def stop_listen_event(key: str = None):

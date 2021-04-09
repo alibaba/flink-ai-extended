@@ -1,10 +1,11 @@
 from ai_flow import ExampleSupportType, PythonObjectExecutor, ModelType
-
+import ai_flow as af
 from ai_flow.common.path_util import get_file_dir
 from ai_flow.common.scheduler_type import SchedulerType
 from stream_train_stream_predict_executor import *
 import example_util
 import example_data_util
+from ai_flow.model_center.entity.model_version_stage import MODEL_VERSION_TO_EVENT_TYPE, ModelVersionEventType
 
 EXAMPLE_URI = example_data_util.get_example_data() + '/mnist_{}.npz'
 
@@ -42,7 +43,7 @@ def run_job():
         evaluate_transform = af.transform(input_data_list=[evaluate_read_example],
                                           executor=PythonObjectExecutor(python_object=TransformEvaluate()))
         evaluate_artifact = af.register_artifact(name='evaluate_artifact',
-                                                 stream_uri='./evaluate_model')
+                                                 stream_uri=get_file_dir(__file__) + '/evaluate_model')
         evaluate_channel = af.evaluate(input_data_list=[evaluate_transform],
                                        model_info=train_model,
                                        executor=PythonObjectExecutor(python_object=EvaluateModel()))
@@ -56,7 +57,7 @@ def run_job():
         validate_transform = af.transform(input_data_list=[validate_read_example],
                                           executor=PythonObjectExecutor(python_object=TransformValidate()))
         validate_artifact = af.register_artifact(name='validate_artifact',
-                                                 stream_uri='./validate_model')
+                                                 stream_uri=get_file_dir(__file__) + './validate_model')
         validate_channel = af.model_validate(input_data_list=[validate_transform],
                                              model_info=train_model,
                                              executor=PythonObjectExecutor(python_object=ValidateModel()),

@@ -21,6 +21,7 @@ import json
 from notification_service.base_notification import BaseEvent
 from notification_service.client import NotificationClient
 
+from ai_flow.common.constants import DEFAULT_NAMESPACE
 from ai_flow.model_center.entity.model_version import ModelVersion
 from ai_flow.model_center.entity.model_version_param import ModelVersionParam
 from ai_flow.model_center.entity.model_version_stage import MODEL_VERSION_TO_EVENT_TYPE, ModelVersionEventType, \
@@ -107,7 +108,8 @@ class ModelCenterService(model_center_service_pb2_grpc.ModelCenterServiceService
         model_type = MODEL_VERSION_TO_EVENT_TYPE.get(ModelVersionStage.from_string(model_version_param.current_stage))
         self.notification_client.send_event(BaseEvent(model_version_meta.model_name,
                                                       json.dumps(model_version_meta.__dict__),
-                                                      model_type))
+                                                      model_type,
+                                                      namespace=DEFAULT_NAMESPACE))
         return _wrap_response(model_version_meta.to_meta_proto())
 
     @catch_exception
@@ -124,7 +126,8 @@ class ModelCenterService(model_center_service_pb2_grpc.ModelCenterServiceService
             model_type = MODEL_VERSION_TO_EVENT_TYPE.get(ModelVersionStage.from_string(model_version_param.current_stage))
             self.notification_client.send_event(BaseEvent(model_version_meta.model_name,
                                                           json.dumps(model_version_meta.__dict__),
-                                                          model_type))
+                                                          model_type,
+                                                          namespace=DEFAULT_NAMESPACE))
         return _wrap_response(None if model_version_meta is None else model_version_meta.to_meta_proto())
 
     @catch_exception
