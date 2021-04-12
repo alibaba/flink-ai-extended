@@ -21,4 +21,4 @@ master_ip: localhost
 master_port: 50051
 # for built-in scheduler this option should be disabled.
 notification_uri: localhost:50052
-airflow_deploy_path: /usr/local/airflow/airflow_deploy
+airflow_deploy_path: ~/airflow/airflow_deploy

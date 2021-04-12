@@ -2,6 +2,7 @@
 
 We provide users with some python examples to illustrate the usage of AI Flow and more examples will be added soon.
 Before you try the example, please make sure you have installed AI-Flow(locally or in Docker) following the instructions in [QuickStart](https://github.com/alibaba/flink-ai-extended/blob/master/flink-ai-flow/QUICKSTART.md)
+Besides, please make sure setting airflow_deploy_path is correct in the project.yaml according to the comments.
 
 ### Python Examples
 
@@ -58,6 +59,9 @@ Besides, the prediction result is stored in the file `examples/python_examples/p
 The generated model named by it generated date is saved under dir `examples/python_examples/batch_train_batch_predict_airflow/saved_model`.
 
 If you do not get the expected output, check logs in [Web UI](127.0.0.1:8080) or in log dir under the AirFlow Deploy dir.
+
+#### [3. Stream Train and Stream Predict Scheduled by AirFlow](python_examples/python_codes/stream_train_stream_predict_airflow)
+
 
 
 ### Simple Examples

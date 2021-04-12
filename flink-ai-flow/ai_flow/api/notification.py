@@ -18,21 +18,19 @@
 #
 from notification_service.base_notification import EventWatcher, BaseEvent, UNDEFINED_EVENT_TYPE
 from ai_flow.client.ai_flow_client import get_ai_flow_client
-from ai_flow.common.constants import DEFAULT_NAMESPACE
 
 
-def send_event(key: str, value: str, event_type: str = UNDEFINED_EVENT_TYPE, namespace: str = DEFAULT_NAMESPACE):
+def send_event(key: str, value: str, event_type: str = UNDEFINED_EVENT_TYPE):
     """
     Send event to Notification Service.
 
     :param event_type: the event type.
     :param key: Key of events updated in Notification Service.
     :param value: Value of events updated in Notification Service.
-    :param namespace: Namespace of the event in Notification Service, used to control the visibility of the event.
     :return: A single object of :py:class:`ai_flow.notification.base_notification.Event`
     created in notification service.
     """
-    return get_ai_flow_client().send_event(BaseEvent(key=key, value=value, event_type=event_type, namespace=namespace))
+    return get_ai_flow_client().send_event(BaseEvent(key=key, value=value, event_type=event_type))
 
 
 def list_events(key: str, version: int = None) -> list:

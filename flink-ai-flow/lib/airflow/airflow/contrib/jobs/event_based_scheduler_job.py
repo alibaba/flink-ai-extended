@@ -128,38 +128,30 @@ class EventBasedScheduler(LoggingMixin):
                 event = origin_event
             with create_session() as session:
                 if isinstance(event, BaseEvent):
-                    self.log.debug("Event {}: {}".format(type(event), origin_event))
                     dagruns = self._find_dagruns_by_event(event, session)
                     for dagrun in dagruns:
                         dag_run_id = DagRunId(dagrun.dag_id, dagrun.run_id)
                         self.task_event_manager.handle_event(dag_run_id, event)
                 elif isinstance(event, RequestEvent):
-                    self.log.debug("Event {}: {}".format(type(event), origin_event))
                     self._process_request_event(event)
                 elif isinstance(event, TaskSchedulingEvent):
-                    self.log.debug("Event {}: {}".format(type(event), origin_event))
                     self._schedule_task(event)
                 elif isinstance(event, TaskStatusChangedEvent):
-                    self.log.debug("Event {}: {}".format(type(event), origin_event))
                     dagrun = self._find_dagrun(event.dag_id, event.execution_date, session)
                     tasks = self._find_schedulable_tasks(dagrun, session)
                     self._send_scheduling_task_events(tasks, SchedulingAction.START)
                 elif isinstance(event, DagExecutableEvent):
-                    self.log.debug("Event {}: {}".format(type(event), origin_event))
                     dagrun = self._create_dag_run(event.dag_id, session=session)
                     tasks = self._find_schedulable_tasks(dagrun, session)
                     self._send_scheduling_task_events(tasks, SchedulingAction.START)
                 elif isinstance(event, EventHandleEvent):
-                    self.log.debug("Event {}: {}".format(type(event), origin_event))
                     dag_runs = DagRun.find(dag_id=event.dag_id, run_id=event.dag_run_id)
                     assert len(dag_runs) == 1
                     ti = dag_runs[0].get_task_instance(event.task_id)
                     self._send_scheduling_task_event(ti, event.action)
                 elif isinstance(event, StopDagEvent):
-                    self.log.debug("Event {}: {}".format(type(event), origin_event))
                     self._stop_dag(event.dag_id, session)
                 elif isinstance(event, StopSchedulerEvent):
-                    self.log.debug("Event {}: {}".format(type(event), origin_event))
                     self.log.info("{} {}".format(self.id, event.job_id))
                     if self.id == event.job_id or 0 == event.job_id:
                         self.log.info("break the scheduler event loop.")
@@ -167,10 +159,8 @@ class EventBasedScheduler(LoggingMixin):
                         session.expunge_all()
                         break
                 elif isinstance(event, ParseDagRequestEvent) or isinstance(event, ParseDagResponseEvent):
-                    self.log.debug("Event {}: {}".format(type(event), origin_event))
                     pass
                 elif isinstance(event, ResponseEvent):
-                    self.log.debug("Event {}: {}".format(type(event), origin_event))
                     pass
                 else:
                     self.log.error("can not handler the event {}".format(event))

@@ -91,7 +91,7 @@ def run_job():
     af.start_before_control_dependency(predict_channel, validate_channel)
 
     # Run workflow
-    transform_dag = 'stream_train_stream_predict_airflow2000'
+    transform_dag = 'stream_train_stream_predict_airflow'
     af.deploy_to_airflow(project_root_path, dag_id=transform_dag)
     context = af.run(project_path=project_root_path,
                      dag_id=transform_dag,

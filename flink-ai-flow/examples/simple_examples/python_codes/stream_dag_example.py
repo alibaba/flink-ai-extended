@@ -95,7 +95,7 @@ def run_workflow():
     # res = af.run(project_path, dag_id='stream_dag_example', scheduler_type=SchedulerType.AIRFLOW)
     # af.wait_workflow_execution_finished(res)
 
-    transform_dag = 'stream_dag_example22'
+    transform_dag = 'stream_dag_example'
     af.deploy_to_airflow(project_path, dag_id=transform_dag)
     context = af.run(project_path=project_path,
                      dag_id=transform_dag,
