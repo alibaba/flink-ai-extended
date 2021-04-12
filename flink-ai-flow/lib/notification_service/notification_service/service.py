@@ -59,6 +59,7 @@ class NotificationService(notification_service_pb2_grpc.NotificationServiceServi
             event_type=None if event_proto.event_type == "" else event_proto.event_type,
             context=None if event_proto.context == "" else event_proto.context,
             namespace=None if event_proto.namespace == "" else event_proto.namespace)
+
         uuid = request.uuid
         key = event.key
         namespace = event.namespace

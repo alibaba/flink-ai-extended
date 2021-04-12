@@ -21,6 +21,7 @@ from typing import Text
 
 from ai_flow.common.json_utils import Jsonable
 from notification_service.base_notification import UNDEFINED_EVENT_TYPE
+from ai_flow.common.constants import DEFAULT_NAMESPACE
 
 
 class Edge(Jsonable):
@@ -107,7 +108,6 @@ class MetValueCondition(str, Enum):
     UPDATE = "UPDATE"
 
 
-DEFAULT_NAMESPACE = 'default'
 
 
 class MetConfig(Jsonable):

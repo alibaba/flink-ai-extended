@@ -1,0 +1,13 @@
+generated model version[1] scores: Init
+deployed model version[1] scores: [0.82419517 0.82698295 0.82824707]
+generated model version[2] scores: [0.8264801  0.8393395  0.83872774 0.83028432 0.83181597]
+deployed model version[2] scores: [0.82615819 0.82827284 0.82776366]
+generated model version[3] scores: [0.82410834 0.83742779 0.83742942 0.83068694 0.83440759]
+deployed model version[3] scores: [0.82514228 0.82748963 0.82637372]
+generated model version[4] scores: [0.82588584 0.8434659  0.83814573 0.82871981 0.83363018]
+deployed model version[4] scores: [0.82409418 0.82874262 0.82627577]
+generated model version[5] scores: [0.82495474 0.83765882 0.83964853 0.82890515 0.83510002]
+deployed model version[5] scores: [0.82442437 0.82797344 0.82675809]
+generated model version[6] scores: [0.8293852  0.83949718 0.83655267 0.8286788  0.82799863]
+deployed model version[6] scores: [0.82569629 0.8288057  0.82616711]
+generated model version[7] scores: [0.82437462 0.83837609 0.84143965 0.82912842 0.83156581]

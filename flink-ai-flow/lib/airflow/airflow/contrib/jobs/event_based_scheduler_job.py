@@ -128,7 +128,6 @@ class EventBasedScheduler(LoggingMixin):
                 event = origin_event
             with create_session() as session:
                 if isinstance(event, BaseEvent):
-                    # event.namespace = SCHEDULER_NAMESPACE
                     self.log.debug("Event {}: {}".format(type(event), origin_event))
                     dagruns = self._find_dagruns_by_event(event, session)
                     for dagrun in dagruns:
