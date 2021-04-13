@@ -7,7 +7,8 @@ import numpy as np
 from ai_flow import ModelMeta
 from ai_flow.model_center.entity.model_version_stage import ModelVersionStage
 from joblib import dump, load
-from python_ai_flow import FunctionContext, List, Executor, ExampleExecutor
+from typing import List
+from python_ai_flow import FunctionContext, Executor, ExampleExecutor
 from sklearn.linear_model import ElasticNet
 from sklearn.model_selection import cross_validate, cross_val_score, train_test_split
 
@@ -127,16 +128,13 @@ class TrainModel(Executor):
         train, test = train_test_split(input_list[0])
         x_train, y_train = train.drop(train.columns[-1], axis=1), train[train.columns[-1]]
         lr.fit(x_train, y_train)
-        model_source = 'saved_model'
-        if not os.path.exists(model_source):
-            os.makedirs(model_source)
+        model_path = 'saved_model'
+        if not os.path.exists(model_path):
+            os.makedirs(model_path)
         model_version = time.strftime('%Y%m%d%H%M%S', time.localtime())
-        model_source = model_source + '/' + model_version
-        dump(lr, model_source)
-        af.register_model_version(version=model_version,
-                                  model_id=function_context.node_spec.output_model.uuid,
-                                  workflow_execution_id=function_context.job_context.workflow_execution_id,
-                                  model_source=model_source)
+        model_path = model_path + '/' + model_version
+        dump(lr, model_path)
+        af.register_model_version(model=function_context.node_spec.output_model, model_path=model_path)
         return []
 
 
@@ -144,25 +142,27 @@ class EvaluateModel(Executor):
 
     def __init__(self):
         super().__init__()
-        self.model_source = None
+        self.mode = None
+        self.model_path = None
         self.model_version = None
 
     def setup(self, function_context: FunctionContext):
-        notifications = af.start_listen_notification(listener_name='evaluate_listener',
-                                                     key=function_context.node_spec.model.name)
-        print('=====================================')
-        print(notifications)
-        print('=====================================')
-        notification = notifications[0].value
-        self.model_source = json.loads(notification).get('_model_source')
-        self.model_version = json.loads(notification).get('_model_version')
+        # notifications = af.start_listen_notification(listener_name='evaluate_listener',
+        #                                              key=function_context.node_spec.model.name)
+        # print('=====================================')
+        # print(notifications)
+        # print('=====================================')
+        self.model = af.get_latest_generated_model_version(function_context.node_spec.model.name)
+        self.model_path = self.model.model_path
+        self.model_version = self.model.version
 
     def execute(self, function_context: FunctionContext, input_list: List) -> List:
         train, test = train_test_split(input_list[0])
         x_evaluate, y_evaluate = test.drop(test.columns[-1], axis=1), test[test.columns[-1]]
-        clf = load(self.model_source)
+        clf = load(self.model_path)
         scores = cross_val_score(clf, x_evaluate, y_evaluate, cv=5)
-        with open(function_context.node_spec.output_result.batch_uri, 'a') as f:
+        evaluate_artifact = af.get_artifact_by_name('evaluate_artifact').batch_uri
+        with open(evaluate_artifact, 'a') as f:
             f.write('model version[{}] scores: {}\n'.format(self.model_version, scores))
         return []
 
@@ -171,36 +171,39 @@ class ValidateModel(Executor):
 
     def __init__(self):
         super().__init__()
-        self.model_source = None
+        self.mode = None
+        self.model_path = None
         self.model_version = None
 
     def setup(self, function_context: FunctionContext):
-        notifications = af.start_listen_notification(listener_name='validate_listener',
-                                                     key=function_context.node_spec.model.name)
-        self.model_source = json.loads(notifications[0].value).get('_model_source')
-        self.model_version = json.loads(notifications[0].value).get('_model_version')
+        # notifications = af.start_listen_notification(listener_name='validate_listener',
+        #                                              key=function_context.node_spec.model.name)
+        self.model = af.get_latest_generated_model_version(function_context.node_spec.model.name)
+        self.model_path = self.model.model_path
+        self.model_version = self.model.version
 
     def execute(self, function_context: FunctionContext, input_list: List) -> List:
         new_model_version = self.model_version
         model_meta: ModelMeta = function_context.node_spec.model
-        serving_model_version = af.get_serving_model_version(model_name=model_meta.name)
-        if serving_model_version is None:
+        deployed_model_version = af.get_deployed_model_version(model_name=model_meta.name)
+        if deployed_model_version is None:
             af.update_model_version(model_name=model_meta.name, model_version=new_model_version,
                                     current_stage=ModelVersionStage.DEPLOYED)
         else:
             train, test = train_test_split(input_list[0])
             x_validate, y_validate = test.drop(test.columns[-1], axis=1), test[test.columns[-1]]
-            clf = load(self.model_source)
+            clf = load(self.model_path)
             scoring = ['precision_macro', 'recall_macro']
             scores = cross_validate(clf, x_validate, y_validate, scoring=scoring)
-            serving_clf = load(serving_model_version.model_source)
-            serving_scores = cross_validate(serving_clf, x_validate, y_validate, scoring=scoring)
-            with open(function_context.node_spec.output_result.batch_uri, 'a') as f:
-                f.write('serving model version[{}] scores: {}\n'.format(serving_model_version.version, serving_scores))
+            deployed_clf = load(deployed_model_version.model_path)
+            deployed_scores = cross_validate(deployed_clf, x_validate, y_validate, scoring=scoring)
+            batch_uri = af.get_artifact_by_name('validate_artifact').batch_uri
+            with open(batch_uri, 'a') as f:
+                f.write('deployed model version[{}] scores: {}\n'.format(deployed_model_version.version, deployed_scores))
                 f.write('generated model version[{}] scores: {}\n'.format(self.model_version, scores))
-            if scores.mean() > serving_scores.mean():
+            if scores.mean() > deployed_scores.mean():
                 af.update_model_version(model_name=model_meta.name,
-                                        model_version=serving_model_version.version,
+                                        model_version=deployed_model_version.version,
                                         current_stage=ModelVersionStage.VALIDATED)
                 af.update_model_version(model_name=model_meta.name,
                                         model_version=new_model_version,
@@ -211,8 +214,8 @@ class ValidateModel(Executor):
 class PredictModel(Executor):
 
     def execute(self, function_context: FunctionContext, input_list: List) -> List:
-        model_version = af.get_serving_model_version(function_context.node_spec.model.name)
-        clf = load(model_version.model_source)
+        model_version = af.get_deployed_model_version(function_context.node_spec.model.name)
+        clf = load(model_version.model_path)
         train, test = train_test_split(input_list[0])
         return [clf.predict(test.drop(test.columns[-1], axis=1))]
 
