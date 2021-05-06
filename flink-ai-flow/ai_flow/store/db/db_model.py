@@ -128,7 +128,7 @@ class SqlWorkflowExecution(base, Base):
     end_time = Column(BigInteger)
     execution_state = Column(String(256))
     log_uri = Column(String(1000))
-    workflow_json = Column(Text)
+    workflow_json = Column(Text(2**24-1))
     signature = Column(String(1000))
     project_id = Column(BigInteger, ForeignKey('project.uuid', onupdate='cascade'))
     is_deleted = Column(String(256), default='False')
