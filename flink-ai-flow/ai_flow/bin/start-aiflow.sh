@@ -21,13 +21,13 @@ set -e
 export AIRFLOW_HOME=${AIRFLOW_HOME:-~/airflow}
 export AIFLOW_PID_DIR=${AIFLOW_PID_DIR:-/tmp}
 
+MYSQL_CONN=$1
+if [ ! ${MYSQL_CONN} ]; then
+  echo "Error: you need to provide a mysql database to start the airflow and notification service."
+  exit 1
+fi
+
 if [[ ! -f "${AIRFLOW_HOME}/airflow.cfg" ]] ; then
-    MYSQL_CONN=$1
-    if [[ "${MYSQL_CONN}" = "" ]] ; then
-        echo "The \${AIRFLOW_HOME}/airflow.cfg is not exists. You need to provide a mysql database to initialize the airflow, e.g.:"
-        echo "start-aiflow.sh mysql://root:root@127.0.0.1/airflow"
-        exit 1
-    fi
     mkdir ${AIRFLOW_HOME} >/dev/null 2>&1 || true
 
     CURRENT_DIR=$(pwd)
@@ -76,7 +76,7 @@ fi
 mkdir ${AIFLOW_LOG_DIR} >/dev/null 2>&1 || true
 
 # start notification service
-start_notification_service.py > ${AIFLOW_LOG_DIR}/notification_service.log 2>&1 &
+start_notification_service.py --database-conn=${MYSQL_CONN} > ${AIFLOW_LOG_DIR}/notification_service.log 2>&1 &
 echo $! > ${AIFLOW_PID_DIR}/notification_service.pid
 
 # start airflow scheduler and web server

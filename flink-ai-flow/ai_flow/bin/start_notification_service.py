@@ -17,17 +17,73 @@
 # specific language governing permissions and limitations
 # under the License.
 #
+import argparse
+
+from notification_service.high_availability import DbHighAvailabilityStorage, SimpleNotificationServerHaManager
 from notification_service.master import NotificationMaster
-from notification_service.service import NotificationService
-from notification_service.event_storage import MemoryEventStorage
+from notification_service.service import NotificationService, HighAvailableNotificationService
+from notification_service.event_storage import DbEventStorage
 
 
-def start_notification_service(port: int = 50052):
-    storage = MemoryEventStorage()
-    notification_master \
-        = NotificationMaster(service=NotificationService(storage), port=port)
-    notification_master.run(is_block=True)
+def start_notification_service(port: int = 50052,
+                               db_conn: str = None,
+                               enable_ha: bool = False,
+                               server_uris: str = None,
+                               create_table_if_not_exists: bool = True):
+    if db_conn:
+        storage = DbEventStorage(db_conn, create_table_if_not_exists)
+    else:
+        raise Exception('Failed to start notification service without database connection info.')
+
+    if enable_ha:
+        if not server_uris:
+            raise Exception("When HA enabled, server_uris must be set.")
+        ha_storage = DbHighAvailabilityStorage(db_conn=db_conn)
+        ha_manager = SimpleNotificationServerHaManager()
+        service = HighAvailableNotificationService(
+            storage,
+            ha_manager,
+            server_uris,
+            ha_storage,
+            5000)
+        master = NotificationMaster(service=service,
+                                    port=int(port))
+    else:
+        master = NotificationMaster(service=NotificationService(storage),
+                                    port=port)
+
+    master.run(is_block=True)
+
+
+def _check_database_conn(conn_str: str):
+    if conn_str.startswith("mysql"):
+        return True
+    else:
+        raise Exception("Only mysql database is supported right now.")
+
+
+def _prepare_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--port', type=int, default=50052,
+                        help='The port on which to run notification service')
+    parser.add_argument('--database-conn', type=str, default=None,
+                        help='Database connection info, only mysql is supported now')
+    parser.add_argument('--enable-ha', type=bool, default=False,
+                        help='Whether to start a notification service with HA enabled')
+    parser.add_argument('--server_uris', type=str, default=None,
+                        help='When HA enabled, multiple server uris should be set with comma separated')
+    return parser.parse_args()
 
 
 if __name__ == '__main__':
-    start_notification_service()
+
+    args = _prepare_args()
+    ns_port = args.port
+    database_conn = args.database_conn
+    enable_ha = args.enable_ha
+
+    _check_database_conn(database_conn)
+
+    start_notification_service(port=ns_port,
+                               db_conn=database_conn,
+                               enable_ha=enable_ha)
