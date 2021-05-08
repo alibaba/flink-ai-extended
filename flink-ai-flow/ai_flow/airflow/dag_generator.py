@@ -19,6 +19,8 @@
 from datetime import datetime
 from abc import ABC
 from typing import Text, List
+
+from ai_flow.plugins.engine import DummyEngine
 from ai_flow.workflow.job_config import PeriodicConfig
 from ai_flow.common.registry import BaseRegistry
 from ai_flow.common import json_utils
@@ -85,7 +87,6 @@ class DAGTemplate(object):
     AIRFLOW_IMPORT = """from airflow.models.dag import DAG
 import datetime
 from airflow.contrib.jobs.event_handlers import AIFlowHandler
-from airflow.operators.dummy import DummyOperator
 from airflow.operators.bash import BashOperator\n"""
 # from ai_flow.deployer.utils.kubernetes_util import load_kubernetes_config
 # import ai_flow as af
@@ -142,10 +143,11 @@ class DAGGenerator(object):
 
         op_set = set()
         for name, job in workflow.jobs.items():
-            generator: AirflowCodeGenerator = get_airflow_code_manager().get_generator(job.platform, job.exec_engine)
-            if generator not in op_set:
-                code_text += generator.generate_operator_code()
-                op_set.add(generator)
+            if job.exec_engine != DummyEngine.engine():
+                generator: AirflowCodeGenerator = get_airflow_code_manager().get_generator(job.platform, job.exec_engine)
+                if generator not in op_set:
+                    code_text += generator.generate_operator_code()
+                    op_set.add(generator)
 
         # code_text += DAGTemplate.SET_CONFIG.format(workflow.project_desc.project_path + '/project.yaml')
         code_text += DAGTemplate.DEFAULT_ARGS.format(default_args)
@@ -153,36 +155,39 @@ class DAGGenerator(object):
 
         task_map = {}
         for name, job in workflow.jobs.items():
-            task_id, op_name, code = self.generate_op_code(job)
-            task_map[task_id] = op_name
-            code_text += code
-            # add periodic
-            if job.job_config.periodic_config is not None:
-                periodic_config: PeriodicConfig = job.job_config.periodic_config
-                if 'interval' == periodic_config.periodic_type:
-                    code_text += DAGTemplate.PERIODIC_CONFIG.format(self.op_count,
-                                                                    str({'interval': periodic_config.args}))
-                elif 'cron' == periodic_config.periodic_type:
-                    code_text += DAGTemplate.PERIODIC_CONFIG.format(self.op_count, str({'cron': periodic_config.args}))
-                else:
-                    raise Exception('periodic_config do not support {} type, only support interval and cron.'
-                                    .format(periodic_config.periodic_type))
+            if job.exec_engine != DummyEngine.engine():
+                task_id, op_name, code = self.generate_op_code(job)
+                task_map[task_id] = op_name
+                code_text += code
+                # add periodic
+                if job.job_config.periodic_config is not None:
+                    periodic_config: PeriodicConfig = job.job_config.periodic_config
+                    if 'interval' == periodic_config.periodic_type:
+                        code_text += DAGTemplate.PERIODIC_CONFIG.format(self.op_count,
+                                                                        str({'interval': periodic_config.args}))
+                    elif 'cron' == periodic_config.periodic_type:
+                        code_text += DAGTemplate.PERIODIC_CONFIG.format(self.op_count,
+                                                                        str({'cron': periodic_config.args}))
+                    else:
+                        raise Exception('periodic_config do not support {} type, only support interval and cron.'
+                                        .format(periodic_config.periodic_type))
 
         for instance_id, edges in workflow.edges.items():
-            op_name = task_map[instance_id]
-            configs = []
-            for edge in edges:
-                met_config: MetConfig = edge.met_config
-                if match_stop_before_config(met_config):
-                    dep_task_id = edge.target_node_id
-                    code = self.generate_upstream(op_name, task_map[dep_task_id])
+            if instance_id in task_map:
+                op_name = task_map[instance_id]
+                configs = []
+                for edge in edges:
+                    met_config: MetConfig = edge.met_config
+                    if match_stop_before_config(met_config):
+                        dep_task_id = edge.target_node_id
+                        code = self.generate_upstream(op_name, task_map[dep_task_id])
+                        code_text += code
+                    else:
+                        code = self.generate_event_deps(op_name, met_config)
+                        code_text += code
+                        configs.append(met_config)
+                if len(configs) > 0:
+                    code = self.generate_handler(op_name, configs)
                     code_text += code
-                else:
-                    code = self.generate_event_deps(op_name, met_config)
-                    code_text += code
-                    configs.append(met_config)
-            if len(configs) > 0:
-                code = self.generate_handler(op_name, configs)
-                code_text += code
 
         return code_text

@@ -25,7 +25,7 @@ from ai_flow.project.project_description import ProjectDesc
 from ai_flow.meta.job_meta import State
 from ai_flow.graph.edge import JobControlEdge, MetConfig, generate_job_status_key
 from ai_flow.plugins.local_dummy_job_plugin import LocalDummyJob, SendEventJobConfig
-from ai_flow.plugins.local_cmd_job_plugin import LocalCMDJob, LocalCMDJobConfig
+from ai_flow.plugins.local_cmd_job_plugin import LocalCMDJob
 from ai_flow.workflow.job import BaseJob
 from notification_service.base_notification import UNDEFINED_EVENT_TYPE
 from ai_flow.workflow.workflow import Workflow
@@ -88,8 +88,8 @@ class TestDAGGenerator(unittest.TestCase):
         generator = DAGGenerator()
         workflow = TestDAGGenerator.create_workflow()
         dag = generator.generator(workflow)
-        print("\n\n")
-        print(dag)
+        self.assertFalse('DummyOperator' in dag)
+        self.assertFalse('SendEventOperator' in dag)
 
     @staticmethod
     def create_bash_job(index) -> BaseJob:
@@ -103,7 +103,8 @@ class TestDAGGenerator(unittest.TestCase):
         if 0 == index:
             job.job_config.periodic_config = PeriodicConfig(periodic_type='cron', args='* * * * *')
         elif 1 == index:
-            job.job_config.periodic_config = PeriodicConfig(periodic_type='interval', args={'seconds': 20, 'minutes': 1})
+            job.job_config.periodic_config = PeriodicConfig(periodic_type='interval',
+                                                            args={'seconds': 20, 'minutes': 1})
         return job
 
     @staticmethod
