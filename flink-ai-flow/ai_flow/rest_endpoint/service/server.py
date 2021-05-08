@@ -31,6 +31,7 @@ from grpc import _common, _server
 from grpc._cython.cygrpc import StatusCode
 from grpc._server import _serialize_response, _status, _abort, _Context, _unary_request, \
     _select_thread_pool_for_behavior, _unary_response_in_pool
+from typing import Dict
 
 from ai_flow.rest_endpoint.protobuf.high_availability_pb2_grpc import add_HighAvailabilityManagerServicer_to_server
 from ai_flow.rest_endpoint.service.high_availability import SimpleAIFlowServerHaManager, HighAvailableService
@@ -45,11 +46,13 @@ from ai_flow.metadata_store.service.service import MetadataService
 from ai_flow.model_center.service.service import ModelCenterService
 from ai_flow.notification.service.service import NotificationService
 from ai_flow.metric.service.metric_service import MetricService
+from ai_flow.scheduler.scheduling_service import SchedulingService, SchedulerConfig
+
 
 sys.path.append(os.path.abspath(os.path.join(os.getcwd(), "../../..")))
 
 from ai_flow.rest_endpoint.protobuf import model_center_service_pb2_grpc, \
-    metadata_service_pb2_grpc, deploy_service_pb2_grpc, metric_service_pb2_grpc
+    metadata_service_pb2_grpc, deploy_service_pb2_grpc, metric_service_pb2_grpc, scheduling_service_pb2_grpc
 
 _PORT = '50051'
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
@@ -60,7 +63,15 @@ class AIFlowServer(object):
     Block/Async server of an AIFlow Rest Endpoint that provides Metadata/Model/Notification function service.
     """
 
-    def __init__(self, store_uri=None, port=_PORT, start_default_notification: bool = True, notification_uri=None):
+    def __init__(self, store_uri=None, port=_PORT,
+                 start_default_notification: bool = True,
+                 notification_uri=None,
+                 start_meta_service: bool = True,
+                 start_model_center_service: bool = True,
+                 start_metric_service: bool = True,
+                 start_deploy_service: bool = True,
+                 start_scheduling_service: bool = True,
+                 scheduler_config: Dict = None):
         self.executor = Executor(futures.ThreadPoolExecutor(max_workers=10))
         self.server = grpc.server(self.executor)
         self.start_default_notification = start_default_notification
@@ -69,21 +80,57 @@ class AIFlowServer(object):
             logging.info("start default notification service.")
             notification_service_pb2_grpc.add_NotificationServiceServicer_to_server(NotificationService(store_uri),
                                                                                     self.server)
-        model_center_service_pb2_grpc.add_ModelCenterServiceServicer_to_server(
-            ModelCenterService(store_uri=store_uri, server_uri=server_uri,
-                               notification_uri=notification_uri), self.server)
-        metadata_service_pb2_grpc.add_MetadataServiceServicer_to_server(
-            MetadataService(db_uri=store_uri, server_uri=server_uri), self.server)
-        metric_service_pb2_grpc.add_MetricServiceServicer_to_server(MetricService(db_uri=store_uri), self.server)
-        self.deploy_service = DeployService(server_uri=server_uri)
-        deploy_service_pb2_grpc.add_DeployServiceServicer_to_server(self.deploy_service, self.server)
+        if start_model_center_service:
+            logging.info("start model center service.")
+            model_center_service_pb2_grpc.add_ModelCenterServiceServicer_to_server(
+                ModelCenterService(store_uri=store_uri, server_uri=server_uri,
+                                   notification_uri=notification_uri), self.server)
+        if start_meta_service:
+            logging.info("start meta service.")
+            metadata_service_pb2_grpc.add_MetadataServiceServicer_to_server(
+                MetadataService(db_uri=store_uri, server_uri=server_uri), self.server)
+        if start_metric_service:
+            logging.info("start metric service.")
+            metric_service_pb2_grpc.add_MetricServiceServicer_to_server(MetricService(db_uri=store_uri), self.server)
+
+        if start_deploy_service:
+            logging.info("start deploy service.")
+            self.start_deploy_service = True
+            self.deploy_service = DeployService(server_uri=server_uri)
+            deploy_service_pb2_grpc.add_DeployServiceServicer_to_server(self.deploy_service, self.server)
+        else:
+            self.start_deploy_service = False
+
+        if start_scheduling_service:
+            logging.info("start scheduling service.")
+            if scheduler_config is None:
+                nf_uri = server_uri if start_default_notification else notification_uri
+                scheduler_config = SchedulerConfig()
+                scheduler_config.set_notification_service_uri(nf_uri)
+                scheduler_config.\
+                    set_scheduler_class_name('ai_flow.scheduler.implements.airflow_scheduler.AirFlowScheduler')
+                scheduler_config.set_repository('/tmp/airflow')
+            real_config = SchedulerConfig()
+            if scheduler_config.get('notification_uri') is None:
+                nf_uri = server_uri if start_default_notification else notification_uri
+                real_config.set_notification_service_uri(nf_uri)
+            else:
+                real_config.set_notification_service_uri(scheduler_config.get('notification_uri'))
+            real_config.set_properties(scheduler_config.get('properties'))
+            real_config.set_repository(scheduler_config.get('repository'))
+            real_config.set_scheduler_class_name(scheduler_config.get('scheduler_class_name'))
+            self.scheduling_service = SchedulingService(real_config)
+            scheduling_service_pb2_grpc.add_SchedulingServiceServicer_to_server(self.scheduling_service,
+                                                                                self.server)
+
         self.server.add_insecure_port('[::]:' + str(port))
 
     def run(self, is_block=False):
         self.server.start()
         logging.info('AIFlow server started.')
-        self.deploy_service.start_scheduler_manager()
-        logging.info('Deploy service started.')
+        if self.start_deploy_service:
+            self.deploy_service.start_scheduler_manager()
+            logging.info('Deploy service started.')
         if is_block:
             try:
                 while True:
@@ -94,7 +141,8 @@ class AIFlowServer(object):
             pass
 
     def stop(self):
-        self.deploy_service.stop_scheduler_manager()
+        if self.start_deploy_service:
+            self.deploy_service.stop_scheduler_manager()
         self.executor.shutdown()
         self.server.stop(0)
         logging.info('AIFlow server stopped.')

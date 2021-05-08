@@ -205,6 +205,10 @@ class ProtoToMeta:
             return State.FINISHED
         elif state == StateProto.FAILED:
             return State.FAILED
+        elif state == StateProto.KILLING:
+            return State.KILLING
+        elif state == StateProto.KILLED:
+            return State.KILLED
 
     @staticmethod
     def proto_to_model_relation_meta(model_relation_proto: ModelRelationProto) -> ModelRelationMeta:

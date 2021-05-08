@@ -22,6 +22,7 @@ import "google/protobuf/wrappers.proto";
 option java_generic_services = true;
 option java_package = "com.aiflow.proto";
 option py_generic_services = true;
+option go_package = "/ai_flow";
 
 package ai_flow;
 
@@ -93,6 +94,15 @@ message JobProto {
     google.protobuf.Int64Value end_time = 8;
     google.protobuf.StringValue log_uri = 9;
     google.protobuf.StringValue signature = 10;
+    WorkflowExecutionProto workflow_execution = 11;
+}
+
+message WorkflowProto {
+    int64 uuid = 1;
+    string name = 2;
+    google.protobuf.StringValue workflow_json = 3;
+    map<string, string> properties = 4;
+    string namespace = 5;
 }
 
 message WorkflowExecutionProto {
@@ -106,6 +116,8 @@ message WorkflowExecutionProto {
     google.protobuf.StringValue log_uri = 8;
     google.protobuf.StringValue workflow_json = 9;
     google.protobuf.StringValue signature = 10;
+    string execution_id = 11;
+    WorkflowProto workflow = 12;
 }
 
 message ProjectProto {
@@ -227,6 +239,16 @@ enum ReturnCode {
     MAX_READ_SIZE_EXCEEDED = 3003;
 }
 
+enum StatusProto {
+    OK = 0;
+    ERROR = 1;
+}
+
+message ResultProto {
+    StatusProto status = 1;
+    string error_message = 2;
+}
+
 enum DataTypeProto {
     DATA_TYPE_UNSPECIFIED = 0;
     INT32 = 1;
@@ -257,6 +279,8 @@ enum StateProto {
     RUNNING = 3;
     FINISHED = 4;
     FAILED = 5;
+    KILLING = 6;
+    KILLED = 7;
 }
 
 enum ExecutionMode {

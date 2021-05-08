@@ -1,0 +1,199 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+syntax = "proto3";
+
+import "google/protobuf/wrappers.proto";
+option java_generic_services = true;
+option java_package = "com.aiflow.proto";
+option py_generic_services = true;
+option go_package = "/ai_flow";
+
+import "message.proto";
+import "google/api/annotations.proto";
+
+package ai_flow;
+
+
+message ScheduleWorkflowRequest {
+    string namespace = 1;
+    string workflow_name = 2;
+    map<string, string> args = 3;
+    string workflow_json = 4;
+}
+
+message WorkflowExecutionRequest {
+    string namespace = 1;
+    string execution_id = 2;
+    string workflow_name = 3;
+    map<string, string> args = 4;
+}
+
+message ScheduleJobRequest {
+    string namespace = 1;
+    string job_name = 2;
+    string execution_id = 3;
+}
+
+message WorkflowInfoResponse {
+    ResultProto result = 1;
+    WorkflowProto workflow = 2;
+}
+
+message ListWorkflowInfoResponse {
+    ResultProto result = 1;
+    repeated WorkflowProto workflow_list = 2;
+}
+
+message WorkflowExecutionResponse {
+    ResultProto result = 1;
+    WorkflowExecutionProto workflow_execution = 2;
+}
+
+message ListWorkflowExecutionResponse {
+    ResultProto result = 1;
+    repeated WorkflowExecutionProto workflow_execution_list = 2;
+}
+
+message JobInfoResponse {
+    ResultProto result = 1;
+    JobProto job = 2;
+}
+
+message ListJobInfoResponse {
+    ResultProto result = 1;
+    repeated JobProto job_list = 2;
+}
+
+service SchedulingService {
+    // workflow api
+    rpc submitWorkflow (ScheduleWorkflowRequest) returns (WorkflowInfoResponse) {
+        option (google.api.http) = {
+        post: "/aiflow/scheduling/workflow/submit"
+        body: "*"
+        };
+    };
+
+    rpc deleteWorkflow (ScheduleWorkflowRequest) returns (WorkflowInfoResponse) {
+        option (google.api.http) = {
+        post: "/aiflow/scheduling/workflow/delete"
+        body: "*"
+        };
+    };
+
+    rpc pauseWorkflowScheduling (ScheduleWorkflowRequest) returns (WorkflowInfoResponse) {
+        option (google.api.http) = {
+        post: "/aiflow/scheduling/workflow/pause"
+        body: "*"
+        };
+    };
+
+    rpc resumeWorkflowScheduling (ScheduleWorkflowRequest) returns (WorkflowInfoResponse) {
+        option (google.api.http) = {
+        post: "/aiflow/scheduling/workflow/resume"
+        body: "*"
+        };
+    };
+
+    rpc getWorkflow (ScheduleWorkflowRequest) returns (WorkflowInfoResponse) {
+        option (google.api.http) = {
+        post: "/aiflow/scheduling/workflow/get"
+        body: "*"
+        };
+    };
+
+    rpc listWorkflows (ScheduleWorkflowRequest) returns (ListWorkflowInfoResponse) {
+        option (google.api.http) = {
+        post: "/aiflow/scheduling/workflow/list"
+        body: "*"
+        };
+    };
+
+    // workflow execution api
+    rpc startNewWorkflowExecution (WorkflowExecutionRequest) returns (WorkflowExecutionResponse) {
+        option (google.api.http) = {
+        post: "/aiflow/scheduling/workflow_execution/start_new"
+        body: "*"
+        };
+    };
+
+    rpc killAllWorkflowExecutions (WorkflowExecutionRequest) returns (ListWorkflowExecutionResponse) {
+        option (google.api.http) = {
+        post: "/aiflow/scheduling/workflow_execution/kill_all"
+        body: "*"
+        };
+    };
+
+    rpc killWorkflowExecution (WorkflowExecutionRequest) returns (WorkflowExecutionResponse) {
+        option (google.api.http) = {
+        post: "/aiflow/scheduling/workflow_execution/kill"
+        body: "*"
+        };
+    };
+
+
+    rpc getWorkflowExecution (WorkflowExecutionRequest) returns (WorkflowExecutionResponse) {
+        option (google.api.http) = {
+        post: "/aiflow/scheduling/workflow_execution/get"
+        body: "*"
+        };
+    };
+
+    rpc listWorkflowExecutions (WorkflowExecutionRequest) returns (ListWorkflowExecutionResponse) {
+        option (google.api.http) = {
+        post: "/aiflow/scheduling/workflow_execution/list"
+        body: "*"
+        };
+    };
+
+    // job api
+    rpc startJob (ScheduleJobRequest) returns (JobInfoResponse) {
+        option (google.api.http) = {
+        post: "/aiflow/scheduling/job/start"
+        body: "*"
+        };
+    };
+
+    rpc stopJob (ScheduleJobRequest) returns (JobInfoResponse) {
+        option (google.api.http) = {
+        post: "/aiflow/scheduling/job/stop"
+        body: "*"
+        };
+    };
+
+    rpc restartJob (ScheduleJobRequest) returns (JobInfoResponse) {
+        option (google.api.http) = {
+        post: "/aiflow/scheduling/job/restart"
+        body: "*"
+        };
+    };
+
+
+    rpc getJob (ScheduleJobRequest) returns (JobInfoResponse) {
+        option (google.api.http) = {
+        post: "/aiflow/scheduling/job/get"
+        body: "*"
+        };
+    };
+
+    rpc listJobs (ScheduleJobRequest) returns (ListJobInfoResponse) {
+        option (google.api.http) = {
+        post: "/aiflow/scheduling/job/list"
+        body: "*"
+        };
+    };
+}

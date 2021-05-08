@@ -16,6 +16,7 @@
 # specific language governing permissions and limitations
 # under the License.
 #
+import os
 from ai_flow.common import serialization_utils
 from ai_flow.plugins.job_plugin import AbstractJobConfig
 from typing import Dict, Text
@@ -28,14 +29,14 @@ class FlinkJobConfig(AbstractJobConfig):
     @staticmethod
     def from_dict(data: Dict, config) -> object:
         AbstractJobConfig.from_dict(data, config)
-        config.flink_home = data['flink_home']
+        config.flink_home = data.get('flink_home', os.environ.get('FLINK_HOME'))
         config.jm_host_port = data.get('jm_host_port', 'localhost:8081')
         config.class_path = data.get('class_path')
         config.py_entry_file = data.get('py_entry_file')
         config.py_files = data.get('py_files')
         config.py_module = data.get('py_module')
         config.jar_path = data.get('jar_path')
-        config.language_type: LanguageType = LanguageType(data.get('language_type'))
+        config.language_type: LanguageType = LanguageType(data.get('language_type', 'PYTHON'))
         config.flink_conf = data.get('flink_conf')
         config.image = data.get('ai_flow_worker_image')
         return config

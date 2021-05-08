@@ -49,7 +49,7 @@ class ProjectDesc(Jsonable):
         self.resources: List[Text] = []
         self.project_temp_path: Text = 'temp'
         self.log_path: Text = "logs"
-        self.project_config: ProjectConfig = _default_project_config
+        self.project_config: ProjectConfig = None
         self.python_paths: List[Text] = []
 
     def get_absolute_temp_path(self)->Text:
@@ -57,9 +57,6 @@ class ProjectDesc(Jsonable):
 
     def get_absolute_log_path(self)->Text:
         return "{}/{}".format(self.project_path, self.log_path)
-
-
-_default_project_Desc = ProjectDesc()
 
 
 def get_project_description_from(project_path: Text) -> ProjectDesc:
@@ -77,7 +74,14 @@ def get_project_description_from(project_path: Text) -> ProjectDesc:
     project_spec.resources = get_file_paths_from(str(project_path_obj / 'resources'))
     if not os.path.exists(project_spec.get_absolute_temp_path()):
         os.makedirs(project_spec.get_absolute_temp_path())
-    project_spec.project_config = _default_project_config
+    project_spec.project_config = ProjectConfig()
+    project_spec.project_config.load_from_file(os.path.join(project_path, 'project.yaml'))
+    # adapter to old scheduler
+    if _default_project_config.get_project_uuid() is not None:
+        project_spec.project_config.set_project_uuid(_default_project_config.get_project_uuid())
+    if 'entry_module_path' in _default_project_config:
+        project_spec.project_config['entry_module_path'] = _default_project_config['entry_module_path']
+    project_spec.project_name = project_spec.project_config.get_project_name()
     return project_spec
 
 

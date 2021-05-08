@@ -24,4 +24,3 @@ jar_path = os.path.dirname(os.path.abspath(__file__)) + '/flink_ai_flow-1.0-SNAP
 py_main_file = os.path.dirname(os.path.abspath(__file__)) + '/pyflink/pyflink_job_main.py'
 py_cluster_main_file = os.path.dirname(os.path.abspath(__file__)) + '/pyflink/pyflink_cluster_main.py'
 py_cluster_module = 'flink_ai_flow.pyflink.pyflink_cluster_main'
-vvp_job_main_file = os.path.dirname(os.path.abspath(__file__)) + '/vvp/vvp_job_main.py'

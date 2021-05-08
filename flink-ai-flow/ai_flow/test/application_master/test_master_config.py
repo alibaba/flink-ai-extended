@@ -17,7 +17,7 @@
 # under the License.
 #
 import unittest
-
+import os
 from ai_flow.application_master.master_config import MasterConfig, DBType
 
 
@@ -27,6 +27,13 @@ class TestConfiguration(unittest.TestCase):
         config = MasterConfig()
         config.set_db_uri(db_type=DBType.SQLITE, uri="sqlite:///sql.db")
         self.assertEqual('sql.db', config.get_sql_lite_db_file())
+
+    def test_load_master_configuration(self):
+        config = MasterConfig()
+        config.load_from_file(os.path.dirname(__file__) + '/master_config.yaml')
+        self.assertEqual('sql_lite', config.get_db_type())
+        self.assertEqual('/tmp/repo', config.get_scheduler_config()['repository'])
+        self.assertEqual(False, config.start_scheduling_service())
 
 
 if __name__ == '__main__':

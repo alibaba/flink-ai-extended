@@ -260,13 +260,11 @@ class LocalPythonJobPlugin(LocalJobPlugin):
         return PythonEngine
 
     def generate_code(self, op_index, job: AbstractJob):
-        LOCAL_PYTHON_OPERATOR = """env_{0}={{'PYTHONPATH': '{3}'}}
+        LOCAL_PYTHON_OPERATOR = """env_{0}={3}
 op_{0} = BashOperator(task_id='{1}', dag=dag, bash_command='{2}', env=env_{0})\n"""
-        blob_manager = BlobManagerFactory.get_blob_manager(job.job_config.properties)
         copy_path = sys.path.copy()
-        if job.job_config.project_path is not None:
-            downloaded_blob_path = blob_manager.download_blob(job.instance_id, job.job_config.project_path)
-            python_codes_path = downloaded_blob_path + '/python_codes'
+        if job.job_config.project_desc.python_dependencies is not None:
+            python_codes_path = job.job_config.project_desc.project_path + '/python_codes'
             copy_path.append(python_codes_path)
         if job.job_config.project_desc.python_paths is not None:
             copy_path.extend(job.job_config.project_desc.python_paths)
@@ -280,7 +278,9 @@ op_{0} = BashOperator(task_id='{1}', dag=dag, bash_command='{2}', env=env_{0})\n
                job.exec_func_file, job.exec_args_file, entry_module_path]
         cmd_str = ' '.join(cmd)
         add_path = ':'.join(copy_path)
-        code_text = LOCAL_PYTHON_OPERATOR.format(op_index, job_name_to_task_id(job.job_name), cmd_str, add_path)
+        envs = os.environ.copy()
+        envs['PYTHONPATH'] = add_path
+        code_text = LOCAL_PYTHON_OPERATOR.format(op_index, job_name_to_task_id(job.job_name), cmd_str, envs)
         return code_text
 
 

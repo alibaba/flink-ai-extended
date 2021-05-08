@@ -70,7 +70,13 @@ class AIFlowMaster(object):
                 store_uri=self.master_config.get_db_uri(),
                 port=str(self.master_config.get_master_port()),
                 start_default_notification=self.master_config.start_default_notification(),
-                notification_uri=self.master_config.get_notification_uri())
+                notification_uri=self.master_config.get_notification_uri(),
+                start_meta_service=self.master_config.start_meta_service(),
+                start_model_center_service=self.master_config.start_model_center_service(),
+                start_metric_service=self.master_config.start_metric_service(),
+                start_deploy_service=self.master_config.start_deploy_service(),
+                start_scheduling_service=self.master_config.start_scheduling_service(),
+                scheduler_config=self.master_config.get_scheduler_config())
         else:
             self.server = HighAvailableAIFlowServer(
                 store_uri=self.master_config.get_db_uri(),

@@ -21,17 +21,17 @@ import threading
 from typing import Callable
 import time
 from airflow.events.scheduler_events import StopSchedulerEvent
-from ai_flow.api.configuration import set_project_config_file
+from ai_flow.api.configuration import set_project_path
 from airflow.contrib.jobs.event_based_scheduler_job import EventBasedSchedulerJob
 from airflow.executors.local_executor import LocalExecutor
 from ai_flow.application_master.master import AIFlowMaster
 from notification_service.client import NotificationClient
-
-from tests import db_utils
+import ai_flow as af
+from tests.python_codes import db_utils
 
 
 def project_path():
-    return os.path.dirname(__file__)
+    return os.path.dirname(os.path.dirname(__file__))
 
 
 def project_config_file():
@@ -43,7 +43,7 @@ def master_config_file():
 
 
 def workflow_config_file():
-    return project_path() + '/workflow.yaml'
+    return project_path() + '/resources/workflow.yaml'
 
 
 master = AIFlowMaster(config_file=master_config_file())
@@ -53,11 +53,16 @@ def master_port():
     return master.master_config.get('master_port')
 
 
+def deploy_path():
+    return master.master_config.get('scheduler').get('properties').get('airflow_deploy_path')
+
+
 class BaseETETest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
         master.start()
+        set_project_path(project_path())
 
     @classmethod
     def tearDownClass(cls) -> None:
@@ -71,7 +76,8 @@ class BaseETETest(unittest.TestCase):
         db_utils.clear_db_runs()
         db_utils.clear_db_task_execution()
         db_utils.clear_db_message()
-        set_project_config_file(project_config_file())
+        db_utils.clear_db_jobs()
+        af.default_graph().clear_graph()
 
     def tearDown(self):
         master._clear_db()
@@ -91,17 +97,23 @@ class BaseETETest(unittest.TestCase):
         print("scheduler starting")
         scheduler.run()
 
-    def run_ai_flow(self, ai_flow_function: Callable[[], str], test_function: Callable[[NotificationClient], None],
+    def run_ai_flow(self, dag_id, test_function: Callable[[NotificationClient], None],
                     executor=None):
-        dag_file = ai_flow_function()
-
         def run_test_fun():
-            time.sleep(5)
+            time.sleep(3)
             client = NotificationClient(server_uri="localhost:{}".format(master_port()),
                                         default_namespace="test")
-            test_function(client)
-            client.send_event(StopSchedulerEvent(job_id=0).to_event())
+            try:
+                test_function(client)
+            except Exception as e:
+                raise e
+            finally:
+                client.send_event(StopSchedulerEvent(job_id=0).to_event())
+
         t = threading.Thread(target=run_test_fun, args=())
         t.setDaemon(True)
         t.start()
+
+        dp = deploy_path()
+        dag_file = dp + '/' + dag_id + '.py'
         self.start_scheduler(dag_file, executor)

@@ -149,48 +149,13 @@ class LocalFlinkJobPlugin(LocalCMDJobPlugin):
                 f.write(dumps(job))
             job.config_file = execution_config_file
 
-            exec_cmd = ['flink', 'run']
-            exec_cmd.extend(['-m', job.job_config.jm_host_port])
-            if job.job_config.class_path is not None:
-                exec_cmd.extend(['-C', job.job_config.class_path])
-
-            if job.job_config.project_desc.jar_dependencies is not None:
-                for jar in job.job_config.project_desc.jar_dependencies:
-                    exec_cmd.extend(['-C', "file://{}".format(jar)])
-            if job.job_config.main_class is not None:
-                exec_cmd.extend(['-c', job.job_config.main_class])
-
-            exec_cmd.extend([job.job_config.jar_path])
-            exec_cmd.extend(['--execution-config', execution_config_file])
-
-            if job.job_config.args is not None:
-                exec_cmd.extend(job.job_config.args)
         else:
-            if 'entry_module_path' not in job.job_config.project_desc.project_config:
-                entry_module_path = (file_path_to_absolute_module(sys.argv[0])).split('.')[-1]
-            else:
-                entry_module_path = job.job_config.project_desc.project_config['entry_module_path']
             execution_config_file = '/job_execution_config_' + str(
                 uuid.uuid4()) + "_" + job.instance_id
             real_execution_config_file = project_path_temp + execution_config_file
             with open(real_execution_config_file, 'wb') as f:
                 f.write(serialization_utils.serialize(job))
             job.config_file = execution_config_file
-            python3_location = sys.executable
-            if job.job_config.local_mode == 'python':
-                exec_cmd = [python3_location, version.py_main_file, job.job_config.project_path,
-                            execution_config_file, entry_module_path]
-            else:
-                exec_cmd = ['flink', 'run',
-                            '-pym', version.py_cluster_main_file,
-                            '-pyfs', job.job_config.project_path + ',' + job.job_config.project_path + '/python_codes/',
-                            '-pyexec', python3_location,
-                            '--project-path', job.job_config.project_path,
-                            '--config-file', execution_config_file,
-                            '--entry-module-path', entry_module_path]
-
-        job.exec_cmd = exec_cmd
-        logging.info(' '.join(exec_cmd))
 
     def is_finished(self, job) -> Any:
         """
@@ -211,6 +176,46 @@ class LocalFlinkJobPlugin(LocalCMDJobPlugin):
         :param job: A flink job object which contains the necessary information for an execution.
         :return: A job handler that maintains the handler of a job in runtime.
         """
+        # generate cmd
+        if job.job_config.language_type == LanguageType.JAVA:
+            exec_cmd = ['flink', 'run']
+            exec_cmd.extend(['-m', job.job_config.jm_host_port])
+            if job.job_config.class_path is not None:
+                exec_cmd.extend(['-C', job.job_config.class_path])
+
+            if job.job_config.project_desc.jar_dependencies is not None:
+                for jar in job.job_config.project_desc.jar_dependencies:
+                    exec_cmd.extend(['-C', "file://{}".format(jar)])
+            if job.job_config.main_class is not None:
+                exec_cmd.extend(['-c', job.job_config.main_class])
+
+            exec_cmd.extend([job.job_config.jar_path])
+            exec_cmd.extend(['--execution-config', job.config_file])
+
+            if job.job_config.args is not None:
+                exec_cmd.extend(job.job_config.args)
+        else:
+            if 'entry_module_path' not in job.job_config.project_desc.project_config:
+                entry_module_path = (file_path_to_absolute_module(sys.argv[0])).split('.')[-1]
+            else:
+                entry_module_path = job.job_config.project_desc.project_config['entry_module_path']
+
+            python3_location = sys.executable
+            if job.job_config.local_mode == 'python':
+                exec_cmd = [python3_location, version.py_main_file, job.job_config.project_path,
+                            job.config_file, entry_module_path]
+            else:
+                exec_cmd = ['flink', 'run',
+                            '-pym', version.py_cluster_module,
+                            '-pyfs', job.job_config.project_path + ',' + job.job_config.project_path + '/python_codes/',
+                            '-pyexec', python3_location,
+                            '--project-path', job.job_config.project_path,
+                            '--config-file', job.config_file,
+                            '--entry-module-path', entry_module_path]
+
+        job.exec_cmd = exec_cmd
+        logging.info(' '.join(exec_cmd))
+
         sys_env = os.environ.copy()
         if job.job_config.flink_home is not None:
             sys_env['PATH'] = job.job_config.flink_home + '/bin:' + sys_env['PATH']
@@ -258,25 +263,73 @@ class LocalFlinkJobPlugin(LocalCMDJobPlugin):
     def engine(self) -> type(AbstractEngine):
         return FlinkEngine
 
-    def generate_code(self, op_index, job: AbstractJob):
+    def generate_code(self, op_index, job: LocalFlinkJob):
+        # set env
         sys_env = os.environ.copy()
         if job.job_config.flink_home is not None:
             sys_env['PATH'] = job.job_config.flink_home + '/bin:' + sys_env['PATH']
         python_path = sys.path.copy()
         if job.job_config.project_path is not None:
-            blob_manager = BlobManagerFactory.get_blob_manager(job.job_config.properties)
-            downloaded_blob_path = blob_manager.download_blob(job.instance_id, job.job_config.project_path)
-            python_path.append(downloaded_blob_path + '/python_codes')
+            python_path.append(job.job_config.project_path + '/python_codes')
         if job.job_config.project_desc.python_paths is not None:
             python_path.extend(job.job_config.project_desc.python_paths)
         sys_env['PYTHONPATH'] = ':'.join(python_path)
         sys_env['PYFLINK_CLIENT_EXECUTABLE'] = sys.executable
-        return """from flink_ai_flow.local_flink_job import LocalFlinkOperator\nenv_{0}={{'PYTHONPATH': '{4}', 'PATH': '{5}', 'PYFLINK_CLIENT_EXECUTABLE': '{6}'}}\nop_{0} = LocalFlinkOperator(task_id='{1}', bash_command='{2}', properties='{3}', dag=dag, env=env_{0})\n""".format(op_index, job_name_to_task_id(job.job_name), ' '.join(job.exec_cmd),
-                   json.dumps({'project_path': job.job_config.project_path,
-                               'workflow_execution_id': job.job_context.workflow_execution_id,
-                               'instance_id': job.instance_id}),
-                   sys_env['PYTHONPATH'], sys_env['PATH'],
-                   sys_env['PYFLINK_CLIENT_EXECUTABLE'])
+
+        # generate cmd
+        if job.job_config.language_type == LanguageType.JAVA:
+            exec_cmd = ['flink', 'run']
+            exec_cmd.extend(['-m', job.job_config.jm_host_port])
+            if job.job_config.class_path is not None:
+                exec_cmd.extend(['-C', job.job_config.class_path])
+
+            if job.job_config.project_desc.jar_dependencies is not None:
+                for jar in job.job_config.project_desc.jar_dependencies:
+                    exec_cmd.extend(['-C', "file://{}".format(jar)])
+            if job.job_config.main_class is not None:
+                exec_cmd.extend(['-c', job.job_config.main_class])
+
+            exec_cmd.extend([job.job_config.jar_path])
+            exec_cmd.extend(['--execution-config', job.config_file])
+
+            if job.job_config.args is not None:
+                exec_cmd.extend(job.job_config.args)
+        else:
+            entry_module_path = job.job_config.properties['entry_module_path']
+            python3_location = sys.executable
+            if job.job_config.local_mode == 'python':
+                exec_cmd = [python3_location, version.py_main_file, job.job_config.project_path,
+                            job.config_file, entry_module_path]
+            else:
+                exec_cmd = ['flink', 'run',
+                            '-pym', version.py_cluster_module,
+                            '-pyfs', job.job_config.project_path + ',' + job.job_config.project_path + '/python_codes/',
+                            '-pyexec', python3_location,
+                            '--project-path', job.job_config.project_path,
+                            '--config-file', job.config_file,
+                            '--entry-module-path', entry_module_path]
+
+        job.exec_cmd = exec_cmd
+        logging.info(' '.join(exec_cmd))
+        # generate code
+        if job.job_config.language_type == LanguageType.PYTHON and job.job_config.local_mode == 'python':
+            return """env_{0}={3}
+op_{0} = BashOperator(task_id='{1}', bash_command='{2}', dag=dag, env=env_{0})\n""".format(
+                op_index,
+                job_name_to_task_id(job.job_name),
+                ' '.join(job.exec_cmd),
+                sys_env)
+        else:
+            return """from flink_ai_flow.local_flink_job import LocalFlinkOperator
+env_{0}={4}
+op_{0} = LocalFlinkOperator(task_id='{1}', bash_command='{2}', properties='{3}', dag=dag, env=env_{0})\n""".format(
+                op_index,
+                job_name_to_task_id(job.job_name),
+                ' '.join(job.exec_cmd),
+                json.dumps({'project_path': job.job_config.project_path,
+                            'workflow_execution_id': job.job_context.workflow_execution_id,
+                            'instance_id': job.instance_id}),
+                sys_env)
 
     def stop_job(self, job: AbstractJob):
         if job.uuid is None or job.uuid not in self.job_handler_map:

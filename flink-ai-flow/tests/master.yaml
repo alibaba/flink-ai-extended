@@ -20,3 +20,7 @@ master_ip: localhost
 master_port: 50051
 db_uri: sqlite:///aiflow.db
 db_type: sql_lite
+scheduler:
+  properties:
+    airflow_deploy_path: /tmp/airflow
+  repository: /tmp

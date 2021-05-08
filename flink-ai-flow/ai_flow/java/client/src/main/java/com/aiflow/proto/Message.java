@@ -382,10 +382,6 @@ public final class Message {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
-      if (this == UNRECOGNIZED) {
-        throw new java.lang.IllegalStateException(
-            "Can't get the descriptor of an unrecognized enum value.");
-      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -418,6 +414,110 @@ public final class Message {
     }
 
     // @@protoc_insertion_point(enum_scope:ai_flow.ReturnCode)
+  }
+
+  /**
+   * Protobuf enum {@code ai_flow.StatusProto}
+   */
+  public enum StatusProto
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>OK = 0;</code>
+     */
+    OK(0),
+    /**
+     * <code>ERROR = 1;</code>
+     */
+    ERROR(1),
+    UNRECOGNIZED(-1),
+    ;
+
+    /**
+     * <code>OK = 0;</code>
+     */
+    public static final int OK_VALUE = 0;
+    /**
+     * <code>ERROR = 1;</code>
+     */
+    public static final int ERROR_VALUE = 1;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static StatusProto valueOf(int value) {
+      return forNumber(value);
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
+    public static StatusProto forNumber(int value) {
+      switch (value) {
+        case 0: return OK;
+        case 1: return ERROR;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<StatusProto>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        StatusProto> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<StatusProto>() {
+            public StatusProto findValueByNumber(int number) {
+              return StatusProto.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return com.aiflow.proto.Message.getDescriptor().getEnumTypes().get(1);
+    }
+
+    private static final StatusProto[] VALUES = values();
+
+    public static StatusProto valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private StatusProto(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:ai_flow.StatusProto)
   }
 
   /**
@@ -589,10 +689,6 @@ public final class Message {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
-      if (this == UNRECOGNIZED) {
-        throw new java.lang.IllegalStateException(
-            "Can't get the descriptor of an unrecognized enum value.");
-      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -601,7 +697,7 @@ public final class Message {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.aiflow.proto.Message.getDescriptor().getEnumTypes().get(1);
+      return com.aiflow.proto.Message.getDescriptor().getEnumTypes().get(2);
     }
 
     private static final DataTypeProto[] VALUES = values();
@@ -715,10 +811,6 @@ public final class Message {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
-      if (this == UNRECOGNIZED) {
-        throw new java.lang.IllegalStateException(
-            "Can't get the descriptor of an unrecognized enum value.");
-      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -727,7 +819,7 @@ public final class Message {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.aiflow.proto.Message.getDescriptor().getEnumTypes().get(2);
+      return com.aiflow.proto.Message.getDescriptor().getEnumTypes().get(3);
     }
 
     private static final ExampleSupportTypeProto[] VALUES = values();
@@ -782,6 +874,14 @@ public final class Message {
      * <code>FAILED = 5;</code>
      */
     FAILED(5),
+    /**
+     * <code>KILLING = 6;</code>
+     */
+    KILLING(6),
+    /**
+     * <code>KILLED = 7;</code>
+     */
+    KILLED(7),
     UNRECOGNIZED(-1),
     ;
 
@@ -809,6 +909,14 @@ public final class Message {
      * <code>FAILED = 5;</code>
      */
     public static final int FAILED_VALUE = 5;
+    /**
+     * <code>KILLING = 6;</code>
+     */
+    public static final int KILLING_VALUE = 6;
+    /**
+     * <code>KILLED = 7;</code>
+     */
+    public static final int KILLED_VALUE = 7;
 
 
     public final int getNumber() {
@@ -841,6 +949,8 @@ public final class Message {
         case 3: return RUNNING;
         case 4: return FINISHED;
         case 5: return FAILED;
+        case 6: return KILLING;
+        case 7: return KILLED;
         default: return null;
       }
     }
@@ -859,10 +969,6 @@ public final class Message {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
-      if (this == UNRECOGNIZED) {
-        throw new java.lang.IllegalStateException(
-            "Can't get the descriptor of an unrecognized enum value.");
-      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -871,7 +977,7 @@ public final class Message {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.aiflow.proto.Message.getDescriptor().getEnumTypes().get(3);
+      return com.aiflow.proto.Message.getDescriptor().getEnumTypes().get(4);
     }
 
     private static final StateProto[] VALUES = values();
@@ -976,10 +1082,6 @@ public final class Message {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
-      if (this == UNRECOGNIZED) {
-        throw new java.lang.IllegalStateException(
-            "Can't get the descriptor of an unrecognized enum value.");
-      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -988,7 +1090,7 @@ public final class Message {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.aiflow.proto.Message.getDescriptor().getEnumTypes().get(4);
+      return com.aiflow.proto.Message.getDescriptor().getEnumTypes().get(5);
     }
 
     private static final ExecutionMode[] VALUES = values();
@@ -1102,10 +1204,6 @@ public final class Message {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
-      if (this == UNRECOGNIZED) {
-        throw new java.lang.IllegalStateException(
-            "Can't get the descriptor of an unrecognized enum value.");
-      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -1114,7 +1212,7 @@ public final class Message {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.aiflow.proto.Message.getDescriptor().getEnumTypes().get(5);
+      return com.aiflow.proto.Message.getDescriptor().getEnumTypes().get(6);
     }
 
     private static final ModelType[] VALUES = values();
@@ -1277,10 +1375,6 @@ public final class Message {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
-      if (this == UNRECOGNIZED) {
-        throw new java.lang.IllegalStateException(
-            "Can't get the descriptor of an unrecognized enum value.");
-      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -1289,7 +1383,7 @@ public final class Message {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.aiflow.proto.Message.getDescriptor().getEnumTypes().get(6);
+      return com.aiflow.proto.Message.getDescriptor().getEnumTypes().get(7);
     }
 
     private static final ModelVersionStatus[] VALUES = values();
@@ -1412,10 +1506,6 @@ public final class Message {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
-      if (this == UNRECOGNIZED) {
-        throw new java.lang.IllegalStateException(
-            "Can't get the descriptor of an unrecognized enum value.");
-      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -1424,7 +1514,7 @@ public final class Message {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.aiflow.proto.Message.getDescriptor().getEnumTypes().get(7);
+      return com.aiflow.proto.Message.getDescriptor().getEnumTypes().get(8);
     }
 
     private static final ModelVersionStage[] VALUES = values();
@@ -1520,10 +1610,6 @@ public final class Message {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
-      if (this == UNRECOGNIZED) {
-        throw new java.lang.IllegalStateException(
-            "Can't get the descriptor of an unrecognized enum value.");
-      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -1532,7 +1618,7 @@ public final class Message {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.aiflow.proto.Message.getDescriptor().getEnumTypes().get(8);
+      return com.aiflow.proto.Message.getDescriptor().getEnumTypes().get(9);
     }
 
     private static final MetricTypeProto[] VALUES = values();
@@ -1619,7 +1705,7 @@ public final class Message {
   /**
    * Protobuf type {@code ai_flow.SchemaProto}
    */
-  public static final class SchemaProto extends
+  public  static final class SchemaProto extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ai_flow.SchemaProto)
       SchemaProtoOrBuilder {
@@ -1785,7 +1871,6 @@ public final class Message {
      * <code>repeated .ai_flow.DataTypeProto type_list = 2;</code>
      * @return A list containing the typeList.
      */
-    @java.lang.Override
     public java.util.List<com.aiflow.proto.Message.DataTypeProto> getTypeListList() {
       return new com.google.protobuf.Internal.ListAdapter<
           java.lang.Integer, com.aiflow.proto.Message.DataTypeProto>(typeList_, typeList_converter_);
@@ -1794,7 +1879,6 @@ public final class Message {
      * <code>repeated .ai_flow.DataTypeProto type_list = 2;</code>
      * @return The count of typeList.
      */
-    @java.lang.Override
     public int getTypeListCount() {
       return typeList_.size();
     }
@@ -1803,7 +1887,6 @@ public final class Message {
      * @param index The index of the element to return.
      * @return The typeList at the given index.
      */
-    @java.lang.Override
     public com.aiflow.proto.Message.DataTypeProto getTypeList(int index) {
       return typeList_converter_.convert(typeList_.get(index));
     }
@@ -1811,7 +1894,6 @@ public final class Message {
      * <code>repeated .ai_flow.DataTypeProto type_list = 2;</code>
      * @return A list containing the enum numeric values on the wire for typeList.
      */
-    @java.lang.Override
     public java.util.List<java.lang.Integer>
     getTypeListValueList() {
       return typeList_;
@@ -1821,7 +1903,6 @@ public final class Message {
      * @param index The index of the value to return.
      * @return The enum numeric value on the wire of typeList at the given index.
      */
-    @java.lang.Override
     public int getTypeListValue(int index) {
       return typeList_.get(index);
     }
@@ -2772,7 +2853,7 @@ public final class Message {
   /**
    * Protobuf type {@code ai_flow.ExampleProto}
    */
-  public static final class ExampleProto extends
+  public  static final class ExampleProto extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ai_flow.ExampleProto)
       ExampleProtoOrBuilder {
@@ -3079,7 +3160,6 @@ public final class Message {
      * <code>int64 uuid = 1;</code>
      * @return The uuid.
      */
-    @java.lang.Override
     public long getUuid() {
       return uuid_;
     }
@@ -3090,7 +3170,6 @@ public final class Message {
      * <code>string name = 2;</code>
      * @return The name.
      */
-    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -3107,7 +3186,6 @@ public final class Message {
      * <code>string name = 2;</code>
      * @return The bytes for name.
      */
-    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -3152,7 +3230,6 @@ public final class Message {
      * <code>map&lt;string, string&gt; properties = 3;</code>
      */
 
-    @java.lang.Override
     public boolean containsProperties(
         java.lang.String key) {
       if (key == null) { throw new java.lang.NullPointerException(); }
@@ -3161,7 +3238,6 @@ public final class Message {
     /**
      * Use {@link #getPropertiesMap()} instead.
      */
-    @java.lang.Override
     @java.lang.Deprecated
     public java.util.Map<java.lang.String, java.lang.String> getProperties() {
       return getPropertiesMap();
@@ -3169,7 +3245,6 @@ public final class Message {
     /**
      * <code>map&lt;string, string&gt; properties = 3;</code>
      */
-    @java.lang.Override
 
     public java.util.Map<java.lang.String, java.lang.String> getPropertiesMap() {
       return internalGetProperties().getMap();
@@ -3177,7 +3252,6 @@ public final class Message {
     /**
      * <code>map&lt;string, string&gt; properties = 3;</code>
      */
-    @java.lang.Override
 
     public java.lang.String getPropertiesOrDefault(
         java.lang.String key,
@@ -3190,7 +3264,6 @@ public final class Message {
     /**
      * <code>map&lt;string, string&gt; properties = 3;</code>
      */
-    @java.lang.Override
 
     public java.lang.String getPropertiesOrThrow(
         java.lang.String key) {
@@ -3209,14 +3282,14 @@ public final class Message {
      * <code>.ai_flow.ExampleSupportTypeProto support_type = 4;</code>
      * @return The enum numeric value on the wire for supportType.
      */
-    @java.lang.Override public int getSupportTypeValue() {
+    public int getSupportTypeValue() {
       return supportType_;
     }
     /**
      * <code>.ai_flow.ExampleSupportTypeProto support_type = 4;</code>
      * @return The supportType.
      */
-    @java.lang.Override public com.aiflow.proto.Message.ExampleSupportTypeProto getSupportType() {
+    public com.aiflow.proto.Message.ExampleSupportTypeProto getSupportType() {
       @SuppressWarnings("deprecation")
       com.aiflow.proto.Message.ExampleSupportTypeProto result = com.aiflow.proto.Message.ExampleSupportTypeProto.valueOf(supportType_);
       return result == null ? com.aiflow.proto.Message.ExampleSupportTypeProto.UNRECOGNIZED : result;
@@ -3228,7 +3301,6 @@ public final class Message {
      * <code>.ai_flow.SchemaProto schema = 5;</code>
      * @return Whether the schema field is set.
      */
-    @java.lang.Override
     public boolean hasSchema() {
       return schema_ != null;
     }
@@ -3236,14 +3308,12 @@ public final class Message {
      * <code>.ai_flow.SchemaProto schema = 5;</code>
      * @return The schema.
      */
-    @java.lang.Override
     public com.aiflow.proto.Message.SchemaProto getSchema() {
       return schema_ == null ? com.aiflow.proto.Message.SchemaProto.getDefaultInstance() : schema_;
     }
     /**
      * <code>.ai_flow.SchemaProto schema = 5;</code>
      */
-    @java.lang.Override
     public com.aiflow.proto.Message.SchemaProtoOrBuilder getSchemaOrBuilder() {
       return getSchema();
     }
@@ -3254,7 +3324,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue data_type = 6;</code>
      * @return Whether the dataType field is set.
      */
-    @java.lang.Override
     public boolean hasDataType() {
       return dataType_ != null;
     }
@@ -3262,14 +3331,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue data_type = 6;</code>
      * @return The dataType.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getDataType() {
       return dataType_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : dataType_;
     }
     /**
      * <code>.google.protobuf.StringValue data_type = 6;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getDataTypeOrBuilder() {
       return getDataType();
     }
@@ -3280,7 +3347,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue data_format = 7;</code>
      * @return Whether the dataFormat field is set.
      */
-    @java.lang.Override
     public boolean hasDataFormat() {
       return dataFormat_ != null;
     }
@@ -3288,14 +3354,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue data_format = 7;</code>
      * @return The dataFormat.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getDataFormat() {
       return dataFormat_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : dataFormat_;
     }
     /**
      * <code>.google.protobuf.StringValue data_format = 7;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getDataFormatOrBuilder() {
       return getDataFormat();
     }
@@ -3306,7 +3370,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue batch_uri = 8;</code>
      * @return Whether the batchUri field is set.
      */
-    @java.lang.Override
     public boolean hasBatchUri() {
       return batchUri_ != null;
     }
@@ -3314,14 +3377,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue batch_uri = 8;</code>
      * @return The batchUri.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getBatchUri() {
       return batchUri_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : batchUri_;
     }
     /**
      * <code>.google.protobuf.StringValue batch_uri = 8;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getBatchUriOrBuilder() {
       return getBatchUri();
     }
@@ -3332,7 +3393,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue stream_uri = 9;</code>
      * @return Whether the streamUri field is set.
      */
-    @java.lang.Override
     public boolean hasStreamUri() {
       return streamUri_ != null;
     }
@@ -3340,14 +3400,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue stream_uri = 9;</code>
      * @return The streamUri.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getStreamUri() {
       return streamUri_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : streamUri_;
     }
     /**
      * <code>.google.protobuf.StringValue stream_uri = 9;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getStreamUriOrBuilder() {
       return getStreamUri();
     }
@@ -3358,7 +3416,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue description = 10;</code>
      * @return Whether the description field is set.
      */
-    @java.lang.Override
     public boolean hasDescription() {
       return description_ != null;
     }
@@ -3366,14 +3423,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue description = 10;</code>
      * @return The description.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getDescription() {
       return description_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : description_;
     }
     /**
      * <code>.google.protobuf.StringValue description = 10;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getDescriptionOrBuilder() {
       return getDescription();
     }
@@ -3384,7 +3439,6 @@ public final class Message {
      * <code>.google.protobuf.Int64Value create_time = 11;</code>
      * @return Whether the createTime field is set.
      */
-    @java.lang.Override
     public boolean hasCreateTime() {
       return createTime_ != null;
     }
@@ -3392,14 +3446,12 @@ public final class Message {
      * <code>.google.protobuf.Int64Value create_time = 11;</code>
      * @return The createTime.
      */
-    @java.lang.Override
     public com.google.protobuf.Int64Value getCreateTime() {
       return createTime_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : createTime_;
     }
     /**
      * <code>.google.protobuf.Int64Value create_time = 11;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.Int64ValueOrBuilder getCreateTimeOrBuilder() {
       return getCreateTime();
     }
@@ -3410,7 +3462,6 @@ public final class Message {
      * <code>.google.protobuf.Int64Value update_time = 12;</code>
      * @return Whether the updateTime field is set.
      */
-    @java.lang.Override
     public boolean hasUpdateTime() {
       return updateTime_ != null;
     }
@@ -3418,14 +3469,12 @@ public final class Message {
      * <code>.google.protobuf.Int64Value update_time = 12;</code>
      * @return The updateTime.
      */
-    @java.lang.Override
     public com.google.protobuf.Int64Value getUpdateTime() {
       return updateTime_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : updateTime_;
     }
     /**
      * <code>.google.protobuf.Int64Value update_time = 12;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.Int64ValueOrBuilder getUpdateTimeOrBuilder() {
       return getUpdateTime();
     }
@@ -3436,7 +3485,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue catalog_name = 13;</code>
      * @return Whether the catalogName field is set.
      */
-    @java.lang.Override
     public boolean hasCatalogName() {
       return catalogName_ != null;
     }
@@ -3444,14 +3492,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue catalog_name = 13;</code>
      * @return The catalogName.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getCatalogName() {
       return catalogName_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : catalogName_;
     }
     /**
      * <code>.google.protobuf.StringValue catalog_name = 13;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getCatalogNameOrBuilder() {
       return getCatalogName();
     }
@@ -3462,7 +3508,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue catalog_type = 14;</code>
      * @return Whether the catalogType field is set.
      */
-    @java.lang.Override
     public boolean hasCatalogType() {
       return catalogType_ != null;
     }
@@ -3470,14 +3515,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue catalog_type = 14;</code>
      * @return The catalogType.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getCatalogType() {
       return catalogType_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : catalogType_;
     }
     /**
      * <code>.google.protobuf.StringValue catalog_type = 14;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getCatalogTypeOrBuilder() {
       return getCatalogType();
     }
@@ -3488,7 +3531,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue catalog_database = 15;</code>
      * @return Whether the catalogDatabase field is set.
      */
-    @java.lang.Override
     public boolean hasCatalogDatabase() {
       return catalogDatabase_ != null;
     }
@@ -3496,14 +3538,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue catalog_database = 15;</code>
      * @return The catalogDatabase.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getCatalogDatabase() {
       return catalogDatabase_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : catalogDatabase_;
     }
     /**
      * <code>.google.protobuf.StringValue catalog_database = 15;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getCatalogDatabaseOrBuilder() {
       return getCatalogDatabase();
     }
@@ -3514,7 +3554,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue catalog_connection_uri = 16;</code>
      * @return Whether the catalogConnectionUri field is set.
      */
-    @java.lang.Override
     public boolean hasCatalogConnectionUri() {
       return catalogConnectionUri_ != null;
     }
@@ -3522,14 +3561,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue catalog_connection_uri = 16;</code>
      * @return The catalogConnectionUri.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getCatalogConnectionUri() {
       return catalogConnectionUri_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : catalogConnectionUri_;
     }
     /**
      * <code>.google.protobuf.StringValue catalog_connection_uri = 16;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getCatalogConnectionUriOrBuilder() {
       return getCatalogConnectionUri();
     }
@@ -3540,7 +3577,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue catalog_version = 17;</code>
      * @return Whether the catalogVersion field is set.
      */
-    @java.lang.Override
     public boolean hasCatalogVersion() {
       return catalogVersion_ != null;
     }
@@ -3548,14 +3584,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue catalog_version = 17;</code>
      * @return The catalogVersion.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getCatalogVersion() {
       return catalogVersion_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : catalogVersion_;
     }
     /**
      * <code>.google.protobuf.StringValue catalog_version = 17;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getCatalogVersionOrBuilder() {
       return getCatalogVersion();
     }
@@ -3566,7 +3600,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue catalog_table = 18;</code>
      * @return Whether the catalogTable field is set.
      */
-    @java.lang.Override
     public boolean hasCatalogTable() {
       return catalogTable_ != null;
     }
@@ -3574,14 +3607,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue catalog_table = 18;</code>
      * @return The catalogTable.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getCatalogTable() {
       return catalogTable_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : catalogTable_;
     }
     /**
      * <code>.google.protobuf.StringValue catalog_table = 18;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getCatalogTableOrBuilder() {
       return getCatalogTable();
     }
@@ -4398,7 +4429,6 @@ public final class Message {
        * <code>int64 uuid = 1;</code>
        * @return The uuid.
        */
-      @java.lang.Override
       public long getUuid() {
         return uuid_;
       }
@@ -4530,7 +4560,6 @@ public final class Message {
        * <code>map&lt;string, string&gt; properties = 3;</code>
        */
 
-      @java.lang.Override
       public boolean containsProperties(
           java.lang.String key) {
         if (key == null) { throw new java.lang.NullPointerException(); }
@@ -4539,7 +4568,6 @@ public final class Message {
       /**
        * Use {@link #getPropertiesMap()} instead.
        */
-      @java.lang.Override
       @java.lang.Deprecated
       public java.util.Map<java.lang.String, java.lang.String> getProperties() {
         return getPropertiesMap();
@@ -4547,7 +4575,6 @@ public final class Message {
       /**
        * <code>map&lt;string, string&gt; properties = 3;</code>
        */
-      @java.lang.Override
 
       public java.util.Map<java.lang.String, java.lang.String> getPropertiesMap() {
         return internalGetProperties().getMap();
@@ -4555,7 +4582,6 @@ public final class Message {
       /**
        * <code>map&lt;string, string&gt; properties = 3;</code>
        */
-      @java.lang.Override
 
       public java.lang.String getPropertiesOrDefault(
           java.lang.String key,
@@ -4568,7 +4594,6 @@ public final class Message {
       /**
        * <code>map&lt;string, string&gt; properties = 3;</code>
        */
-      @java.lang.Override
 
       public java.lang.String getPropertiesOrThrow(
           java.lang.String key) {
@@ -4633,7 +4658,7 @@ public final class Message {
        * <code>.ai_flow.ExampleSupportTypeProto support_type = 4;</code>
        * @return The enum numeric value on the wire for supportType.
        */
-      @java.lang.Override public int getSupportTypeValue() {
+      public int getSupportTypeValue() {
         return supportType_;
       }
       /**
@@ -4642,7 +4667,6 @@ public final class Message {
        * @return This builder for chaining.
        */
       public Builder setSupportTypeValue(int value) {
-        
         supportType_ = value;
         onChanged();
         return this;
@@ -4651,7 +4675,6 @@ public final class Message {
        * <code>.ai_flow.ExampleSupportTypeProto support_type = 4;</code>
        * @return The supportType.
        */
-      @java.lang.Override
       public com.aiflow.proto.Message.ExampleSupportTypeProto getSupportType() {
         @SuppressWarnings("deprecation")
         com.aiflow.proto.Message.ExampleSupportTypeProto result = com.aiflow.proto.Message.ExampleSupportTypeProto.valueOf(supportType_);
@@ -6440,7 +6463,7 @@ public final class Message {
   /**
    * Protobuf type {@code ai_flow.ModelRelationProto}
    */
-  public static final class ModelRelationProto extends
+  public  static final class ModelRelationProto extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ai_flow.ModelRelationProto)
       ModelRelationProtoOrBuilder {
@@ -6545,7 +6568,6 @@ public final class Message {
      * <code>int64 uuid = 1;</code>
      * @return The uuid.
      */
-    @java.lang.Override
     public long getUuid() {
       return uuid_;
     }
@@ -6556,7 +6578,6 @@ public final class Message {
      * <code>string name = 2;</code>
      * @return The name.
      */
-    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -6573,7 +6594,6 @@ public final class Message {
      * <code>string name = 2;</code>
      * @return The bytes for name.
      */
-    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -6594,7 +6614,6 @@ public final class Message {
      * <code>.google.protobuf.Int64Value project_id = 3;</code>
      * @return Whether the projectId field is set.
      */
-    @java.lang.Override
     public boolean hasProjectId() {
       return projectId_ != null;
     }
@@ -6602,14 +6621,12 @@ public final class Message {
      * <code>.google.protobuf.Int64Value project_id = 3;</code>
      * @return The projectId.
      */
-    @java.lang.Override
     public com.google.protobuf.Int64Value getProjectId() {
       return projectId_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : projectId_;
     }
     /**
      * <code>.google.protobuf.Int64Value project_id = 3;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.Int64ValueOrBuilder getProjectIdOrBuilder() {
       return getProjectId();
     }
@@ -6969,7 +6986,6 @@ public final class Message {
        * <code>int64 uuid = 1;</code>
        * @return The uuid.
        */
-      @java.lang.Override
       public long getUuid() {
         return uuid_;
       }
@@ -7308,7 +7324,7 @@ public final class Message {
   /**
    * Protobuf type {@code ai_flow.ModelProto}
    */
-  public static final class ModelProto extends
+  public  static final class ModelProto extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ai_flow.ModelProto)
       ModelProtoOrBuilder {
@@ -7433,7 +7449,6 @@ public final class Message {
      * <code>int64 uuid = 1;</code>
      * @return The uuid.
      */
-    @java.lang.Override
     public long getUuid() {
       return uuid_;
     }
@@ -7444,7 +7459,6 @@ public final class Message {
      * <code>string name = 2;</code>
      * @return The name.
      */
-    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -7461,7 +7475,6 @@ public final class Message {
      * <code>string name = 2;</code>
      * @return The bytes for name.
      */
-    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -7482,7 +7495,6 @@ public final class Message {
      * <code>.google.protobuf.Int64Value project_id = 3;</code>
      * @return Whether the projectId field is set.
      */
-    @java.lang.Override
     public boolean hasProjectId() {
       return projectId_ != null;
     }
@@ -7490,14 +7502,12 @@ public final class Message {
      * <code>.google.protobuf.Int64Value project_id = 3;</code>
      * @return The projectId.
      */
-    @java.lang.Override
     public com.google.protobuf.Int64Value getProjectId() {
       return projectId_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : projectId_;
     }
     /**
      * <code>.google.protobuf.Int64Value project_id = 3;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.Int64ValueOrBuilder getProjectIdOrBuilder() {
       return getProjectId();
     }
@@ -7508,14 +7518,14 @@ public final class Message {
      * <code>.ai_flow.ModelType model_type = 4;</code>
      * @return The enum numeric value on the wire for modelType.
      */
-    @java.lang.Override public int getModelTypeValue() {
+    public int getModelTypeValue() {
       return modelType_;
     }
     /**
      * <code>.ai_flow.ModelType model_type = 4;</code>
      * @return The modelType.
      */
-    @java.lang.Override public com.aiflow.proto.Message.ModelType getModelType() {
+    public com.aiflow.proto.Message.ModelType getModelType() {
       @SuppressWarnings("deprecation")
       com.aiflow.proto.Message.ModelType result = com.aiflow.proto.Message.ModelType.valueOf(modelType_);
       return result == null ? com.aiflow.proto.Message.ModelType.UNRECOGNIZED : result;
@@ -7527,7 +7537,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_desc = 5;</code>
      * @return Whether the modelDesc field is set.
      */
-    @java.lang.Override
     public boolean hasModelDesc() {
       return modelDesc_ != null;
     }
@@ -7535,14 +7544,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_desc = 5;</code>
      * @return The modelDesc.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getModelDesc() {
       return modelDesc_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : modelDesc_;
     }
     /**
      * <code>.google.protobuf.StringValue model_desc = 5;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getModelDescOrBuilder() {
       return getModelDesc();
     }
@@ -7948,7 +7955,6 @@ public final class Message {
        * <code>int64 uuid = 1;</code>
        * @return The uuid.
        */
-      @java.lang.Override
       public long getUuid() {
         return uuid_;
       }
@@ -8174,7 +8180,7 @@ public final class Message {
        * <code>.ai_flow.ModelType model_type = 4;</code>
        * @return The enum numeric value on the wire for modelType.
        */
-      @java.lang.Override public int getModelTypeValue() {
+      public int getModelTypeValue() {
         return modelType_;
       }
       /**
@@ -8183,7 +8189,6 @@ public final class Message {
        * @return This builder for chaining.
        */
       public Builder setModelTypeValue(int value) {
-        
         modelType_ = value;
         onChanged();
         return this;
@@ -8192,7 +8197,6 @@ public final class Message {
        * <code>.ai_flow.ModelType model_type = 4;</code>
        * @return The modelType.
        */
-      @java.lang.Override
       public com.aiflow.proto.Message.ModelType getModelType() {
         @SuppressWarnings("deprecation")
         com.aiflow.proto.Message.ModelType result = com.aiflow.proto.Message.ModelType.valueOf(modelType_);
@@ -8446,7 +8450,7 @@ public final class Message {
   /**
    * Protobuf type {@code ai_flow.ModelVersionRelationProto}
    */
-  public static final class ModelVersionRelationProto extends
+  public  static final class ModelVersionRelationProto extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ai_flow.ModelVersionRelationProto)
       ModelVersionRelationProtoOrBuilder {
@@ -8565,7 +8569,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue version = 1;</code>
      * @return Whether the version field is set.
      */
-    @java.lang.Override
     public boolean hasVersion() {
       return version_ != null;
     }
@@ -8573,14 +8576,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue version = 1;</code>
      * @return The version.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getVersion() {
       return version_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : version_;
     }
     /**
      * <code>.google.protobuf.StringValue version = 1;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getVersionOrBuilder() {
       return getVersion();
     }
@@ -8591,7 +8592,6 @@ public final class Message {
      * <code>.google.protobuf.Int64Value model_id = 2;</code>
      * @return Whether the modelId field is set.
      */
-    @java.lang.Override
     public boolean hasModelId() {
       return modelId_ != null;
     }
@@ -8599,14 +8599,12 @@ public final class Message {
      * <code>.google.protobuf.Int64Value model_id = 2;</code>
      * @return The modelId.
      */
-    @java.lang.Override
     public com.google.protobuf.Int64Value getModelId() {
       return modelId_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : modelId_;
     }
     /**
      * <code>.google.protobuf.Int64Value model_id = 2;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.Int64ValueOrBuilder getModelIdOrBuilder() {
       return getModelId();
     }
@@ -8617,7 +8615,6 @@ public final class Message {
      * <code>.google.protobuf.Int64Value workflow_execution_id = 3;</code>
      * @return Whether the workflowExecutionId field is set.
      */
-    @java.lang.Override
     public boolean hasWorkflowExecutionId() {
       return workflowExecutionId_ != null;
     }
@@ -8625,14 +8622,12 @@ public final class Message {
      * <code>.google.protobuf.Int64Value workflow_execution_id = 3;</code>
      * @return The workflowExecutionId.
      */
-    @java.lang.Override
     public com.google.protobuf.Int64Value getWorkflowExecutionId() {
       return workflowExecutionId_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : workflowExecutionId_;
     }
     /**
      * <code>.google.protobuf.Int64Value workflow_execution_id = 3;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.Int64ValueOrBuilder getWorkflowExecutionIdOrBuilder() {
       return getWorkflowExecutionId();
     }
@@ -9544,7 +9539,7 @@ public final class Message {
   /**
    * Protobuf type {@code ai_flow.ModelVersionProto}
    */
-  public static final class ModelVersionProto extends
+  public  static final class ModelVersionProto extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ai_flow.ModelVersionProto)
       ModelVersionProtoOrBuilder {
@@ -9722,7 +9717,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue version = 1;</code>
      * @return Whether the version field is set.
      */
-    @java.lang.Override
     public boolean hasVersion() {
       return version_ != null;
     }
@@ -9730,14 +9724,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue version = 1;</code>
      * @return The version.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getVersion() {
       return version_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : version_;
     }
     /**
      * <code>.google.protobuf.StringValue version = 1;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getVersionOrBuilder() {
       return getVersion();
     }
@@ -9748,7 +9740,6 @@ public final class Message {
      * <code>.google.protobuf.Int64Value model_id = 2;</code>
      * @return Whether the modelId field is set.
      */
-    @java.lang.Override
     public boolean hasModelId() {
       return modelId_ != null;
     }
@@ -9756,14 +9747,12 @@ public final class Message {
      * <code>.google.protobuf.Int64Value model_id = 2;</code>
      * @return The modelId.
      */
-    @java.lang.Override
     public com.google.protobuf.Int64Value getModelId() {
       return modelId_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : modelId_;
     }
     /**
      * <code>.google.protobuf.Int64Value model_id = 2;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.Int64ValueOrBuilder getModelIdOrBuilder() {
       return getModelId();
     }
@@ -9774,7 +9763,6 @@ public final class Message {
      * <code>.google.protobuf.Int64Value workflow_execution_id = 3;</code>
      * @return Whether the workflowExecutionId field is set.
      */
-    @java.lang.Override
     public boolean hasWorkflowExecutionId() {
       return workflowExecutionId_ != null;
     }
@@ -9782,14 +9770,12 @@ public final class Message {
      * <code>.google.protobuf.Int64Value workflow_execution_id = 3;</code>
      * @return The workflowExecutionId.
      */
-    @java.lang.Override
     public com.google.protobuf.Int64Value getWorkflowExecutionId() {
       return workflowExecutionId_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : workflowExecutionId_;
     }
     /**
      * <code>.google.protobuf.Int64Value workflow_execution_id = 3;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.Int64ValueOrBuilder getWorkflowExecutionIdOrBuilder() {
       return getWorkflowExecutionId();
     }
@@ -9800,7 +9786,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_path = 4;</code>
      * @return Whether the modelPath field is set.
      */
-    @java.lang.Override
     public boolean hasModelPath() {
       return modelPath_ != null;
     }
@@ -9808,14 +9793,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_path = 4;</code>
      * @return The modelPath.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getModelPath() {
       return modelPath_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : modelPath_;
     }
     /**
      * <code>.google.protobuf.StringValue model_path = 4;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getModelPathOrBuilder() {
       return getModelPath();
     }
@@ -9826,7 +9809,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_metric = 5;</code>
      * @return Whether the modelMetric field is set.
      */
-    @java.lang.Override
     public boolean hasModelMetric() {
       return modelMetric_ != null;
     }
@@ -9834,14 +9816,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_metric = 5;</code>
      * @return The modelMetric.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getModelMetric() {
       return modelMetric_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : modelMetric_;
     }
     /**
      * <code>.google.protobuf.StringValue model_metric = 5;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getModelMetricOrBuilder() {
       return getModelMetric();
     }
@@ -9852,7 +9832,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_flavor = 6;</code>
      * @return Whether the modelFlavor field is set.
      */
-    @java.lang.Override
     public boolean hasModelFlavor() {
       return modelFlavor_ != null;
     }
@@ -9860,14 +9839,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_flavor = 6;</code>
      * @return The modelFlavor.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getModelFlavor() {
       return modelFlavor_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : modelFlavor_;
     }
     /**
      * <code>.google.protobuf.StringValue model_flavor = 6;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getModelFlavorOrBuilder() {
       return getModelFlavor();
     }
@@ -9878,7 +9855,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue version_desc = 7;</code>
      * @return Whether the versionDesc field is set.
      */
-    @java.lang.Override
     public boolean hasVersionDesc() {
       return versionDesc_ != null;
     }
@@ -9886,14 +9862,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue version_desc = 7;</code>
      * @return The versionDesc.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getVersionDesc() {
       return versionDesc_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : versionDesc_;
     }
     /**
      * <code>.google.protobuf.StringValue version_desc = 7;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getVersionDescOrBuilder() {
       return getVersionDesc();
     }
@@ -9904,14 +9878,14 @@ public final class Message {
      * <code>.ai_flow.ModelVersionStage current_stage = 8;</code>
      * @return The enum numeric value on the wire for currentStage.
      */
-    @java.lang.Override public int getCurrentStageValue() {
+    public int getCurrentStageValue() {
       return currentStage_;
     }
     /**
      * <code>.ai_flow.ModelVersionStage current_stage = 8;</code>
      * @return The currentStage.
      */
-    @java.lang.Override public com.aiflow.proto.Message.ModelVersionStage getCurrentStage() {
+    public com.aiflow.proto.Message.ModelVersionStage getCurrentStage() {
       @SuppressWarnings("deprecation")
       com.aiflow.proto.Message.ModelVersionStage result = com.aiflow.proto.Message.ModelVersionStage.valueOf(currentStage_);
       return result == null ? com.aiflow.proto.Message.ModelVersionStage.UNRECOGNIZED : result;
@@ -11266,7 +11240,7 @@ public final class Message {
        * <code>.ai_flow.ModelVersionStage current_stage = 8;</code>
        * @return The enum numeric value on the wire for currentStage.
        */
-      @java.lang.Override public int getCurrentStageValue() {
+      public int getCurrentStageValue() {
         return currentStage_;
       }
       /**
@@ -11275,7 +11249,6 @@ public final class Message {
        * @return This builder for chaining.
        */
       public Builder setCurrentStageValue(int value) {
-        
         currentStage_ = value;
         onChanged();
         return this;
@@ -11284,7 +11257,6 @@ public final class Message {
        * <code>.ai_flow.ModelVersionStage current_stage = 8;</code>
        * @return The currentStage.
        */
-      @java.lang.Override
       public com.aiflow.proto.Message.ModelVersionStage getCurrentStage() {
         @SuppressWarnings("deprecation")
         com.aiflow.proto.Message.ModelVersionStage result = com.aiflow.proto.Message.ModelVersionStage.valueOf(currentStage_);
@@ -11523,11 +11495,26 @@ public final class Message {
      * <code>.google.protobuf.StringValue signature = 10;</code>
      */
     com.google.protobuf.StringValueOrBuilder getSignatureOrBuilder();
+
+    /**
+     * <code>.ai_flow.WorkflowExecutionProto workflow_execution = 11;</code>
+     * @return Whether the workflowExecution field is set.
+     */
+    boolean hasWorkflowExecution();
+    /**
+     * <code>.ai_flow.WorkflowExecutionProto workflow_execution = 11;</code>
+     * @return The workflowExecution.
+     */
+    com.aiflow.proto.Message.WorkflowExecutionProto getWorkflowExecution();
+    /**
+     * <code>.ai_flow.WorkflowExecutionProto workflow_execution = 11;</code>
+     */
+    com.aiflow.proto.Message.WorkflowExecutionProtoOrBuilder getWorkflowExecutionOrBuilder();
   }
   /**
    * Protobuf type {@code ai_flow.JobProto}
    */
-  public static final class JobProto extends
+  public  static final class JobProto extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ai_flow.JobProto)
       JobProtoOrBuilder {
@@ -11680,6 +11667,19 @@ public final class Message {
 
               break;
             }
+            case 90: {
+              com.aiflow.proto.Message.WorkflowExecutionProto.Builder subBuilder = null;
+              if (workflowExecution_ != null) {
+                subBuilder = workflowExecution_.toBuilder();
+              }
+              workflowExecution_ = input.readMessage(com.aiflow.proto.Message.WorkflowExecutionProto.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(workflowExecution_);
+                workflowExecution_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -11730,7 +11730,6 @@ public final class Message {
      * <code>int64 uuid = 1;</code>
      * @return The uuid.
      */
-    @java.lang.Override
     public long getUuid() {
       return uuid_;
     }
@@ -11741,7 +11740,6 @@ public final class Message {
      * <code>string name = 2;</code>
      * @return The name.
      */
-    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -11758,7 +11756,6 @@ public final class Message {
      * <code>string name = 2;</code>
      * @return The bytes for name.
      */
-    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -11779,7 +11776,6 @@ public final class Message {
      * <code>.google.protobuf.Int64Value workflow_execution_id = 3;</code>
      * @return Whether the workflowExecutionId field is set.
      */
-    @java.lang.Override
     public boolean hasWorkflowExecutionId() {
       return workflowExecutionId_ != null;
     }
@@ -11787,14 +11783,12 @@ public final class Message {
      * <code>.google.protobuf.Int64Value workflow_execution_id = 3;</code>
      * @return The workflowExecutionId.
      */
-    @java.lang.Override
     public com.google.protobuf.Int64Value getWorkflowExecutionId() {
       return workflowExecutionId_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : workflowExecutionId_;
     }
     /**
      * <code>.google.protobuf.Int64Value workflow_execution_id = 3;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.Int64ValueOrBuilder getWorkflowExecutionIdOrBuilder() {
       return getWorkflowExecutionId();
     }
@@ -11805,14 +11799,14 @@ public final class Message {
      * <code>.ai_flow.StateProto job_state = 4;</code>
      * @return The enum numeric value on the wire for jobState.
      */
-    @java.lang.Override public int getJobStateValue() {
+    public int getJobStateValue() {
       return jobState_;
     }
     /**
      * <code>.ai_flow.StateProto job_state = 4;</code>
      * @return The jobState.
      */
-    @java.lang.Override public com.aiflow.proto.Message.StateProto getJobState() {
+    public com.aiflow.proto.Message.StateProto getJobState() {
       @SuppressWarnings("deprecation")
       com.aiflow.proto.Message.StateProto result = com.aiflow.proto.Message.StateProto.valueOf(jobState_);
       return result == null ? com.aiflow.proto.Message.StateProto.UNRECOGNIZED : result;
@@ -11848,7 +11842,6 @@ public final class Message {
      * <code>map&lt;string, string&gt; properties = 5;</code>
      */
 
-    @java.lang.Override
     public boolean containsProperties(
         java.lang.String key) {
       if (key == null) { throw new java.lang.NullPointerException(); }
@@ -11857,7 +11850,6 @@ public final class Message {
     /**
      * Use {@link #getPropertiesMap()} instead.
      */
-    @java.lang.Override
     @java.lang.Deprecated
     public java.util.Map<java.lang.String, java.lang.String> getProperties() {
       return getPropertiesMap();
@@ -11865,7 +11857,6 @@ public final class Message {
     /**
      * <code>map&lt;string, string&gt; properties = 5;</code>
      */
-    @java.lang.Override
 
     public java.util.Map<java.lang.String, java.lang.String> getPropertiesMap() {
       return internalGetProperties().getMap();
@@ -11873,7 +11864,6 @@ public final class Message {
     /**
      * <code>map&lt;string, string&gt; properties = 5;</code>
      */
-    @java.lang.Override
 
     public java.lang.String getPropertiesOrDefault(
         java.lang.String key,
@@ -11886,7 +11876,6 @@ public final class Message {
     /**
      * <code>map&lt;string, string&gt; properties = 5;</code>
      */
-    @java.lang.Override
 
     public java.lang.String getPropertiesOrThrow(
         java.lang.String key) {
@@ -11905,7 +11894,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue job_id = 6;</code>
      * @return Whether the jobId field is set.
      */
-    @java.lang.Override
     public boolean hasJobId() {
       return jobId_ != null;
     }
@@ -11913,14 +11901,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue job_id = 6;</code>
      * @return The jobId.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getJobId() {
       return jobId_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : jobId_;
     }
     /**
      * <code>.google.protobuf.StringValue job_id = 6;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getJobIdOrBuilder() {
       return getJobId();
     }
@@ -11931,7 +11917,6 @@ public final class Message {
      * <code>.google.protobuf.Int64Value start_time = 7;</code>
      * @return Whether the startTime field is set.
      */
-    @java.lang.Override
     public boolean hasStartTime() {
       return startTime_ != null;
     }
@@ -11939,14 +11924,12 @@ public final class Message {
      * <code>.google.protobuf.Int64Value start_time = 7;</code>
      * @return The startTime.
      */
-    @java.lang.Override
     public com.google.protobuf.Int64Value getStartTime() {
       return startTime_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : startTime_;
     }
     /**
      * <code>.google.protobuf.Int64Value start_time = 7;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.Int64ValueOrBuilder getStartTimeOrBuilder() {
       return getStartTime();
     }
@@ -11957,7 +11940,6 @@ public final class Message {
      * <code>.google.protobuf.Int64Value end_time = 8;</code>
      * @return Whether the endTime field is set.
      */
-    @java.lang.Override
     public boolean hasEndTime() {
       return endTime_ != null;
     }
@@ -11965,14 +11947,12 @@ public final class Message {
      * <code>.google.protobuf.Int64Value end_time = 8;</code>
      * @return The endTime.
      */
-    @java.lang.Override
     public com.google.protobuf.Int64Value getEndTime() {
       return endTime_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : endTime_;
     }
     /**
      * <code>.google.protobuf.Int64Value end_time = 8;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.Int64ValueOrBuilder getEndTimeOrBuilder() {
       return getEndTime();
     }
@@ -11983,7 +11963,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue log_uri = 9;</code>
      * @return Whether the logUri field is set.
      */
-    @java.lang.Override
     public boolean hasLogUri() {
       return logUri_ != null;
     }
@@ -11991,14 +11970,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue log_uri = 9;</code>
      * @return The logUri.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getLogUri() {
       return logUri_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : logUri_;
     }
     /**
      * <code>.google.protobuf.StringValue log_uri = 9;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getLogUriOrBuilder() {
       return getLogUri();
     }
@@ -12009,7 +11986,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue signature = 10;</code>
      * @return Whether the signature field is set.
      */
-    @java.lang.Override
     public boolean hasSignature() {
       return signature_ != null;
     }
@@ -12017,16 +11993,37 @@ public final class Message {
      * <code>.google.protobuf.StringValue signature = 10;</code>
      * @return The signature.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getSignature() {
       return signature_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : signature_;
     }
     /**
      * <code>.google.protobuf.StringValue signature = 10;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getSignatureOrBuilder() {
       return getSignature();
+    }
+
+    public static final int WORKFLOW_EXECUTION_FIELD_NUMBER = 11;
+    private com.aiflow.proto.Message.WorkflowExecutionProto workflowExecution_;
+    /**
+     * <code>.ai_flow.WorkflowExecutionProto workflow_execution = 11;</code>
+     * @return Whether the workflowExecution field is set.
+     */
+    public boolean hasWorkflowExecution() {
+      return workflowExecution_ != null;
+    }
+    /**
+     * <code>.ai_flow.WorkflowExecutionProto workflow_execution = 11;</code>
+     * @return The workflowExecution.
+     */
+    public com.aiflow.proto.Message.WorkflowExecutionProto getWorkflowExecution() {
+      return workflowExecution_ == null ? com.aiflow.proto.Message.WorkflowExecutionProto.getDefaultInstance() : workflowExecution_;
+    }
+    /**
+     * <code>.ai_flow.WorkflowExecutionProto workflow_execution = 11;</code>
+     */
+    public com.aiflow.proto.Message.WorkflowExecutionProtoOrBuilder getWorkflowExecutionOrBuilder() {
+      return getWorkflowExecution();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -12075,6 +12072,9 @@ public final class Message {
       }
       if (signature_ != null) {
         output.writeMessage(10, getSignature());
+      }
+      if (workflowExecution_ != null) {
+        output.writeMessage(11, getWorkflowExecution());
       }
       unknownFields.writeTo(output);
     }
@@ -12130,6 +12130,10 @@ public final class Message {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(10, getSignature());
       }
+      if (workflowExecution_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(11, getWorkflowExecution());
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -12182,6 +12186,11 @@ public final class Message {
         if (!getSignature()
             .equals(other.getSignature())) return false;
       }
+      if (hasWorkflowExecution() != other.hasWorkflowExecution()) return false;
+      if (hasWorkflowExecution()) {
+        if (!getWorkflowExecution()
+            .equals(other.getWorkflowExecution())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -12227,6 +12236,10 @@ public final class Message {
       if (hasSignature()) {
         hash = (37 * hash) + SIGNATURE_FIELD_NUMBER;
         hash = (53 * hash) + getSignature().hashCode();
+      }
+      if (hasWorkflowExecution()) {
+        hash = (37 * hash) + WORKFLOW_EXECUTION_FIELD_NUMBER;
+        hash = (53 * hash) + getWorkflowExecution().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -12426,6 +12439,12 @@ public final class Message {
           signature_ = null;
           signatureBuilder_ = null;
         }
+        if (workflowExecutionBuilder_ == null) {
+          workflowExecution_ = null;
+        } else {
+          workflowExecution_ = null;
+          workflowExecutionBuilder_ = null;
+        }
         return this;
       }
 
@@ -12487,6 +12506,11 @@ public final class Message {
           result.signature_ = signature_;
         } else {
           result.signature_ = signatureBuilder_.build();
+        }
+        if (workflowExecutionBuilder_ == null) {
+          result.workflowExecution_ = workflowExecution_;
+        } else {
+          result.workflowExecution_ = workflowExecutionBuilder_.build();
         }
         onBuilt();
         return result;
@@ -12566,6 +12590,9 @@ public final class Message {
         if (other.hasSignature()) {
           mergeSignature(other.getSignature());
         }
+        if (other.hasWorkflowExecution()) {
+          mergeWorkflowExecution(other.getWorkflowExecution());
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -12601,7 +12628,6 @@ public final class Message {
        * <code>int64 uuid = 1;</code>
        * @return The uuid.
        */
-      @java.lang.Override
       public long getUuid() {
         return uuid_;
       }
@@ -12827,7 +12853,7 @@ public final class Message {
        * <code>.ai_flow.StateProto job_state = 4;</code>
        * @return The enum numeric value on the wire for jobState.
        */
-      @java.lang.Override public int getJobStateValue() {
+      public int getJobStateValue() {
         return jobState_;
       }
       /**
@@ -12836,7 +12862,6 @@ public final class Message {
        * @return This builder for chaining.
        */
       public Builder setJobStateValue(int value) {
-        
         jobState_ = value;
         onChanged();
         return this;
@@ -12845,7 +12870,6 @@ public final class Message {
        * <code>.ai_flow.StateProto job_state = 4;</code>
        * @return The jobState.
        */
-      @java.lang.Override
       public com.aiflow.proto.Message.StateProto getJobState() {
         @SuppressWarnings("deprecation")
         com.aiflow.proto.Message.StateProto result = com.aiflow.proto.Message.StateProto.valueOf(jobState_);
@@ -12906,7 +12930,6 @@ public final class Message {
        * <code>map&lt;string, string&gt; properties = 5;</code>
        */
 
-      @java.lang.Override
       public boolean containsProperties(
           java.lang.String key) {
         if (key == null) { throw new java.lang.NullPointerException(); }
@@ -12915,7 +12938,6 @@ public final class Message {
       /**
        * Use {@link #getPropertiesMap()} instead.
        */
-      @java.lang.Override
       @java.lang.Deprecated
       public java.util.Map<java.lang.String, java.lang.String> getProperties() {
         return getPropertiesMap();
@@ -12923,7 +12945,6 @@ public final class Message {
       /**
        * <code>map&lt;string, string&gt; properties = 5;</code>
        */
-      @java.lang.Override
 
       public java.util.Map<java.lang.String, java.lang.String> getPropertiesMap() {
         return internalGetProperties().getMap();
@@ -12931,7 +12952,6 @@ public final class Message {
       /**
        * <code>map&lt;string, string&gt; properties = 5;</code>
        */
-      @java.lang.Override
 
       public java.lang.String getPropertiesOrDefault(
           java.lang.String key,
@@ -12944,7 +12964,6 @@ public final class Message {
       /**
        * <code>map&lt;string, string&gt; properties = 5;</code>
        */
-      @java.lang.Override
 
       public java.lang.String getPropertiesOrThrow(
           java.lang.String key) {
@@ -13598,6 +13617,125 @@ public final class Message {
         }
         return signatureBuilder_;
       }
+
+      private com.aiflow.proto.Message.WorkflowExecutionProto workflowExecution_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.aiflow.proto.Message.WorkflowExecutionProto, com.aiflow.proto.Message.WorkflowExecutionProto.Builder, com.aiflow.proto.Message.WorkflowExecutionProtoOrBuilder> workflowExecutionBuilder_;
+      /**
+       * <code>.ai_flow.WorkflowExecutionProto workflow_execution = 11;</code>
+       * @return Whether the workflowExecution field is set.
+       */
+      public boolean hasWorkflowExecution() {
+        return workflowExecutionBuilder_ != null || workflowExecution_ != null;
+      }
+      /**
+       * <code>.ai_flow.WorkflowExecutionProto workflow_execution = 11;</code>
+       * @return The workflowExecution.
+       */
+      public com.aiflow.proto.Message.WorkflowExecutionProto getWorkflowExecution() {
+        if (workflowExecutionBuilder_ == null) {
+          return workflowExecution_ == null ? com.aiflow.proto.Message.WorkflowExecutionProto.getDefaultInstance() : workflowExecution_;
+        } else {
+          return workflowExecutionBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.ai_flow.WorkflowExecutionProto workflow_execution = 11;</code>
+       */
+      public Builder setWorkflowExecution(com.aiflow.proto.Message.WorkflowExecutionProto value) {
+        if (workflowExecutionBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          workflowExecution_ = value;
+          onChanged();
+        } else {
+          workflowExecutionBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.ai_flow.WorkflowExecutionProto workflow_execution = 11;</code>
+       */
+      public Builder setWorkflowExecution(
+          com.aiflow.proto.Message.WorkflowExecutionProto.Builder builderForValue) {
+        if (workflowExecutionBuilder_ == null) {
+          workflowExecution_ = builderForValue.build();
+          onChanged();
+        } else {
+          workflowExecutionBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.ai_flow.WorkflowExecutionProto workflow_execution = 11;</code>
+       */
+      public Builder mergeWorkflowExecution(com.aiflow.proto.Message.WorkflowExecutionProto value) {
+        if (workflowExecutionBuilder_ == null) {
+          if (workflowExecution_ != null) {
+            workflowExecution_ =
+              com.aiflow.proto.Message.WorkflowExecutionProto.newBuilder(workflowExecution_).mergeFrom(value).buildPartial();
+          } else {
+            workflowExecution_ = value;
+          }
+          onChanged();
+        } else {
+          workflowExecutionBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.ai_flow.WorkflowExecutionProto workflow_execution = 11;</code>
+       */
+      public Builder clearWorkflowExecution() {
+        if (workflowExecutionBuilder_ == null) {
+          workflowExecution_ = null;
+          onChanged();
+        } else {
+          workflowExecution_ = null;
+          workflowExecutionBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.ai_flow.WorkflowExecutionProto workflow_execution = 11;</code>
+       */
+      public com.aiflow.proto.Message.WorkflowExecutionProto.Builder getWorkflowExecutionBuilder() {
+        
+        onChanged();
+        return getWorkflowExecutionFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.ai_flow.WorkflowExecutionProto workflow_execution = 11;</code>
+       */
+      public com.aiflow.proto.Message.WorkflowExecutionProtoOrBuilder getWorkflowExecutionOrBuilder() {
+        if (workflowExecutionBuilder_ != null) {
+          return workflowExecutionBuilder_.getMessageOrBuilder();
+        } else {
+          return workflowExecution_ == null ?
+              com.aiflow.proto.Message.WorkflowExecutionProto.getDefaultInstance() : workflowExecution_;
+        }
+      }
+      /**
+       * <code>.ai_flow.WorkflowExecutionProto workflow_execution = 11;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.aiflow.proto.Message.WorkflowExecutionProto, com.aiflow.proto.Message.WorkflowExecutionProto.Builder, com.aiflow.proto.Message.WorkflowExecutionProtoOrBuilder> 
+          getWorkflowExecutionFieldBuilder() {
+        if (workflowExecutionBuilder_ == null) {
+          workflowExecutionBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.aiflow.proto.Message.WorkflowExecutionProto, com.aiflow.proto.Message.WorkflowExecutionProto.Builder, com.aiflow.proto.Message.WorkflowExecutionProtoOrBuilder>(
+                  getWorkflowExecution(),
+                  getParentForChildren(),
+                  isClean());
+          workflowExecution_ = null;
+        }
+        return workflowExecutionBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -13646,6 +13784,1299 @@ public final class Message {
 
     @java.lang.Override
     public com.aiflow.proto.Message.JobProto getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface WorkflowProtoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ai_flow.WorkflowProto)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int64 uuid = 1;</code>
+     * @return The uuid.
+     */
+    long getUuid();
+
+    /**
+     * <code>string name = 2;</code>
+     * @return The name.
+     */
+    java.lang.String getName();
+    /**
+     * <code>string name = 2;</code>
+     * @return The bytes for name.
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <code>.google.protobuf.StringValue workflow_json = 3;</code>
+     * @return Whether the workflowJson field is set.
+     */
+    boolean hasWorkflowJson();
+    /**
+     * <code>.google.protobuf.StringValue workflow_json = 3;</code>
+     * @return The workflowJson.
+     */
+    com.google.protobuf.StringValue getWorkflowJson();
+    /**
+     * <code>.google.protobuf.StringValue workflow_json = 3;</code>
+     */
+    com.google.protobuf.StringValueOrBuilder getWorkflowJsonOrBuilder();
+
+    /**
+     * <code>map&lt;string, string&gt; properties = 4;</code>
+     */
+    int getPropertiesCount();
+    /**
+     * <code>map&lt;string, string&gt; properties = 4;</code>
+     */
+    boolean containsProperties(
+        java.lang.String key);
+    /**
+     * Use {@link #getPropertiesMap()} instead.
+     */
+    @java.lang.Deprecated
+    java.util.Map<java.lang.String, java.lang.String>
+    getProperties();
+    /**
+     * <code>map&lt;string, string&gt; properties = 4;</code>
+     */
+    java.util.Map<java.lang.String, java.lang.String>
+    getPropertiesMap();
+    /**
+     * <code>map&lt;string, string&gt; properties = 4;</code>
+     */
+
+    java.lang.String getPropertiesOrDefault(
+        java.lang.String key,
+        java.lang.String defaultValue);
+    /**
+     * <code>map&lt;string, string&gt; properties = 4;</code>
+     */
+
+    java.lang.String getPropertiesOrThrow(
+        java.lang.String key);
+
+    /**
+     * <code>string namespace = 5;</code>
+     * @return The namespace.
+     */
+    java.lang.String getNamespace();
+    /**
+     * <code>string namespace = 5;</code>
+     * @return The bytes for namespace.
+     */
+    com.google.protobuf.ByteString
+        getNamespaceBytes();
+  }
+  /**
+   * Protobuf type {@code ai_flow.WorkflowProto}
+   */
+  public  static final class WorkflowProto extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ai_flow.WorkflowProto)
+      WorkflowProtoOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use WorkflowProto.newBuilder() to construct.
+    private WorkflowProto(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private WorkflowProto() {
+      name_ = "";
+      namespace_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new WorkflowProto();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private WorkflowProto(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              uuid_ = input.readInt64();
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              name_ = s;
+              break;
+            }
+            case 26: {
+              com.google.protobuf.StringValue.Builder subBuilder = null;
+              if (workflowJson_ != null) {
+                subBuilder = workflowJson_.toBuilder();
+              }
+              workflowJson_ = input.readMessage(com.google.protobuf.StringValue.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(workflowJson_);
+                workflowJson_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 34: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                properties_ = com.google.protobuf.MapField.newMapField(
+                    PropertiesDefaultEntryHolder.defaultEntry);
+                mutable_bitField0_ |= 0x00000001;
+              }
+              com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+              properties__ = input.readMessage(
+                  PropertiesDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
+              properties_.getMutableMap().put(
+                  properties__.getKey(), properties__.getValue());
+              break;
+            }
+            case 42: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              namespace_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.aiflow.proto.Message.internal_static_ai_flow_WorkflowProto_descriptor;
+    }
+
+    @SuppressWarnings({"rawtypes"})
+    @java.lang.Override
+    protected com.google.protobuf.MapField internalGetMapField(
+        int number) {
+      switch (number) {
+        case 4:
+          return internalGetProperties();
+        default:
+          throw new RuntimeException(
+              "Invalid map field number: " + number);
+      }
+    }
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.aiflow.proto.Message.internal_static_ai_flow_WorkflowProto_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.aiflow.proto.Message.WorkflowProto.class, com.aiflow.proto.Message.WorkflowProto.Builder.class);
+    }
+
+    public static final int UUID_FIELD_NUMBER = 1;
+    private long uuid_;
+    /**
+     * <code>int64 uuid = 1;</code>
+     * @return The uuid.
+     */
+    public long getUuid() {
+      return uuid_;
+    }
+
+    public static final int NAME_FIELD_NUMBER = 2;
+    private volatile java.lang.Object name_;
+    /**
+     * <code>string name = 2;</code>
+     * @return The name.
+     */
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        name_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string name = 2;</code>
+     * @return The bytes for name.
+     */
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int WORKFLOW_JSON_FIELD_NUMBER = 3;
+    private com.google.protobuf.StringValue workflowJson_;
+    /**
+     * <code>.google.protobuf.StringValue workflow_json = 3;</code>
+     * @return Whether the workflowJson field is set.
+     */
+    public boolean hasWorkflowJson() {
+      return workflowJson_ != null;
+    }
+    /**
+     * <code>.google.protobuf.StringValue workflow_json = 3;</code>
+     * @return The workflowJson.
+     */
+    public com.google.protobuf.StringValue getWorkflowJson() {
+      return workflowJson_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : workflowJson_;
+    }
+    /**
+     * <code>.google.protobuf.StringValue workflow_json = 3;</code>
+     */
+    public com.google.protobuf.StringValueOrBuilder getWorkflowJsonOrBuilder() {
+      return getWorkflowJson();
+    }
+
+    public static final int PROPERTIES_FIELD_NUMBER = 4;
+    private static final class PropertiesDefaultEntryHolder {
+      static final com.google.protobuf.MapEntry<
+          java.lang.String, java.lang.String> defaultEntry =
+              com.google.protobuf.MapEntry
+              .<java.lang.String, java.lang.String>newDefaultInstance(
+                  com.aiflow.proto.Message.internal_static_ai_flow_WorkflowProto_PropertiesEntry_descriptor, 
+                  com.google.protobuf.WireFormat.FieldType.STRING,
+                  "",
+                  com.google.protobuf.WireFormat.FieldType.STRING,
+                  "");
+    }
+    private com.google.protobuf.MapField<
+        java.lang.String, java.lang.String> properties_;
+    private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+    internalGetProperties() {
+      if (properties_ == null) {
+        return com.google.protobuf.MapField.emptyMapField(
+            PropertiesDefaultEntryHolder.defaultEntry);
+      }
+      return properties_;
+    }
+
+    public int getPropertiesCount() {
+      return internalGetProperties().getMap().size();
+    }
+    /**
+     * <code>map&lt;string, string&gt; properties = 4;</code>
+     */
+
+    public boolean containsProperties(
+        java.lang.String key) {
+      if (key == null) { throw new java.lang.NullPointerException(); }
+      return internalGetProperties().getMap().containsKey(key);
+    }
+    /**
+     * Use {@link #getPropertiesMap()} instead.
+     */
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.String, java.lang.String> getProperties() {
+      return getPropertiesMap();
+    }
+    /**
+     * <code>map&lt;string, string&gt; properties = 4;</code>
+     */
+
+    public java.util.Map<java.lang.String, java.lang.String> getPropertiesMap() {
+      return internalGetProperties().getMap();
+    }
+    /**
+     * <code>map&lt;string, string&gt; properties = 4;</code>
+     */
+
+    public java.lang.String getPropertiesOrDefault(
+        java.lang.String key,
+        java.lang.String defaultValue) {
+      if (key == null) { throw new java.lang.NullPointerException(); }
+      java.util.Map<java.lang.String, java.lang.String> map =
+          internalGetProperties().getMap();
+      return map.containsKey(key) ? map.get(key) : defaultValue;
+    }
+    /**
+     * <code>map&lt;string, string&gt; properties = 4;</code>
+     */
+
+    public java.lang.String getPropertiesOrThrow(
+        java.lang.String key) {
+      if (key == null) { throw new java.lang.NullPointerException(); }
+      java.util.Map<java.lang.String, java.lang.String> map =
+          internalGetProperties().getMap();
+      if (!map.containsKey(key)) {
+        throw new java.lang.IllegalArgumentException();
+      }
+      return map.get(key);
+    }
+
+    public static final int NAMESPACE_FIELD_NUMBER = 5;
+    private volatile java.lang.Object namespace_;
+    /**
+     * <code>string namespace = 5;</code>
+     * @return The namespace.
+     */
+    public java.lang.String getNamespace() {
+      java.lang.Object ref = namespace_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        namespace_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string namespace = 5;</code>
+     * @return The bytes for namespace.
+     */
+    public com.google.protobuf.ByteString
+        getNamespaceBytes() {
+      java.lang.Object ref = namespace_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        namespace_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (uuid_ != 0L) {
+        output.writeInt64(1, uuid_);
+      }
+      if (!getNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, name_);
+      }
+      if (workflowJson_ != null) {
+        output.writeMessage(3, getWorkflowJson());
+      }
+      com.google.protobuf.GeneratedMessageV3
+        .serializeStringMapTo(
+          output,
+          internalGetProperties(),
+          PropertiesDefaultEntryHolder.defaultEntry,
+          4);
+      if (!getNamespaceBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, namespace_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (uuid_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, uuid_);
+      }
+      if (!getNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, name_);
+      }
+      if (workflowJson_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getWorkflowJson());
+      }
+      for (java.util.Map.Entry<java.lang.String, java.lang.String> entry
+           : internalGetProperties().getMap().entrySet()) {
+        com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+        properties__ = PropertiesDefaultEntryHolder.defaultEntry.newBuilderForType()
+            .setKey(entry.getKey())
+            .setValue(entry.getValue())
+            .build();
+        size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(4, properties__);
+      }
+      if (!getNamespaceBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, namespace_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.aiflow.proto.Message.WorkflowProto)) {
+        return super.equals(obj);
+      }
+      com.aiflow.proto.Message.WorkflowProto other = (com.aiflow.proto.Message.WorkflowProto) obj;
+
+      if (getUuid()
+          != other.getUuid()) return false;
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (hasWorkflowJson() != other.hasWorkflowJson()) return false;
+      if (hasWorkflowJson()) {
+        if (!getWorkflowJson()
+            .equals(other.getWorkflowJson())) return false;
+      }
+      if (!internalGetProperties().equals(
+          other.internalGetProperties())) return false;
+      if (!getNamespace()
+          .equals(other.getNamespace())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + UUID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getUuid());
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
+      if (hasWorkflowJson()) {
+        hash = (37 * hash) + WORKFLOW_JSON_FIELD_NUMBER;
+        hash = (53 * hash) + getWorkflowJson().hashCode();
+      }
+      if (!internalGetProperties().getMap().isEmpty()) {
+        hash = (37 * hash) + PROPERTIES_FIELD_NUMBER;
+        hash = (53 * hash) + internalGetProperties().hashCode();
+      }
+      hash = (37 * hash) + NAMESPACE_FIELD_NUMBER;
+      hash = (53 * hash) + getNamespace().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.aiflow.proto.Message.WorkflowProto parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.aiflow.proto.Message.WorkflowProto parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.aiflow.proto.Message.WorkflowProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.aiflow.proto.Message.WorkflowProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.aiflow.proto.Message.WorkflowProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.aiflow.proto.Message.WorkflowProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.aiflow.proto.Message.WorkflowProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.aiflow.proto.Message.WorkflowProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.aiflow.proto.Message.WorkflowProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.aiflow.proto.Message.WorkflowProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.aiflow.proto.Message.WorkflowProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.aiflow.proto.Message.WorkflowProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.aiflow.proto.Message.WorkflowProto prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code ai_flow.WorkflowProto}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ai_flow.WorkflowProto)
+        com.aiflow.proto.Message.WorkflowProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.aiflow.proto.Message.internal_static_ai_flow_WorkflowProto_descriptor;
+      }
+
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapField internalGetMapField(
+          int number) {
+        switch (number) {
+          case 4:
+            return internalGetProperties();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapField internalGetMutableMapField(
+          int number) {
+        switch (number) {
+          case 4:
+            return internalGetMutableProperties();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.aiflow.proto.Message.internal_static_ai_flow_WorkflowProto_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.aiflow.proto.Message.WorkflowProto.class, com.aiflow.proto.Message.WorkflowProto.Builder.class);
+      }
+
+      // Construct using com.aiflow.proto.Message.WorkflowProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        uuid_ = 0L;
+
+        name_ = "";
+
+        if (workflowJsonBuilder_ == null) {
+          workflowJson_ = null;
+        } else {
+          workflowJson_ = null;
+          workflowJsonBuilder_ = null;
+        }
+        internalGetMutableProperties().clear();
+        namespace_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.aiflow.proto.Message.internal_static_ai_flow_WorkflowProto_descriptor;
+      }
+
+      @java.lang.Override
+      public com.aiflow.proto.Message.WorkflowProto getDefaultInstanceForType() {
+        return com.aiflow.proto.Message.WorkflowProto.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.aiflow.proto.Message.WorkflowProto build() {
+        com.aiflow.proto.Message.WorkflowProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.aiflow.proto.Message.WorkflowProto buildPartial() {
+        com.aiflow.proto.Message.WorkflowProto result = new com.aiflow.proto.Message.WorkflowProto(this);
+        int from_bitField0_ = bitField0_;
+        result.uuid_ = uuid_;
+        result.name_ = name_;
+        if (workflowJsonBuilder_ == null) {
+          result.workflowJson_ = workflowJson_;
+        } else {
+          result.workflowJson_ = workflowJsonBuilder_.build();
+        }
+        result.properties_ = internalGetProperties();
+        result.properties_.makeImmutable();
+        result.namespace_ = namespace_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.aiflow.proto.Message.WorkflowProto) {
+          return mergeFrom((com.aiflow.proto.Message.WorkflowProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.aiflow.proto.Message.WorkflowProto other) {
+        if (other == com.aiflow.proto.Message.WorkflowProto.getDefaultInstance()) return this;
+        if (other.getUuid() != 0L) {
+          setUuid(other.getUuid());
+        }
+        if (!other.getName().isEmpty()) {
+          name_ = other.name_;
+          onChanged();
+        }
+        if (other.hasWorkflowJson()) {
+          mergeWorkflowJson(other.getWorkflowJson());
+        }
+        internalGetMutableProperties().mergeFrom(
+            other.internalGetProperties());
+        if (!other.getNamespace().isEmpty()) {
+          namespace_ = other.namespace_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.aiflow.proto.Message.WorkflowProto parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.aiflow.proto.Message.WorkflowProto) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long uuid_ ;
+      /**
+       * <code>int64 uuid = 1;</code>
+       * @return The uuid.
+       */
+      public long getUuid() {
+        return uuid_;
+      }
+      /**
+       * <code>int64 uuid = 1;</code>
+       * @param value The uuid to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUuid(long value) {
+        
+        uuid_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 uuid = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUuid() {
+        
+        uuid_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object name_ = "";
+      /**
+       * <code>string name = 2;</code>
+       * @return The name.
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          name_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string name = 2;</code>
+       * @return The bytes for name.
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string name = 2;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string name = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearName() {
+        
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string name = 2;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.StringValue workflowJson_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> workflowJsonBuilder_;
+      /**
+       * <code>.google.protobuf.StringValue workflow_json = 3;</code>
+       * @return Whether the workflowJson field is set.
+       */
+      public boolean hasWorkflowJson() {
+        return workflowJsonBuilder_ != null || workflowJson_ != null;
+      }
+      /**
+       * <code>.google.protobuf.StringValue workflow_json = 3;</code>
+       * @return The workflowJson.
+       */
+      public com.google.protobuf.StringValue getWorkflowJson() {
+        if (workflowJsonBuilder_ == null) {
+          return workflowJson_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : workflowJson_;
+        } else {
+          return workflowJsonBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.google.protobuf.StringValue workflow_json = 3;</code>
+       */
+      public Builder setWorkflowJson(com.google.protobuf.StringValue value) {
+        if (workflowJsonBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          workflowJson_ = value;
+          onChanged();
+        } else {
+          workflowJsonBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.StringValue workflow_json = 3;</code>
+       */
+      public Builder setWorkflowJson(
+          com.google.protobuf.StringValue.Builder builderForValue) {
+        if (workflowJsonBuilder_ == null) {
+          workflowJson_ = builderForValue.build();
+          onChanged();
+        } else {
+          workflowJsonBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.StringValue workflow_json = 3;</code>
+       */
+      public Builder mergeWorkflowJson(com.google.protobuf.StringValue value) {
+        if (workflowJsonBuilder_ == null) {
+          if (workflowJson_ != null) {
+            workflowJson_ =
+              com.google.protobuf.StringValue.newBuilder(workflowJson_).mergeFrom(value).buildPartial();
+          } else {
+            workflowJson_ = value;
+          }
+          onChanged();
+        } else {
+          workflowJsonBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.StringValue workflow_json = 3;</code>
+       */
+      public Builder clearWorkflowJson() {
+        if (workflowJsonBuilder_ == null) {
+          workflowJson_ = null;
+          onChanged();
+        } else {
+          workflowJson_ = null;
+          workflowJsonBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.StringValue workflow_json = 3;</code>
+       */
+      public com.google.protobuf.StringValue.Builder getWorkflowJsonBuilder() {
+        
+        onChanged();
+        return getWorkflowJsonFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.google.protobuf.StringValue workflow_json = 3;</code>
+       */
+      public com.google.protobuf.StringValueOrBuilder getWorkflowJsonOrBuilder() {
+        if (workflowJsonBuilder_ != null) {
+          return workflowJsonBuilder_.getMessageOrBuilder();
+        } else {
+          return workflowJson_ == null ?
+              com.google.protobuf.StringValue.getDefaultInstance() : workflowJson_;
+        }
+      }
+      /**
+       * <code>.google.protobuf.StringValue workflow_json = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> 
+          getWorkflowJsonFieldBuilder() {
+        if (workflowJsonBuilder_ == null) {
+          workflowJsonBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder>(
+                  getWorkflowJson(),
+                  getParentForChildren(),
+                  isClean());
+          workflowJson_ = null;
+        }
+        return workflowJsonBuilder_;
+      }
+
+      private com.google.protobuf.MapField<
+          java.lang.String, java.lang.String> properties_;
+      private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+      internalGetProperties() {
+        if (properties_ == null) {
+          return com.google.protobuf.MapField.emptyMapField(
+              PropertiesDefaultEntryHolder.defaultEntry);
+        }
+        return properties_;
+      }
+      private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+      internalGetMutableProperties() {
+        onChanged();;
+        if (properties_ == null) {
+          properties_ = com.google.protobuf.MapField.newMapField(
+              PropertiesDefaultEntryHolder.defaultEntry);
+        }
+        if (!properties_.isMutable()) {
+          properties_ = properties_.copy();
+        }
+        return properties_;
+      }
+
+      public int getPropertiesCount() {
+        return internalGetProperties().getMap().size();
+      }
+      /**
+       * <code>map&lt;string, string&gt; properties = 4;</code>
+       */
+
+      public boolean containsProperties(
+          java.lang.String key) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        return internalGetProperties().getMap().containsKey(key);
+      }
+      /**
+       * Use {@link #getPropertiesMap()} instead.
+       */
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, java.lang.String> getProperties() {
+        return getPropertiesMap();
+      }
+      /**
+       * <code>map&lt;string, string&gt; properties = 4;</code>
+       */
+
+      public java.util.Map<java.lang.String, java.lang.String> getPropertiesMap() {
+        return internalGetProperties().getMap();
+      }
+      /**
+       * <code>map&lt;string, string&gt; properties = 4;</code>
+       */
+
+      public java.lang.String getPropertiesOrDefault(
+          java.lang.String key,
+          java.lang.String defaultValue) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        java.util.Map<java.lang.String, java.lang.String> map =
+            internalGetProperties().getMap();
+        return map.containsKey(key) ? map.get(key) : defaultValue;
+      }
+      /**
+       * <code>map&lt;string, string&gt; properties = 4;</code>
+       */
+
+      public java.lang.String getPropertiesOrThrow(
+          java.lang.String key) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        java.util.Map<java.lang.String, java.lang.String> map =
+            internalGetProperties().getMap();
+        if (!map.containsKey(key)) {
+          throw new java.lang.IllegalArgumentException();
+        }
+        return map.get(key);
+      }
+
+      public Builder clearProperties() {
+        internalGetMutableProperties().getMutableMap()
+            .clear();
+        return this;
+      }
+      /**
+       * <code>map&lt;string, string&gt; properties = 4;</code>
+       */
+
+      public Builder removeProperties(
+          java.lang.String key) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        internalGetMutableProperties().getMutableMap()
+            .remove(key);
+        return this;
+      }
+      /**
+       * Use alternate mutation accessors instead.
+       */
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, java.lang.String>
+      getMutableProperties() {
+        return internalGetMutableProperties().getMutableMap();
+      }
+      /**
+       * <code>map&lt;string, string&gt; properties = 4;</code>
+       */
+      public Builder putProperties(
+          java.lang.String key,
+          java.lang.String value) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        if (value == null) { throw new java.lang.NullPointerException(); }
+        internalGetMutableProperties().getMutableMap()
+            .put(key, value);
+        return this;
+      }
+      /**
+       * <code>map&lt;string, string&gt; properties = 4;</code>
+       */
+
+      public Builder putAllProperties(
+          java.util.Map<java.lang.String, java.lang.String> values) {
+        internalGetMutableProperties().getMutableMap()
+            .putAll(values);
+        return this;
+      }
+
+      private java.lang.Object namespace_ = "";
+      /**
+       * <code>string namespace = 5;</code>
+       * @return The namespace.
+       */
+      public java.lang.String getNamespace() {
+        java.lang.Object ref = namespace_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          namespace_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string namespace = 5;</code>
+       * @return The bytes for namespace.
+       */
+      public com.google.protobuf.ByteString
+          getNamespaceBytes() {
+        java.lang.Object ref = namespace_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          namespace_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string namespace = 5;</code>
+       * @param value The namespace to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNamespace(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        namespace_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string namespace = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNamespace() {
+        
+        namespace_ = getDefaultInstance().getNamespace();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string namespace = 5;</code>
+       * @param value The bytes for namespace to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNamespaceBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        namespace_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ai_flow.WorkflowProto)
+    }
+
+    // @@protoc_insertion_point(class_scope:ai_flow.WorkflowProto)
+    private static final com.aiflow.proto.Message.WorkflowProto DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.aiflow.proto.Message.WorkflowProto();
+    }
+
+    public static com.aiflow.proto.Message.WorkflowProto getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<WorkflowProto>
+        PARSER = new com.google.protobuf.AbstractParser<WorkflowProto>() {
+      @java.lang.Override
+      public WorkflowProto parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new WorkflowProto(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<WorkflowProto> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<WorkflowProto> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.aiflow.proto.Message.WorkflowProto getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -13807,11 +15238,38 @@ public final class Message {
      * <code>.google.protobuf.StringValue signature = 10;</code>
      */
     com.google.protobuf.StringValueOrBuilder getSignatureOrBuilder();
+
+    /**
+     * <code>string execution_id = 11;</code>
+     * @return The executionId.
+     */
+    java.lang.String getExecutionId();
+    /**
+     * <code>string execution_id = 11;</code>
+     * @return The bytes for executionId.
+     */
+    com.google.protobuf.ByteString
+        getExecutionIdBytes();
+
+    /**
+     * <code>.ai_flow.WorkflowProto workflow = 12;</code>
+     * @return Whether the workflow field is set.
+     */
+    boolean hasWorkflow();
+    /**
+     * <code>.ai_flow.WorkflowProto workflow = 12;</code>
+     * @return The workflow.
+     */
+    com.aiflow.proto.Message.WorkflowProto getWorkflow();
+    /**
+     * <code>.ai_flow.WorkflowProto workflow = 12;</code>
+     */
+    com.aiflow.proto.Message.WorkflowProtoOrBuilder getWorkflowOrBuilder();
   }
   /**
    * Protobuf type {@code ai_flow.WorkflowExecutionProto}
    */
-  public static final class WorkflowExecutionProto extends
+  public  static final class WorkflowExecutionProto extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ai_flow.WorkflowExecutionProto)
       WorkflowExecutionProtoOrBuilder {
@@ -13823,6 +15281,7 @@ public final class Message {
     private WorkflowExecutionProto() {
       name_ = "";
       executionState_ = 0;
+      executionId_ = "";
     }
 
     @java.lang.Override
@@ -13964,6 +15423,25 @@ public final class Message {
 
               break;
             }
+            case 90: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              executionId_ = s;
+              break;
+            }
+            case 98: {
+              com.aiflow.proto.Message.WorkflowProto.Builder subBuilder = null;
+              if (workflow_ != null) {
+                subBuilder = workflow_.toBuilder();
+              }
+              workflow_ = input.readMessage(com.aiflow.proto.Message.WorkflowProto.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(workflow_);
+                workflow_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -14014,7 +15492,6 @@ public final class Message {
      * <code>int64 uuid = 1;</code>
      * @return The uuid.
      */
-    @java.lang.Override
     public long getUuid() {
       return uuid_;
     }
@@ -14025,7 +15502,6 @@ public final class Message {
      * <code>string name = 2;</code>
      * @return The name.
      */
-    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -14042,7 +15518,6 @@ public final class Message {
      * <code>string name = 2;</code>
      * @return The bytes for name.
      */
-    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -14063,7 +15538,6 @@ public final class Message {
      * <code>.google.protobuf.Int64Value project_id = 3;</code>
      * @return Whether the projectId field is set.
      */
-    @java.lang.Override
     public boolean hasProjectId() {
       return projectId_ != null;
     }
@@ -14071,14 +15545,12 @@ public final class Message {
      * <code>.google.protobuf.Int64Value project_id = 3;</code>
      * @return The projectId.
      */
-    @java.lang.Override
     public com.google.protobuf.Int64Value getProjectId() {
       return projectId_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : projectId_;
     }
     /**
      * <code>.google.protobuf.Int64Value project_id = 3;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.Int64ValueOrBuilder getProjectIdOrBuilder() {
       return getProjectId();
     }
@@ -14089,14 +15561,14 @@ public final class Message {
      * <code>.ai_flow.StateProto execution_state = 4;</code>
      * @return The enum numeric value on the wire for executionState.
      */
-    @java.lang.Override public int getExecutionStateValue() {
+    public int getExecutionStateValue() {
       return executionState_;
     }
     /**
      * <code>.ai_flow.StateProto execution_state = 4;</code>
      * @return The executionState.
      */
-    @java.lang.Override public com.aiflow.proto.Message.StateProto getExecutionState() {
+    public com.aiflow.proto.Message.StateProto getExecutionState() {
       @SuppressWarnings("deprecation")
       com.aiflow.proto.Message.StateProto result = com.aiflow.proto.Message.StateProto.valueOf(executionState_);
       return result == null ? com.aiflow.proto.Message.StateProto.UNRECOGNIZED : result;
@@ -14132,7 +15604,6 @@ public final class Message {
      * <code>map&lt;string, string&gt; properties = 5;</code>
      */
 
-    @java.lang.Override
     public boolean containsProperties(
         java.lang.String key) {
       if (key == null) { throw new java.lang.NullPointerException(); }
@@ -14141,7 +15612,6 @@ public final class Message {
     /**
      * Use {@link #getPropertiesMap()} instead.
      */
-    @java.lang.Override
     @java.lang.Deprecated
     public java.util.Map<java.lang.String, java.lang.String> getProperties() {
       return getPropertiesMap();
@@ -14149,7 +15619,6 @@ public final class Message {
     /**
      * <code>map&lt;string, string&gt; properties = 5;</code>
      */
-    @java.lang.Override
 
     public java.util.Map<java.lang.String, java.lang.String> getPropertiesMap() {
       return internalGetProperties().getMap();
@@ -14157,7 +15626,6 @@ public final class Message {
     /**
      * <code>map&lt;string, string&gt; properties = 5;</code>
      */
-    @java.lang.Override
 
     public java.lang.String getPropertiesOrDefault(
         java.lang.String key,
@@ -14170,7 +15638,6 @@ public final class Message {
     /**
      * <code>map&lt;string, string&gt; properties = 5;</code>
      */
-    @java.lang.Override
 
     public java.lang.String getPropertiesOrThrow(
         java.lang.String key) {
@@ -14189,7 +15656,6 @@ public final class Message {
      * <code>.google.protobuf.Int64Value start_time = 6;</code>
      * @return Whether the startTime field is set.
      */
-    @java.lang.Override
     public boolean hasStartTime() {
       return startTime_ != null;
     }
@@ -14197,14 +15663,12 @@ public final class Message {
      * <code>.google.protobuf.Int64Value start_time = 6;</code>
      * @return The startTime.
      */
-    @java.lang.Override
     public com.google.protobuf.Int64Value getStartTime() {
       return startTime_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : startTime_;
     }
     /**
      * <code>.google.protobuf.Int64Value start_time = 6;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.Int64ValueOrBuilder getStartTimeOrBuilder() {
       return getStartTime();
     }
@@ -14215,7 +15679,6 @@ public final class Message {
      * <code>.google.protobuf.Int64Value end_time = 7;</code>
      * @return Whether the endTime field is set.
      */
-    @java.lang.Override
     public boolean hasEndTime() {
       return endTime_ != null;
     }
@@ -14223,14 +15686,12 @@ public final class Message {
      * <code>.google.protobuf.Int64Value end_time = 7;</code>
      * @return The endTime.
      */
-    @java.lang.Override
     public com.google.protobuf.Int64Value getEndTime() {
       return endTime_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : endTime_;
     }
     /**
      * <code>.google.protobuf.Int64Value end_time = 7;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.Int64ValueOrBuilder getEndTimeOrBuilder() {
       return getEndTime();
     }
@@ -14241,7 +15702,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue log_uri = 8;</code>
      * @return Whether the logUri field is set.
      */
-    @java.lang.Override
     public boolean hasLogUri() {
       return logUri_ != null;
     }
@@ -14249,14 +15709,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue log_uri = 8;</code>
      * @return The logUri.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getLogUri() {
       return logUri_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : logUri_;
     }
     /**
      * <code>.google.protobuf.StringValue log_uri = 8;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getLogUriOrBuilder() {
       return getLogUri();
     }
@@ -14267,7 +15725,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue workflow_json = 9;</code>
      * @return Whether the workflowJson field is set.
      */
-    @java.lang.Override
     public boolean hasWorkflowJson() {
       return workflowJson_ != null;
     }
@@ -14275,14 +15732,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue workflow_json = 9;</code>
      * @return The workflowJson.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getWorkflowJson() {
       return workflowJson_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : workflowJson_;
     }
     /**
      * <code>.google.protobuf.StringValue workflow_json = 9;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getWorkflowJsonOrBuilder() {
       return getWorkflowJson();
     }
@@ -14293,7 +15748,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue signature = 10;</code>
      * @return Whether the signature field is set.
      */
-    @java.lang.Override
     public boolean hasSignature() {
       return signature_ != null;
     }
@@ -14301,16 +15755,73 @@ public final class Message {
      * <code>.google.protobuf.StringValue signature = 10;</code>
      * @return The signature.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getSignature() {
       return signature_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : signature_;
     }
     /**
      * <code>.google.protobuf.StringValue signature = 10;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getSignatureOrBuilder() {
       return getSignature();
+    }
+
+    public static final int EXECUTION_ID_FIELD_NUMBER = 11;
+    private volatile java.lang.Object executionId_;
+    /**
+     * <code>string execution_id = 11;</code>
+     * @return The executionId.
+     */
+    public java.lang.String getExecutionId() {
+      java.lang.Object ref = executionId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        executionId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string execution_id = 11;</code>
+     * @return The bytes for executionId.
+     */
+    public com.google.protobuf.ByteString
+        getExecutionIdBytes() {
+      java.lang.Object ref = executionId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        executionId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int WORKFLOW_FIELD_NUMBER = 12;
+    private com.aiflow.proto.Message.WorkflowProto workflow_;
+    /**
+     * <code>.ai_flow.WorkflowProto workflow = 12;</code>
+     * @return Whether the workflow field is set.
+     */
+    public boolean hasWorkflow() {
+      return workflow_ != null;
+    }
+    /**
+     * <code>.ai_flow.WorkflowProto workflow = 12;</code>
+     * @return The workflow.
+     */
+    public com.aiflow.proto.Message.WorkflowProto getWorkflow() {
+      return workflow_ == null ? com.aiflow.proto.Message.WorkflowProto.getDefaultInstance() : workflow_;
+    }
+    /**
+     * <code>.ai_flow.WorkflowProto workflow = 12;</code>
+     */
+    public com.aiflow.proto.Message.WorkflowProtoOrBuilder getWorkflowOrBuilder() {
+      return getWorkflow();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -14359,6 +15870,12 @@ public final class Message {
       }
       if (signature_ != null) {
         output.writeMessage(10, getSignature());
+      }
+      if (!getExecutionIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 11, executionId_);
+      }
+      if (workflow_ != null) {
+        output.writeMessage(12, getWorkflow());
       }
       unknownFields.writeTo(output);
     }
@@ -14414,6 +15931,13 @@ public final class Message {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(10, getSignature());
       }
+      if (!getExecutionIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(11, executionId_);
+      }
+      if (workflow_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(12, getWorkflow());
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -14466,6 +15990,13 @@ public final class Message {
         if (!getSignature()
             .equals(other.getSignature())) return false;
       }
+      if (!getExecutionId()
+          .equals(other.getExecutionId())) return false;
+      if (hasWorkflow() != other.hasWorkflow()) return false;
+      if (hasWorkflow()) {
+        if (!getWorkflow()
+            .equals(other.getWorkflow())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -14511,6 +16042,12 @@ public final class Message {
       if (hasSignature()) {
         hash = (37 * hash) + SIGNATURE_FIELD_NUMBER;
         hash = (53 * hash) + getSignature().hashCode();
+      }
+      hash = (37 * hash) + EXECUTION_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getExecutionId().hashCode();
+      if (hasWorkflow()) {
+        hash = (37 * hash) + WORKFLOW_FIELD_NUMBER;
+        hash = (53 * hash) + getWorkflow().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -14710,6 +16247,14 @@ public final class Message {
           signature_ = null;
           signatureBuilder_ = null;
         }
+        executionId_ = "";
+
+        if (workflowBuilder_ == null) {
+          workflow_ = null;
+        } else {
+          workflow_ = null;
+          workflowBuilder_ = null;
+        }
         return this;
       }
 
@@ -14771,6 +16316,12 @@ public final class Message {
           result.signature_ = signature_;
         } else {
           result.signature_ = signatureBuilder_.build();
+        }
+        result.executionId_ = executionId_;
+        if (workflowBuilder_ == null) {
+          result.workflow_ = workflow_;
+        } else {
+          result.workflow_ = workflowBuilder_.build();
         }
         onBuilt();
         return result;
@@ -14850,6 +16401,13 @@ public final class Message {
         if (other.hasSignature()) {
           mergeSignature(other.getSignature());
         }
+        if (!other.getExecutionId().isEmpty()) {
+          executionId_ = other.executionId_;
+          onChanged();
+        }
+        if (other.hasWorkflow()) {
+          mergeWorkflow(other.getWorkflow());
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -14885,7 +16443,6 @@ public final class Message {
        * <code>int64 uuid = 1;</code>
        * @return The uuid.
        */
-      @java.lang.Override
       public long getUuid() {
         return uuid_;
       }
@@ -15111,7 +16668,7 @@ public final class Message {
        * <code>.ai_flow.StateProto execution_state = 4;</code>
        * @return The enum numeric value on the wire for executionState.
        */
-      @java.lang.Override public int getExecutionStateValue() {
+      public int getExecutionStateValue() {
         return executionState_;
       }
       /**
@@ -15120,7 +16677,6 @@ public final class Message {
        * @return This builder for chaining.
        */
       public Builder setExecutionStateValue(int value) {
-        
         executionState_ = value;
         onChanged();
         return this;
@@ -15129,7 +16685,6 @@ public final class Message {
        * <code>.ai_flow.StateProto execution_state = 4;</code>
        * @return The executionState.
        */
-      @java.lang.Override
       public com.aiflow.proto.Message.StateProto getExecutionState() {
         @SuppressWarnings("deprecation")
         com.aiflow.proto.Message.StateProto result = com.aiflow.proto.Message.StateProto.valueOf(executionState_);
@@ -15190,7 +16745,6 @@ public final class Message {
        * <code>map&lt;string, string&gt; properties = 5;</code>
        */
 
-      @java.lang.Override
       public boolean containsProperties(
           java.lang.String key) {
         if (key == null) { throw new java.lang.NullPointerException(); }
@@ -15199,7 +16753,6 @@ public final class Message {
       /**
        * Use {@link #getPropertiesMap()} instead.
        */
-      @java.lang.Override
       @java.lang.Deprecated
       public java.util.Map<java.lang.String, java.lang.String> getProperties() {
         return getPropertiesMap();
@@ -15207,7 +16760,6 @@ public final class Message {
       /**
        * <code>map&lt;string, string&gt; properties = 5;</code>
        */
-      @java.lang.Override
 
       public java.util.Map<java.lang.String, java.lang.String> getPropertiesMap() {
         return internalGetProperties().getMap();
@@ -15215,7 +16767,6 @@ public final class Message {
       /**
        * <code>map&lt;string, string&gt; properties = 5;</code>
        */
-      @java.lang.Override
 
       public java.lang.String getPropertiesOrDefault(
           java.lang.String key,
@@ -15228,7 +16779,6 @@ public final class Message {
       /**
        * <code>map&lt;string, string&gt; properties = 5;</code>
        */
-      @java.lang.Override
 
       public java.lang.String getPropertiesOrThrow(
           java.lang.String key) {
@@ -15882,6 +17432,201 @@ public final class Message {
         }
         return signatureBuilder_;
       }
+
+      private java.lang.Object executionId_ = "";
+      /**
+       * <code>string execution_id = 11;</code>
+       * @return The executionId.
+       */
+      public java.lang.String getExecutionId() {
+        java.lang.Object ref = executionId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          executionId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string execution_id = 11;</code>
+       * @return The bytes for executionId.
+       */
+      public com.google.protobuf.ByteString
+          getExecutionIdBytes() {
+        java.lang.Object ref = executionId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          executionId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string execution_id = 11;</code>
+       * @param value The executionId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExecutionId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        executionId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string execution_id = 11;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearExecutionId() {
+        
+        executionId_ = getDefaultInstance().getExecutionId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string execution_id = 11;</code>
+       * @param value The bytes for executionId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExecutionIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        executionId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private com.aiflow.proto.Message.WorkflowProto workflow_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.aiflow.proto.Message.WorkflowProto, com.aiflow.proto.Message.WorkflowProto.Builder, com.aiflow.proto.Message.WorkflowProtoOrBuilder> workflowBuilder_;
+      /**
+       * <code>.ai_flow.WorkflowProto workflow = 12;</code>
+       * @return Whether the workflow field is set.
+       */
+      public boolean hasWorkflow() {
+        return workflowBuilder_ != null || workflow_ != null;
+      }
+      /**
+       * <code>.ai_flow.WorkflowProto workflow = 12;</code>
+       * @return The workflow.
+       */
+      public com.aiflow.proto.Message.WorkflowProto getWorkflow() {
+        if (workflowBuilder_ == null) {
+          return workflow_ == null ? com.aiflow.proto.Message.WorkflowProto.getDefaultInstance() : workflow_;
+        } else {
+          return workflowBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.ai_flow.WorkflowProto workflow = 12;</code>
+       */
+      public Builder setWorkflow(com.aiflow.proto.Message.WorkflowProto value) {
+        if (workflowBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          workflow_ = value;
+          onChanged();
+        } else {
+          workflowBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.ai_flow.WorkflowProto workflow = 12;</code>
+       */
+      public Builder setWorkflow(
+          com.aiflow.proto.Message.WorkflowProto.Builder builderForValue) {
+        if (workflowBuilder_ == null) {
+          workflow_ = builderForValue.build();
+          onChanged();
+        } else {
+          workflowBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.ai_flow.WorkflowProto workflow = 12;</code>
+       */
+      public Builder mergeWorkflow(com.aiflow.proto.Message.WorkflowProto value) {
+        if (workflowBuilder_ == null) {
+          if (workflow_ != null) {
+            workflow_ =
+              com.aiflow.proto.Message.WorkflowProto.newBuilder(workflow_).mergeFrom(value).buildPartial();
+          } else {
+            workflow_ = value;
+          }
+          onChanged();
+        } else {
+          workflowBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.ai_flow.WorkflowProto workflow = 12;</code>
+       */
+      public Builder clearWorkflow() {
+        if (workflowBuilder_ == null) {
+          workflow_ = null;
+          onChanged();
+        } else {
+          workflow_ = null;
+          workflowBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.ai_flow.WorkflowProto workflow = 12;</code>
+       */
+      public com.aiflow.proto.Message.WorkflowProto.Builder getWorkflowBuilder() {
+        
+        onChanged();
+        return getWorkflowFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.ai_flow.WorkflowProto workflow = 12;</code>
+       */
+      public com.aiflow.proto.Message.WorkflowProtoOrBuilder getWorkflowOrBuilder() {
+        if (workflowBuilder_ != null) {
+          return workflowBuilder_.getMessageOrBuilder();
+        } else {
+          return workflow_ == null ?
+              com.aiflow.proto.Message.WorkflowProto.getDefaultInstance() : workflow_;
+        }
+      }
+      /**
+       * <code>.ai_flow.WorkflowProto workflow = 12;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.aiflow.proto.Message.WorkflowProto, com.aiflow.proto.Message.WorkflowProto.Builder, com.aiflow.proto.Message.WorkflowProtoOrBuilder> 
+          getWorkflowFieldBuilder() {
+        if (workflowBuilder_ == null) {
+          workflowBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.aiflow.proto.Message.WorkflowProto, com.aiflow.proto.Message.WorkflowProto.Builder, com.aiflow.proto.Message.WorkflowProtoOrBuilder>(
+                  getWorkflow(),
+                  getParentForChildren(),
+                  isClean());
+          workflow_ = null;
+        }
+        return workflowBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -16054,7 +17799,7 @@ public final class Message {
   /**
    * Protobuf type {@code ai_flow.ProjectProto}
    */
-  public static final class ProjectProto extends
+  public  static final class ProjectProto extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ai_flow.ProjectProto)
       ProjectProtoOrBuilder {
@@ -16224,7 +17969,6 @@ public final class Message {
      * <code>int64 uuid = 1;</code>
      * @return The uuid.
      */
-    @java.lang.Override
     public long getUuid() {
       return uuid_;
     }
@@ -16235,7 +17979,6 @@ public final class Message {
      * <code>string name = 2;</code>
      * @return The name.
      */
-    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -16252,7 +17995,6 @@ public final class Message {
      * <code>string name = 2;</code>
      * @return The bytes for name.
      */
-    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -16297,7 +18039,6 @@ public final class Message {
      * <code>map&lt;string, string&gt; properties = 3;</code>
      */
 
-    @java.lang.Override
     public boolean containsProperties(
         java.lang.String key) {
       if (key == null) { throw new java.lang.NullPointerException(); }
@@ -16306,7 +18047,6 @@ public final class Message {
     /**
      * Use {@link #getPropertiesMap()} instead.
      */
-    @java.lang.Override
     @java.lang.Deprecated
     public java.util.Map<java.lang.String, java.lang.String> getProperties() {
       return getPropertiesMap();
@@ -16314,7 +18054,6 @@ public final class Message {
     /**
      * <code>map&lt;string, string&gt; properties = 3;</code>
      */
-    @java.lang.Override
 
     public java.util.Map<java.lang.String, java.lang.String> getPropertiesMap() {
       return internalGetProperties().getMap();
@@ -16322,7 +18061,6 @@ public final class Message {
     /**
      * <code>map&lt;string, string&gt; properties = 3;</code>
      */
-    @java.lang.Override
 
     public java.lang.String getPropertiesOrDefault(
         java.lang.String key,
@@ -16335,7 +18073,6 @@ public final class Message {
     /**
      * <code>map&lt;string, string&gt; properties = 3;</code>
      */
-    @java.lang.Override
 
     public java.lang.String getPropertiesOrThrow(
         java.lang.String key) {
@@ -16354,7 +18091,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue project_type = 4;</code>
      * @return Whether the projectType field is set.
      */
-    @java.lang.Override
     public boolean hasProjectType() {
       return projectType_ != null;
     }
@@ -16362,14 +18098,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue project_type = 4;</code>
      * @return The projectType.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getProjectType() {
       return projectType_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : projectType_;
     }
     /**
      * <code>.google.protobuf.StringValue project_type = 4;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getProjectTypeOrBuilder() {
       return getProjectType();
     }
@@ -16380,7 +18114,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue uri = 5;</code>
      * @return Whether the uri field is set.
      */
-    @java.lang.Override
     public boolean hasUri() {
       return uri_ != null;
     }
@@ -16388,14 +18121,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue uri = 5;</code>
      * @return The uri.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getUri() {
       return uri_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : uri_;
     }
     /**
      * <code>.google.protobuf.StringValue uri = 5;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getUriOrBuilder() {
       return getUri();
     }
@@ -16406,7 +18137,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue user = 6;</code>
      * @return Whether the user field is set.
      */
-    @java.lang.Override
     public boolean hasUser() {
       return user_ != null;
     }
@@ -16414,14 +18144,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue user = 6;</code>
      * @return The user.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getUser() {
       return user_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : user_;
     }
     /**
      * <code>.google.protobuf.StringValue user = 6;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getUserOrBuilder() {
       return getUser();
     }
@@ -16432,7 +18160,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue password = 7;</code>
      * @return Whether the password field is set.
      */
-    @java.lang.Override
     public boolean hasPassword() {
       return password_ != null;
     }
@@ -16440,14 +18167,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue password = 7;</code>
      * @return The password.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getPassword() {
       return password_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : password_;
     }
     /**
      * <code>.google.protobuf.StringValue password = 7;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getPasswordOrBuilder() {
       return getPassword();
     }
@@ -16948,7 +18673,6 @@ public final class Message {
        * <code>int64 uuid = 1;</code>
        * @return The uuid.
        */
-      @java.lang.Override
       public long getUuid() {
         return uuid_;
       }
@@ -17080,7 +18804,6 @@ public final class Message {
        * <code>map&lt;string, string&gt; properties = 3;</code>
        */
 
-      @java.lang.Override
       public boolean containsProperties(
           java.lang.String key) {
         if (key == null) { throw new java.lang.NullPointerException(); }
@@ -17089,7 +18812,6 @@ public final class Message {
       /**
        * Use {@link #getPropertiesMap()} instead.
        */
-      @java.lang.Override
       @java.lang.Deprecated
       public java.util.Map<java.lang.String, java.lang.String> getProperties() {
         return getPropertiesMap();
@@ -17097,7 +18819,6 @@ public final class Message {
       /**
        * <code>map&lt;string, string&gt; properties = 3;</code>
        */
-      @java.lang.Override
 
       public java.util.Map<java.lang.String, java.lang.String> getPropertiesMap() {
         return internalGetProperties().getMap();
@@ -17105,7 +18826,6 @@ public final class Message {
       /**
        * <code>map&lt;string, string&gt; properties = 3;</code>
        */
-      @java.lang.Override
 
       public java.lang.String getPropertiesOrDefault(
           java.lang.String key,
@@ -17118,7 +18838,6 @@ public final class Message {
       /**
        * <code>map&lt;string, string&gt; properties = 3;</code>
        */
-      @java.lang.Override
 
       public java.lang.String getPropertiesOrThrow(
           java.lang.String key) {
@@ -17855,7 +19574,7 @@ public final class Message {
   /**
    * Protobuf type {@code ai_flow.ArtifactProto}
    */
-  public static final class ArtifactProto extends
+  public  static final class ArtifactProto extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ai_flow.ArtifactProto)
       ArtifactProtoOrBuilder {
@@ -18051,7 +19770,6 @@ public final class Message {
      * <code>int64 uuid = 1;</code>
      * @return The uuid.
      */
-    @java.lang.Override
     public long getUuid() {
       return uuid_;
     }
@@ -18062,7 +19780,6 @@ public final class Message {
      * <code>string name = 2;</code>
      * @return The name.
      */
-    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -18079,7 +19796,6 @@ public final class Message {
      * <code>string name = 2;</code>
      * @return The bytes for name.
      */
-    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -18124,7 +19840,6 @@ public final class Message {
      * <code>map&lt;string, string&gt; properties = 3;</code>
      */
 
-    @java.lang.Override
     public boolean containsProperties(
         java.lang.String key) {
       if (key == null) { throw new java.lang.NullPointerException(); }
@@ -18133,7 +19848,6 @@ public final class Message {
     /**
      * Use {@link #getPropertiesMap()} instead.
      */
-    @java.lang.Override
     @java.lang.Deprecated
     public java.util.Map<java.lang.String, java.lang.String> getProperties() {
       return getPropertiesMap();
@@ -18141,7 +19855,6 @@ public final class Message {
     /**
      * <code>map&lt;string, string&gt; properties = 3;</code>
      */
-    @java.lang.Override
 
     public java.util.Map<java.lang.String, java.lang.String> getPropertiesMap() {
       return internalGetProperties().getMap();
@@ -18149,7 +19862,6 @@ public final class Message {
     /**
      * <code>map&lt;string, string&gt; properties = 3;</code>
      */
-    @java.lang.Override
 
     public java.lang.String getPropertiesOrDefault(
         java.lang.String key,
@@ -18162,7 +19874,6 @@ public final class Message {
     /**
      * <code>map&lt;string, string&gt; properties = 3;</code>
      */
-    @java.lang.Override
 
     public java.lang.String getPropertiesOrThrow(
         java.lang.String key) {
@@ -18181,7 +19892,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue data_format = 4;</code>
      * @return Whether the dataFormat field is set.
      */
-    @java.lang.Override
     public boolean hasDataFormat() {
       return dataFormat_ != null;
     }
@@ -18189,14 +19899,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue data_format = 4;</code>
      * @return The dataFormat.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getDataFormat() {
       return dataFormat_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : dataFormat_;
     }
     /**
      * <code>.google.protobuf.StringValue data_format = 4;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getDataFormatOrBuilder() {
       return getDataFormat();
     }
@@ -18207,7 +19915,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue batch_uri = 5;</code>
      * @return Whether the batchUri field is set.
      */
-    @java.lang.Override
     public boolean hasBatchUri() {
       return batchUri_ != null;
     }
@@ -18215,14 +19922,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue batch_uri = 5;</code>
      * @return The batchUri.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getBatchUri() {
       return batchUri_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : batchUri_;
     }
     /**
      * <code>.google.protobuf.StringValue batch_uri = 5;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getBatchUriOrBuilder() {
       return getBatchUri();
     }
@@ -18233,7 +19938,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue stream_uri = 6;</code>
      * @return Whether the streamUri field is set.
      */
-    @java.lang.Override
     public boolean hasStreamUri() {
       return streamUri_ != null;
     }
@@ -18241,14 +19945,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue stream_uri = 6;</code>
      * @return The streamUri.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getStreamUri() {
       return streamUri_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : streamUri_;
     }
     /**
      * <code>.google.protobuf.StringValue stream_uri = 6;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getStreamUriOrBuilder() {
       return getStreamUri();
     }
@@ -18259,7 +19961,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue description = 7;</code>
      * @return Whether the description field is set.
      */
-    @java.lang.Override
     public boolean hasDescription() {
       return description_ != null;
     }
@@ -18267,14 +19968,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue description = 7;</code>
      * @return The description.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getDescription() {
       return description_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : description_;
     }
     /**
      * <code>.google.protobuf.StringValue description = 7;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getDescriptionOrBuilder() {
       return getDescription();
     }
@@ -18285,7 +19984,6 @@ public final class Message {
      * <code>.google.protobuf.Int64Value create_time = 8;</code>
      * @return Whether the createTime field is set.
      */
-    @java.lang.Override
     public boolean hasCreateTime() {
       return createTime_ != null;
     }
@@ -18293,14 +19991,12 @@ public final class Message {
      * <code>.google.protobuf.Int64Value create_time = 8;</code>
      * @return The createTime.
      */
-    @java.lang.Override
     public com.google.protobuf.Int64Value getCreateTime() {
       return createTime_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : createTime_;
     }
     /**
      * <code>.google.protobuf.Int64Value create_time = 8;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.Int64ValueOrBuilder getCreateTimeOrBuilder() {
       return getCreateTime();
     }
@@ -18311,7 +20007,6 @@ public final class Message {
      * <code>.google.protobuf.Int64Value update_time = 9;</code>
      * @return Whether the updateTime field is set.
      */
-    @java.lang.Override
     public boolean hasUpdateTime() {
       return updateTime_ != null;
     }
@@ -18319,14 +20014,12 @@ public final class Message {
      * <code>.google.protobuf.Int64Value update_time = 9;</code>
      * @return The updateTime.
      */
-    @java.lang.Override
     public com.google.protobuf.Int64Value getUpdateTime() {
       return updateTime_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : updateTime_;
     }
     /**
      * <code>.google.protobuf.Int64Value update_time = 9;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.Int64ValueOrBuilder getUpdateTimeOrBuilder() {
       return getUpdateTime();
     }
@@ -18887,7 +20580,6 @@ public final class Message {
        * <code>int64 uuid = 1;</code>
        * @return The uuid.
        */
-      @java.lang.Override
       public long getUuid() {
         return uuid_;
       }
@@ -19019,7 +20711,6 @@ public final class Message {
        * <code>map&lt;string, string&gt; properties = 3;</code>
        */
 
-      @java.lang.Override
       public boolean containsProperties(
           java.lang.String key) {
         if (key == null) { throw new java.lang.NullPointerException(); }
@@ -19028,7 +20719,6 @@ public final class Message {
       /**
        * Use {@link #getPropertiesMap()} instead.
        */
-      @java.lang.Override
       @java.lang.Deprecated
       public java.util.Map<java.lang.String, java.lang.String> getProperties() {
         return getPropertiesMap();
@@ -19036,7 +20726,6 @@ public final class Message {
       /**
        * <code>map&lt;string, string&gt; properties = 3;</code>
        */
-      @java.lang.Override
 
       public java.util.Map<java.lang.String, java.lang.String> getPropertiesMap() {
         return internalGetProperties().getMap();
@@ -19044,7 +20733,6 @@ public final class Message {
       /**
        * <code>map&lt;string, string&gt; properties = 3;</code>
        */
-      @java.lang.Override
 
       public java.lang.String getPropertiesOrDefault(
           java.lang.String key,
@@ -19057,7 +20745,6 @@ public final class Message {
       /**
        * <code>map&lt;string, string&gt; properties = 3;</code>
        */
-      @java.lang.Override
 
       public java.lang.String getPropertiesOrThrow(
           java.lang.String key) {
@@ -19931,7 +21618,7 @@ public final class Message {
   /**
    * Protobuf type {@code ai_flow.RegisteredModelParam}
    */
-  public static final class RegisteredModelParam extends
+  public  static final class RegisteredModelParam extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ai_flow.RegisteredModelParam)
       RegisteredModelParamOrBuilder {
@@ -20044,7 +21731,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_name = 1;</code>
      * @return Whether the modelName field is set.
      */
-    @java.lang.Override
     public boolean hasModelName() {
       return modelName_ != null;
     }
@@ -20052,14 +21738,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_name = 1;</code>
      * @return The modelName.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getModelName() {
       return modelName_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : modelName_;
     }
     /**
      * <code>.google.protobuf.StringValue model_name = 1;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getModelNameOrBuilder() {
       return getModelName();
     }
@@ -20070,14 +21754,14 @@ public final class Message {
      * <code>.ai_flow.ModelType model_type = 2;</code>
      * @return The enum numeric value on the wire for modelType.
      */
-    @java.lang.Override public int getModelTypeValue() {
+    public int getModelTypeValue() {
       return modelType_;
     }
     /**
      * <code>.ai_flow.ModelType model_type = 2;</code>
      * @return The modelType.
      */
-    @java.lang.Override public com.aiflow.proto.Message.ModelType getModelType() {
+    public com.aiflow.proto.Message.ModelType getModelType() {
       @SuppressWarnings("deprecation")
       com.aiflow.proto.Message.ModelType result = com.aiflow.proto.Message.ModelType.valueOf(modelType_);
       return result == null ? com.aiflow.proto.Message.ModelType.UNRECOGNIZED : result;
@@ -20089,7 +21773,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_desc = 3;</code>
      * @return Whether the modelDesc field is set.
      */
-    @java.lang.Override
     public boolean hasModelDesc() {
       return modelDesc_ != null;
     }
@@ -20097,14 +21780,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_desc = 3;</code>
      * @return The modelDesc.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getModelDesc() {
       return modelDesc_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : modelDesc_;
     }
     /**
      * <code>.google.protobuf.StringValue model_desc = 3;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getModelDescOrBuilder() {
       return getModelDesc();
     }
@@ -20594,7 +22275,7 @@ public final class Message {
        * <code>.ai_flow.ModelType model_type = 2;</code>
        * @return The enum numeric value on the wire for modelType.
        */
-      @java.lang.Override public int getModelTypeValue() {
+      public int getModelTypeValue() {
         return modelType_;
       }
       /**
@@ -20603,7 +22284,6 @@ public final class Message {
        * @return This builder for chaining.
        */
       public Builder setModelTypeValue(int value) {
-        
         modelType_ = value;
         onChanged();
         return this;
@@ -20612,7 +22292,6 @@ public final class Message {
        * <code>.ai_flow.ModelType model_type = 2;</code>
        * @return The modelType.
        */
-      @java.lang.Override
       public com.aiflow.proto.Message.ModelType getModelType() {
         @SuppressWarnings("deprecation")
         com.aiflow.proto.Message.ModelType result = com.aiflow.proto.Message.ModelType.valueOf(modelType_);
@@ -20892,7 +22571,7 @@ public final class Message {
   /**
    * Protobuf type {@code ai_flow.ModelVersionParam}
    */
-  public static final class ModelVersionParam extends
+  public  static final class ModelVersionParam extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ai_flow.ModelVersionParam)
       ModelVersionParamOrBuilder {
@@ -21031,7 +22710,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_path = 1;</code>
      * @return Whether the modelPath field is set.
      */
-    @java.lang.Override
     public boolean hasModelPath() {
       return modelPath_ != null;
     }
@@ -21039,14 +22717,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_path = 1;</code>
      * @return The modelPath.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getModelPath() {
       return modelPath_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : modelPath_;
     }
     /**
      * <code>.google.protobuf.StringValue model_path = 1;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getModelPathOrBuilder() {
       return getModelPath();
     }
@@ -21057,7 +22733,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_metric = 2;</code>
      * @return Whether the modelMetric field is set.
      */
-    @java.lang.Override
     public boolean hasModelMetric() {
       return modelMetric_ != null;
     }
@@ -21065,14 +22740,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_metric = 2;</code>
      * @return The modelMetric.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getModelMetric() {
       return modelMetric_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : modelMetric_;
     }
     /**
      * <code>.google.protobuf.StringValue model_metric = 2;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getModelMetricOrBuilder() {
       return getModelMetric();
     }
@@ -21083,7 +22756,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_flavor = 3;</code>
      * @return Whether the modelFlavor field is set.
      */
-    @java.lang.Override
     public boolean hasModelFlavor() {
       return modelFlavor_ != null;
     }
@@ -21091,14 +22763,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_flavor = 3;</code>
      * @return The modelFlavor.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getModelFlavor() {
       return modelFlavor_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : modelFlavor_;
     }
     /**
      * <code>.google.protobuf.StringValue model_flavor = 3;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getModelFlavorOrBuilder() {
       return getModelFlavor();
     }
@@ -21109,7 +22779,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue version_desc = 4;</code>
      * @return Whether the versionDesc field is set.
      */
-    @java.lang.Override
     public boolean hasVersionDesc() {
       return versionDesc_ != null;
     }
@@ -21117,14 +22786,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue version_desc = 4;</code>
      * @return The versionDesc.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getVersionDesc() {
       return versionDesc_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : versionDesc_;
     }
     /**
      * <code>.google.protobuf.StringValue version_desc = 4;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getVersionDescOrBuilder() {
       return getVersionDesc();
     }
@@ -21135,14 +22802,14 @@ public final class Message {
      * <code>.ai_flow.ModelVersionStage current_stage = 5;</code>
      * @return The enum numeric value on the wire for currentStage.
      */
-    @java.lang.Override public int getCurrentStageValue() {
+    public int getCurrentStageValue() {
       return currentStage_;
     }
     /**
      * <code>.ai_flow.ModelVersionStage current_stage = 5;</code>
      * @return The currentStage.
      */
-    @java.lang.Override public com.aiflow.proto.Message.ModelVersionStage getCurrentStage() {
+    public com.aiflow.proto.Message.ModelVersionStage getCurrentStage() {
       @SuppressWarnings("deprecation")
       com.aiflow.proto.Message.ModelVersionStage result = com.aiflow.proto.Message.ModelVersionStage.valueOf(currentStage_);
       return result == null ? com.aiflow.proto.Message.ModelVersionStage.UNRECOGNIZED : result;
@@ -22050,7 +23717,7 @@ public final class Message {
        * <code>.ai_flow.ModelVersionStage current_stage = 5;</code>
        * @return The enum numeric value on the wire for currentStage.
        */
-      @java.lang.Override public int getCurrentStageValue() {
+      public int getCurrentStageValue() {
         return currentStage_;
       }
       /**
@@ -22059,7 +23726,6 @@ public final class Message {
        * @return This builder for chaining.
        */
       public Builder setCurrentStageValue(int value) {
-        
         currentStage_ = value;
         onChanged();
         return this;
@@ -22068,7 +23734,6 @@ public final class Message {
        * <code>.ai_flow.ModelVersionStage current_stage = 5;</code>
        * @return The currentStage.
        */
-      @java.lang.Override
       public com.aiflow.proto.Message.ModelVersionStage getCurrentStage() {
         @SuppressWarnings("deprecation")
         com.aiflow.proto.Message.ModelVersionStage result = com.aiflow.proto.Message.ModelVersionStage.valueOf(currentStage_);
@@ -22188,7 +23853,7 @@ public final class Message {
   /**
    * Protobuf type {@code ai_flow.ModelMetaParam}
    */
-  public static final class ModelMetaParam extends
+  public  static final class ModelMetaParam extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ai_flow.ModelMetaParam)
       ModelMetaParamOrBuilder {
@@ -22294,7 +23959,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_name = 1;</code>
      * @return Whether the modelName field is set.
      */
-    @java.lang.Override
     public boolean hasModelName() {
       return modelName_ != null;
     }
@@ -22302,14 +23966,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_name = 1;</code>
      * @return The modelName.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getModelName() {
       return modelName_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : modelName_;
     }
     /**
      * <code>.google.protobuf.StringValue model_name = 1;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getModelNameOrBuilder() {
       return getModelName();
     }
@@ -22320,7 +23982,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_version = 2;</code>
      * @return Whether the modelVersion field is set.
      */
-    @java.lang.Override
     public boolean hasModelVersion() {
       return modelVersion_ != null;
     }
@@ -22328,14 +23989,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_version = 2;</code>
      * @return The modelVersion.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getModelVersion() {
       return modelVersion_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : modelVersion_;
     }
     /**
      * <code>.google.protobuf.StringValue model_version = 2;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getModelVersionOrBuilder() {
       return getModelVersion();
     }
@@ -23018,7 +24677,7 @@ public final class Message {
   /**
    * Protobuf type {@code ai_flow.Response}
    */
-  public static final class Response extends
+  public  static final class Response extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ai_flow.Response)
       ResponseOrBuilder {
@@ -23119,7 +24778,6 @@ public final class Message {
      * <code>string return_code = 1;</code>
      * @return The returnCode.
      */
-    @java.lang.Override
     public java.lang.String getReturnCode() {
       java.lang.Object ref = returnCode_;
       if (ref instanceof java.lang.String) {
@@ -23136,7 +24794,6 @@ public final class Message {
      * <code>string return_code = 1;</code>
      * @return The bytes for returnCode.
      */
-    @java.lang.Override
     public com.google.protobuf.ByteString
         getReturnCodeBytes() {
       java.lang.Object ref = returnCode_;
@@ -23157,7 +24814,6 @@ public final class Message {
      * <code>string return_msg = 2;</code>
      * @return The returnMsg.
      */
-    @java.lang.Override
     public java.lang.String getReturnMsg() {
       java.lang.Object ref = returnMsg_;
       if (ref instanceof java.lang.String) {
@@ -23174,7 +24830,6 @@ public final class Message {
      * <code>string return_msg = 2;</code>
      * @return The bytes for returnMsg.
      */
-    @java.lang.Override
     public com.google.protobuf.ByteString
         getReturnMsgBytes() {
       java.lang.Object ref = returnMsg_;
@@ -23195,7 +24850,6 @@ public final class Message {
      * <code>string data = 3;</code>
      * @return The data.
      */
-    @java.lang.Override
     public java.lang.String getData() {
       java.lang.Object ref = data_;
       if (ref instanceof java.lang.String) {
@@ -23212,7 +24866,6 @@ public final class Message {
      * <code>string data = 3;</code>
      * @return The bytes for data.
      */
-    @java.lang.Override
     public com.google.protobuf.ByteString
         getDataBytes() {
       java.lang.Object ref = data_;
@@ -23888,7 +25541,7 @@ public final class Message {
   /**
    * Protobuf type {@code ai_flow.RegisteredModelMeta}
    */
-  public static final class RegisteredModelMeta extends
+  public  static final class RegisteredModelMeta extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ai_flow.RegisteredModelMeta)
       RegisteredModelMetaOrBuilder {
@@ -23995,7 +25648,6 @@ public final class Message {
      * <code>string model_name = 1;</code>
      * @return The modelName.
      */
-    @java.lang.Override
     public java.lang.String getModelName() {
       java.lang.Object ref = modelName_;
       if (ref instanceof java.lang.String) {
@@ -24012,7 +25664,6 @@ public final class Message {
      * <code>string model_name = 1;</code>
      * @return The bytes for modelName.
      */
-    @java.lang.Override
     public com.google.protobuf.ByteString
         getModelNameBytes() {
       java.lang.Object ref = modelName_;
@@ -24033,14 +25684,14 @@ public final class Message {
      * <code>.ai_flow.ModelType model_type = 2;</code>
      * @return The enum numeric value on the wire for modelType.
      */
-    @java.lang.Override public int getModelTypeValue() {
+    public int getModelTypeValue() {
       return modelType_;
     }
     /**
      * <code>.ai_flow.ModelType model_type = 2;</code>
      * @return The modelType.
      */
-    @java.lang.Override public com.aiflow.proto.Message.ModelType getModelType() {
+    public com.aiflow.proto.Message.ModelType getModelType() {
       @SuppressWarnings("deprecation")
       com.aiflow.proto.Message.ModelType result = com.aiflow.proto.Message.ModelType.valueOf(modelType_);
       return result == null ? com.aiflow.proto.Message.ModelType.UNRECOGNIZED : result;
@@ -24052,7 +25703,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_desc = 3;</code>
      * @return Whether the modelDesc field is set.
      */
-    @java.lang.Override
     public boolean hasModelDesc() {
       return modelDesc_ != null;
     }
@@ -24060,14 +25710,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_desc = 3;</code>
      * @return The modelDesc.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getModelDesc() {
       return modelDesc_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : modelDesc_;
     }
     /**
      * <code>.google.protobuf.StringValue model_desc = 3;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getModelDescOrBuilder() {
       return getModelDesc();
     }
@@ -24501,7 +26149,7 @@ public final class Message {
        * <code>.ai_flow.ModelType model_type = 2;</code>
        * @return The enum numeric value on the wire for modelType.
        */
-      @java.lang.Override public int getModelTypeValue() {
+      public int getModelTypeValue() {
         return modelType_;
       }
       /**
@@ -24510,7 +26158,6 @@ public final class Message {
        * @return This builder for chaining.
        */
       public Builder setModelTypeValue(int value) {
-        
         modelType_ = value;
         onChanged();
         return this;
@@ -24519,7 +26166,6 @@ public final class Message {
        * <code>.ai_flow.ModelType model_type = 2;</code>
        * @return The modelType.
        */
-      @java.lang.Override
       public com.aiflow.proto.Message.ModelType getModelType() {
         @SuppressWarnings("deprecation")
         com.aiflow.proto.Message.ModelType result = com.aiflow.proto.Message.ModelType.valueOf(modelType_);
@@ -24834,7 +26480,7 @@ public final class Message {
   /**
    * Protobuf type {@code ai_flow.ModelVersionMeta}
    */
-  public static final class ModelVersionMeta extends
+  public  static final class ModelVersionMeta extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ai_flow.ModelVersionMeta)
       ModelVersionMetaOrBuilder {
@@ -24994,7 +26640,6 @@ public final class Message {
      * <code>string model_name = 1;</code>
      * @return The modelName.
      */
-    @java.lang.Override
     public java.lang.String getModelName() {
       java.lang.Object ref = modelName_;
       if (ref instanceof java.lang.String) {
@@ -25011,7 +26656,6 @@ public final class Message {
      * <code>string model_name = 1;</code>
      * @return The bytes for modelName.
      */
-    @java.lang.Override
     public com.google.protobuf.ByteString
         getModelNameBytes() {
       java.lang.Object ref = modelName_;
@@ -25032,7 +26676,6 @@ public final class Message {
      * <code>string model_version = 2;</code>
      * @return The modelVersion.
      */
-    @java.lang.Override
     public java.lang.String getModelVersion() {
       java.lang.Object ref = modelVersion_;
       if (ref instanceof java.lang.String) {
@@ -25049,7 +26692,6 @@ public final class Message {
      * <code>string model_version = 2;</code>
      * @return The bytes for modelVersion.
      */
-    @java.lang.Override
     public com.google.protobuf.ByteString
         getModelVersionBytes() {
       java.lang.Object ref = modelVersion_;
@@ -25070,7 +26712,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_path = 3;</code>
      * @return Whether the modelPath field is set.
      */
-    @java.lang.Override
     public boolean hasModelPath() {
       return modelPath_ != null;
     }
@@ -25078,14 +26719,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_path = 3;</code>
      * @return The modelPath.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getModelPath() {
       return modelPath_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : modelPath_;
     }
     /**
      * <code>.google.protobuf.StringValue model_path = 3;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getModelPathOrBuilder() {
       return getModelPath();
     }
@@ -25096,7 +26735,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_metric = 4;</code>
      * @return Whether the modelMetric field is set.
      */
-    @java.lang.Override
     public boolean hasModelMetric() {
       return modelMetric_ != null;
     }
@@ -25104,14 +26742,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_metric = 4;</code>
      * @return The modelMetric.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getModelMetric() {
       return modelMetric_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : modelMetric_;
     }
     /**
      * <code>.google.protobuf.StringValue model_metric = 4;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getModelMetricOrBuilder() {
       return getModelMetric();
     }
@@ -25122,7 +26758,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_flavor = 5;</code>
      * @return Whether the modelFlavor field is set.
      */
-    @java.lang.Override
     public boolean hasModelFlavor() {
       return modelFlavor_ != null;
     }
@@ -25130,14 +26765,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_flavor = 5;</code>
      * @return The modelFlavor.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getModelFlavor() {
       return modelFlavor_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : modelFlavor_;
     }
     /**
      * <code>.google.protobuf.StringValue model_flavor = 5;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getModelFlavorOrBuilder() {
       return getModelFlavor();
     }
@@ -25148,7 +26781,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue version_desc = 6;</code>
      * @return Whether the versionDesc field is set.
      */
-    @java.lang.Override
     public boolean hasVersionDesc() {
       return versionDesc_ != null;
     }
@@ -25156,14 +26788,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue version_desc = 6;</code>
      * @return The versionDesc.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getVersionDesc() {
       return versionDesc_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : versionDesc_;
     }
     /**
      * <code>.google.protobuf.StringValue version_desc = 6;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getVersionDescOrBuilder() {
       return getVersionDesc();
     }
@@ -25174,14 +26804,14 @@ public final class Message {
      * <code>.ai_flow.ModelVersionStatus version_status = 7;</code>
      * @return The enum numeric value on the wire for versionStatus.
      */
-    @java.lang.Override public int getVersionStatusValue() {
+    public int getVersionStatusValue() {
       return versionStatus_;
     }
     /**
      * <code>.ai_flow.ModelVersionStatus version_status = 7;</code>
      * @return The versionStatus.
      */
-    @java.lang.Override public com.aiflow.proto.Message.ModelVersionStatus getVersionStatus() {
+    public com.aiflow.proto.Message.ModelVersionStatus getVersionStatus() {
       @SuppressWarnings("deprecation")
       com.aiflow.proto.Message.ModelVersionStatus result = com.aiflow.proto.Message.ModelVersionStatus.valueOf(versionStatus_);
       return result == null ? com.aiflow.proto.Message.ModelVersionStatus.UNRECOGNIZED : result;
@@ -25193,14 +26823,14 @@ public final class Message {
      * <code>.ai_flow.ModelVersionStage current_stage = 8;</code>
      * @return The enum numeric value on the wire for currentStage.
      */
-    @java.lang.Override public int getCurrentStageValue() {
+    public int getCurrentStageValue() {
       return currentStage_;
     }
     /**
      * <code>.ai_flow.ModelVersionStage current_stage = 8;</code>
      * @return The currentStage.
      */
-    @java.lang.Override public com.aiflow.proto.Message.ModelVersionStage getCurrentStage() {
+    public com.aiflow.proto.Message.ModelVersionStage getCurrentStage() {
       @SuppressWarnings("deprecation")
       com.aiflow.proto.Message.ModelVersionStage result = com.aiflow.proto.Message.ModelVersionStage.valueOf(currentStage_);
       return result == null ? com.aiflow.proto.Message.ModelVersionStage.UNRECOGNIZED : result;
@@ -26310,7 +27940,7 @@ public final class Message {
        * <code>.ai_flow.ModelVersionStatus version_status = 7;</code>
        * @return The enum numeric value on the wire for versionStatus.
        */
-      @java.lang.Override public int getVersionStatusValue() {
+      public int getVersionStatusValue() {
         return versionStatus_;
       }
       /**
@@ -26319,7 +27949,6 @@ public final class Message {
        * @return This builder for chaining.
        */
       public Builder setVersionStatusValue(int value) {
-        
         versionStatus_ = value;
         onChanged();
         return this;
@@ -26328,7 +27957,6 @@ public final class Message {
        * <code>.ai_flow.ModelVersionStatus version_status = 7;</code>
        * @return The versionStatus.
        */
-      @java.lang.Override
       public com.aiflow.proto.Message.ModelVersionStatus getVersionStatus() {
         @SuppressWarnings("deprecation")
         com.aiflow.proto.Message.ModelVersionStatus result = com.aiflow.proto.Message.ModelVersionStatus.valueOf(versionStatus_);
@@ -26364,7 +27992,7 @@ public final class Message {
        * <code>.ai_flow.ModelVersionStage current_stage = 8;</code>
        * @return The enum numeric value on the wire for currentStage.
        */
-      @java.lang.Override public int getCurrentStageValue() {
+      public int getCurrentStageValue() {
         return currentStage_;
       }
       /**
@@ -26373,7 +28001,6 @@ public final class Message {
        * @return This builder for chaining.
        */
       public Builder setCurrentStageValue(int value) {
-        
         currentStage_ = value;
         onChanged();
         return this;
@@ -26382,7 +28009,6 @@ public final class Message {
        * <code>.ai_flow.ModelVersionStage current_stage = 8;</code>
        * @return The currentStage.
        */
-      @java.lang.Override
       public com.aiflow.proto.Message.ModelVersionStage getCurrentStage() {
         @SuppressWarnings("deprecation")
         com.aiflow.proto.Message.ModelVersionStage result = com.aiflow.proto.Message.ModelVersionStage.valueOf(currentStage_);
@@ -26502,7 +28128,7 @@ public final class Message {
   /**
    * Protobuf type {@code ai_flow.RegisteredModelDetail}
    */
-  public static final class RegisteredModelDetail extends
+  public  static final class RegisteredModelDetail extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ai_flow.RegisteredModelDetail)
       RegisteredModelDetailOrBuilder {
@@ -26608,7 +28234,6 @@ public final class Message {
      * <code>.ai_flow.RegisteredModelMeta registered_model = 1;</code>
      * @return Whether the registeredModel field is set.
      */
-    @java.lang.Override
     public boolean hasRegisteredModel() {
       return registeredModel_ != null;
     }
@@ -26616,14 +28241,12 @@ public final class Message {
      * <code>.ai_flow.RegisteredModelMeta registered_model = 1;</code>
      * @return The registeredModel.
      */
-    @java.lang.Override
     public com.aiflow.proto.Message.RegisteredModelMeta getRegisteredModel() {
       return registeredModel_ == null ? com.aiflow.proto.Message.RegisteredModelMeta.getDefaultInstance() : registeredModel_;
     }
     /**
      * <code>.ai_flow.RegisteredModelMeta registered_model = 1;</code>
      */
-    @java.lang.Override
     public com.aiflow.proto.Message.RegisteredModelMetaOrBuilder getRegisteredModelOrBuilder() {
       return getRegisteredModel();
     }
@@ -26634,7 +28257,6 @@ public final class Message {
      * <code>.ai_flow.ModelVersionMeta model_version = 2;</code>
      * @return Whether the modelVersion field is set.
      */
-    @java.lang.Override
     public boolean hasModelVersion() {
       return modelVersion_ != null;
     }
@@ -26642,14 +28264,12 @@ public final class Message {
      * <code>.ai_flow.ModelVersionMeta model_version = 2;</code>
      * @return The modelVersion.
      */
-    @java.lang.Override
     public com.aiflow.proto.Message.ModelVersionMeta getModelVersion() {
       return modelVersion_ == null ? com.aiflow.proto.Message.ModelVersionMeta.getDefaultInstance() : modelVersion_;
     }
     /**
      * <code>.ai_flow.ModelVersionMeta model_version = 2;</code>
      */
-    @java.lang.Override
     public com.aiflow.proto.Message.ModelVersionMetaOrBuilder getModelVersionOrBuilder() {
       return getModelVersion();
     }
@@ -27320,7 +28940,7 @@ public final class Message {
   /**
    * Protobuf type {@code ai_flow.RegisteredModelMetas}
    */
-  public static final class RegisteredModelMetas extends
+  public  static final class RegisteredModelMetas extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ai_flow.RegisteredModelMetas)
       RegisteredModelMetasOrBuilder {
@@ -27413,14 +29033,12 @@ public final class Message {
     /**
      * <code>repeated .ai_flow.RegisteredModelMeta registered_models = 1;</code>
      */
-    @java.lang.Override
     public java.util.List<com.aiflow.proto.Message.RegisteredModelMeta> getRegisteredModelsList() {
       return registeredModels_;
     }
     /**
      * <code>repeated .ai_flow.RegisteredModelMeta registered_models = 1;</code>
      */
-    @java.lang.Override
     public java.util.List<? extends com.aiflow.proto.Message.RegisteredModelMetaOrBuilder> 
         getRegisteredModelsOrBuilderList() {
       return registeredModels_;
@@ -27428,21 +29046,18 @@ public final class Message {
     /**
      * <code>repeated .ai_flow.RegisteredModelMeta registered_models = 1;</code>
      */
-    @java.lang.Override
     public int getRegisteredModelsCount() {
       return registeredModels_.size();
     }
     /**
      * <code>repeated .ai_flow.RegisteredModelMeta registered_models = 1;</code>
      */
-    @java.lang.Override
     public com.aiflow.proto.Message.RegisteredModelMeta getRegisteredModels(int index) {
       return registeredModels_.get(index);
     }
     /**
      * <code>repeated .ai_flow.RegisteredModelMeta registered_models = 1;</code>
      */
-    @java.lang.Override
     public com.aiflow.proto.Message.RegisteredModelMetaOrBuilder getRegisteredModelsOrBuilder(
         int index) {
       return registeredModels_.get(index);
@@ -28082,6 +29697,677 @@ public final class Message {
 
   }
 
+  public interface ResultProtoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ai_flow.ResultProto)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.ai_flow.StatusProto status = 1;</code>
+     * @return The enum numeric value on the wire for status.
+     */
+    int getStatusValue();
+    /**
+     * <code>.ai_flow.StatusProto status = 1;</code>
+     * @return The status.
+     */
+    com.aiflow.proto.Message.StatusProto getStatus();
+
+    /**
+     * <code>string error_message = 2;</code>
+     * @return The errorMessage.
+     */
+    java.lang.String getErrorMessage();
+    /**
+     * <code>string error_message = 2;</code>
+     * @return The bytes for errorMessage.
+     */
+    com.google.protobuf.ByteString
+        getErrorMessageBytes();
+  }
+  /**
+   * Protobuf type {@code ai_flow.ResultProto}
+   */
+  public  static final class ResultProto extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ai_flow.ResultProto)
+      ResultProtoOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use ResultProto.newBuilder() to construct.
+    private ResultProto(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ResultProto() {
+      status_ = 0;
+      errorMessage_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ResultProto();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ResultProto(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              int rawValue = input.readEnum();
+
+              status_ = rawValue;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              errorMessage_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.aiflow.proto.Message.internal_static_ai_flow_ResultProto_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.aiflow.proto.Message.internal_static_ai_flow_ResultProto_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.aiflow.proto.Message.ResultProto.class, com.aiflow.proto.Message.ResultProto.Builder.class);
+    }
+
+    public static final int STATUS_FIELD_NUMBER = 1;
+    private int status_;
+    /**
+     * <code>.ai_flow.StatusProto status = 1;</code>
+     * @return The enum numeric value on the wire for status.
+     */
+    public int getStatusValue() {
+      return status_;
+    }
+    /**
+     * <code>.ai_flow.StatusProto status = 1;</code>
+     * @return The status.
+     */
+    public com.aiflow.proto.Message.StatusProto getStatus() {
+      @SuppressWarnings("deprecation")
+      com.aiflow.proto.Message.StatusProto result = com.aiflow.proto.Message.StatusProto.valueOf(status_);
+      return result == null ? com.aiflow.proto.Message.StatusProto.UNRECOGNIZED : result;
+    }
+
+    public static final int ERROR_MESSAGE_FIELD_NUMBER = 2;
+    private volatile java.lang.Object errorMessage_;
+    /**
+     * <code>string error_message = 2;</code>
+     * @return The errorMessage.
+     */
+    public java.lang.String getErrorMessage() {
+      java.lang.Object ref = errorMessage_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        errorMessage_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string error_message = 2;</code>
+     * @return The bytes for errorMessage.
+     */
+    public com.google.protobuf.ByteString
+        getErrorMessageBytes() {
+      java.lang.Object ref = errorMessage_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        errorMessage_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (status_ != com.aiflow.proto.Message.StatusProto.OK.getNumber()) {
+        output.writeEnum(1, status_);
+      }
+      if (!getErrorMessageBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, errorMessage_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (status_ != com.aiflow.proto.Message.StatusProto.OK.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, status_);
+      }
+      if (!getErrorMessageBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, errorMessage_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.aiflow.proto.Message.ResultProto)) {
+        return super.equals(obj);
+      }
+      com.aiflow.proto.Message.ResultProto other = (com.aiflow.proto.Message.ResultProto) obj;
+
+      if (status_ != other.status_) return false;
+      if (!getErrorMessage()
+          .equals(other.getErrorMessage())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + STATUS_FIELD_NUMBER;
+      hash = (53 * hash) + status_;
+      hash = (37 * hash) + ERROR_MESSAGE_FIELD_NUMBER;
+      hash = (53 * hash) + getErrorMessage().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.aiflow.proto.Message.ResultProto parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.aiflow.proto.Message.ResultProto parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.aiflow.proto.Message.ResultProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.aiflow.proto.Message.ResultProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.aiflow.proto.Message.ResultProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.aiflow.proto.Message.ResultProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.aiflow.proto.Message.ResultProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.aiflow.proto.Message.ResultProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.aiflow.proto.Message.ResultProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.aiflow.proto.Message.ResultProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.aiflow.proto.Message.ResultProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.aiflow.proto.Message.ResultProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.aiflow.proto.Message.ResultProto prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code ai_flow.ResultProto}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ai_flow.ResultProto)
+        com.aiflow.proto.Message.ResultProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.aiflow.proto.Message.internal_static_ai_flow_ResultProto_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.aiflow.proto.Message.internal_static_ai_flow_ResultProto_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.aiflow.proto.Message.ResultProto.class, com.aiflow.proto.Message.ResultProto.Builder.class);
+      }
+
+      // Construct using com.aiflow.proto.Message.ResultProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        status_ = 0;
+
+        errorMessage_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.aiflow.proto.Message.internal_static_ai_flow_ResultProto_descriptor;
+      }
+
+      @java.lang.Override
+      public com.aiflow.proto.Message.ResultProto getDefaultInstanceForType() {
+        return com.aiflow.proto.Message.ResultProto.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.aiflow.proto.Message.ResultProto build() {
+        com.aiflow.proto.Message.ResultProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.aiflow.proto.Message.ResultProto buildPartial() {
+        com.aiflow.proto.Message.ResultProto result = new com.aiflow.proto.Message.ResultProto(this);
+        result.status_ = status_;
+        result.errorMessage_ = errorMessage_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.aiflow.proto.Message.ResultProto) {
+          return mergeFrom((com.aiflow.proto.Message.ResultProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.aiflow.proto.Message.ResultProto other) {
+        if (other == com.aiflow.proto.Message.ResultProto.getDefaultInstance()) return this;
+        if (other.status_ != 0) {
+          setStatusValue(other.getStatusValue());
+        }
+        if (!other.getErrorMessage().isEmpty()) {
+          errorMessage_ = other.errorMessage_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.aiflow.proto.Message.ResultProto parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.aiflow.proto.Message.ResultProto) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int status_ = 0;
+      /**
+       * <code>.ai_flow.StatusProto status = 1;</code>
+       * @return The enum numeric value on the wire for status.
+       */
+      public int getStatusValue() {
+        return status_;
+      }
+      /**
+       * <code>.ai_flow.StatusProto status = 1;</code>
+       * @param value The enum numeric value on the wire for status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatusValue(int value) {
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.ai_flow.StatusProto status = 1;</code>
+       * @return The status.
+       */
+      public com.aiflow.proto.Message.StatusProto getStatus() {
+        @SuppressWarnings("deprecation")
+        com.aiflow.proto.Message.StatusProto result = com.aiflow.proto.Message.StatusProto.valueOf(status_);
+        return result == null ? com.aiflow.proto.Message.StatusProto.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.ai_flow.StatusProto status = 1;</code>
+       * @param value The status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatus(com.aiflow.proto.Message.StatusProto value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        status_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.ai_flow.StatusProto status = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStatus() {
+        
+        status_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object errorMessage_ = "";
+      /**
+       * <code>string error_message = 2;</code>
+       * @return The errorMessage.
+       */
+      public java.lang.String getErrorMessage() {
+        java.lang.Object ref = errorMessage_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          errorMessage_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string error_message = 2;</code>
+       * @return The bytes for errorMessage.
+       */
+      public com.google.protobuf.ByteString
+          getErrorMessageBytes() {
+        java.lang.Object ref = errorMessage_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          errorMessage_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string error_message = 2;</code>
+       * @param value The errorMessage to set.
+       * @return This builder for chaining.
+       */
+      public Builder setErrorMessage(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        errorMessage_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string error_message = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearErrorMessage() {
+        
+        errorMessage_ = getDefaultInstance().getErrorMessage();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string error_message = 2;</code>
+       * @param value The bytes for errorMessage to set.
+       * @return This builder for chaining.
+       */
+      public Builder setErrorMessageBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        errorMessage_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ai_flow.ResultProto)
+    }
+
+    // @@protoc_insertion_point(class_scope:ai_flow.ResultProto)
+    private static final com.aiflow.proto.Message.ResultProto DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.aiflow.proto.Message.ResultProto();
+    }
+
+    public static com.aiflow.proto.Message.ResultProto getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ResultProto>
+        PARSER = new com.google.protobuf.AbstractParser<ResultProto>() {
+      @java.lang.Override
+      public ResultProto parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ResultProto(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ResultProto> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ResultProto> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.aiflow.proto.Message.ResultProto getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface MetricMetaProtoOrBuilder extends
       // @@protoc_insertion_point(interface_extends:ai_flow.MetricMetaProto)
       com.google.protobuf.MessageOrBuilder {
@@ -28290,7 +30576,7 @@ public final class Message {
   /**
    * Protobuf type {@code ai_flow.MetricMetaProto}
    */
-  public static final class MetricMetaProto extends
+  public  static final class MetricMetaProto extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ai_flow.MetricMetaProto)
       MetricMetaProtoOrBuilder {
@@ -28538,7 +30824,6 @@ public final class Message {
      * <code>int64 uuid = 1;</code>
      * @return The uuid.
      */
-    @java.lang.Override
     public long getUuid() {
       return uuid_;
     }
@@ -28549,7 +30834,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue name = 2;</code>
      * @return Whether the name field is set.
      */
-    @java.lang.Override
     public boolean hasName() {
       return name_ != null;
     }
@@ -28557,14 +30841,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue name = 2;</code>
      * @return The name.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getName() {
       return name_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : name_;
     }
     /**
      * <code>.google.protobuf.StringValue name = 2;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getNameOrBuilder() {
       return getName();
     }
@@ -28575,7 +30857,6 @@ public final class Message {
      * <code>.google.protobuf.Int64Value dataset_id = 3;</code>
      * @return Whether the datasetId field is set.
      */
-    @java.lang.Override
     public boolean hasDatasetId() {
       return datasetId_ != null;
     }
@@ -28583,14 +30864,12 @@ public final class Message {
      * <code>.google.protobuf.Int64Value dataset_id = 3;</code>
      * @return The datasetId.
      */
-    @java.lang.Override
     public com.google.protobuf.Int64Value getDatasetId() {
       return datasetId_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : datasetId_;
     }
     /**
      * <code>.google.protobuf.Int64Value dataset_id = 3;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.Int64ValueOrBuilder getDatasetIdOrBuilder() {
       return getDatasetId();
     }
@@ -28601,7 +30880,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_name = 4;</code>
      * @return Whether the modelName field is set.
      */
-    @java.lang.Override
     public boolean hasModelName() {
       return modelName_ != null;
     }
@@ -28609,14 +30887,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_name = 4;</code>
      * @return The modelName.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getModelName() {
       return modelName_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : modelName_;
     }
     /**
      * <code>.google.protobuf.StringValue model_name = 4;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getModelNameOrBuilder() {
       return getModelName();
     }
@@ -28627,7 +30903,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_version = 5;</code>
      * @return Whether the modelVersion field is set.
      */
-    @java.lang.Override
     public boolean hasModelVersion() {
       return modelVersion_ != null;
     }
@@ -28635,14 +30910,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue model_version = 5;</code>
      * @return The modelVersion.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getModelVersion() {
       return modelVersion_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : modelVersion_;
     }
     /**
      * <code>.google.protobuf.StringValue model_version = 5;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getModelVersionOrBuilder() {
       return getModelVersion();
     }
@@ -28653,7 +30926,6 @@ public final class Message {
      * <code>.google.protobuf.Int64Value job_id = 6;</code>
      * @return Whether the jobId field is set.
      */
-    @java.lang.Override
     public boolean hasJobId() {
       return jobId_ != null;
     }
@@ -28661,14 +30933,12 @@ public final class Message {
      * <code>.google.protobuf.Int64Value job_id = 6;</code>
      * @return The jobId.
      */
-    @java.lang.Override
     public com.google.protobuf.Int64Value getJobId() {
       return jobId_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : jobId_;
     }
     /**
      * <code>.google.protobuf.Int64Value job_id = 6;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.Int64ValueOrBuilder getJobIdOrBuilder() {
       return getJobId();
     }
@@ -28679,7 +30949,6 @@ public final class Message {
      * <code>.google.protobuf.Int64Value start_time = 7;</code>
      * @return Whether the startTime field is set.
      */
-    @java.lang.Override
     public boolean hasStartTime() {
       return startTime_ != null;
     }
@@ -28687,14 +30956,12 @@ public final class Message {
      * <code>.google.protobuf.Int64Value start_time = 7;</code>
      * @return The startTime.
      */
-    @java.lang.Override
     public com.google.protobuf.Int64Value getStartTime() {
       return startTime_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : startTime_;
     }
     /**
      * <code>.google.protobuf.Int64Value start_time = 7;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.Int64ValueOrBuilder getStartTimeOrBuilder() {
       return getStartTime();
     }
@@ -28705,7 +30972,6 @@ public final class Message {
      * <code>.google.protobuf.Int64Value end_time = 8;</code>
      * @return Whether the endTime field is set.
      */
-    @java.lang.Override
     public boolean hasEndTime() {
       return endTime_ != null;
     }
@@ -28713,14 +30979,12 @@ public final class Message {
      * <code>.google.protobuf.Int64Value end_time = 8;</code>
      * @return The endTime.
      */
-    @java.lang.Override
     public com.google.protobuf.Int64Value getEndTime() {
       return endTime_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : endTime_;
     }
     /**
      * <code>.google.protobuf.Int64Value end_time = 8;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.Int64ValueOrBuilder getEndTimeOrBuilder() {
       return getEndTime();
     }
@@ -28731,14 +30995,14 @@ public final class Message {
      * <code>.ai_flow.MetricTypeProto metric_type = 9;</code>
      * @return The enum numeric value on the wire for metricType.
      */
-    @java.lang.Override public int getMetricTypeValue() {
+    public int getMetricTypeValue() {
       return metricType_;
     }
     /**
      * <code>.ai_flow.MetricTypeProto metric_type = 9;</code>
      * @return The metricType.
      */
-    @java.lang.Override public com.aiflow.proto.Message.MetricTypeProto getMetricType() {
+    public com.aiflow.proto.Message.MetricTypeProto getMetricType() {
       @SuppressWarnings("deprecation")
       com.aiflow.proto.Message.MetricTypeProto result = com.aiflow.proto.Message.MetricTypeProto.valueOf(metricType_);
       return result == null ? com.aiflow.proto.Message.MetricTypeProto.UNRECOGNIZED : result;
@@ -28750,7 +31014,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue uri = 10;</code>
      * @return Whether the uri field is set.
      */
-    @java.lang.Override
     public boolean hasUri() {
       return uri_ != null;
     }
@@ -28758,14 +31021,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue uri = 10;</code>
      * @return The uri.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getUri() {
       return uri_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : uri_;
     }
     /**
      * <code>.google.protobuf.StringValue uri = 10;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getUriOrBuilder() {
       return getUri();
     }
@@ -28776,7 +31037,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue tags = 11;</code>
      * @return Whether the tags field is set.
      */
-    @java.lang.Override
     public boolean hasTags() {
       return tags_ != null;
     }
@@ -28784,14 +31044,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue tags = 11;</code>
      * @return The tags.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getTags() {
       return tags_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : tags_;
     }
     /**
      * <code>.google.protobuf.StringValue tags = 11;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getTagsOrBuilder() {
       return getTags();
     }
@@ -28802,7 +31060,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue metric_description = 12;</code>
      * @return Whether the metricDescription field is set.
      */
-    @java.lang.Override
     public boolean hasMetricDescription() {
       return metricDescription_ != null;
     }
@@ -28810,14 +31067,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue metric_description = 12;</code>
      * @return The metricDescription.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getMetricDescription() {
       return metricDescription_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : metricDescription_;
     }
     /**
      * <code>.google.protobuf.StringValue metric_description = 12;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getMetricDescriptionOrBuilder() {
       return getMetricDescription();
     }
@@ -28852,7 +31107,6 @@ public final class Message {
      * <code>map&lt;string, string&gt; properties = 13;</code>
      */
 
-    @java.lang.Override
     public boolean containsProperties(
         java.lang.String key) {
       if (key == null) { throw new java.lang.NullPointerException(); }
@@ -28861,7 +31115,6 @@ public final class Message {
     /**
      * Use {@link #getPropertiesMap()} instead.
      */
-    @java.lang.Override
     @java.lang.Deprecated
     public java.util.Map<java.lang.String, java.lang.String> getProperties() {
       return getPropertiesMap();
@@ -28869,7 +31122,6 @@ public final class Message {
     /**
      * <code>map&lt;string, string&gt; properties = 13;</code>
      */
-    @java.lang.Override
 
     public java.util.Map<java.lang.String, java.lang.String> getPropertiesMap() {
       return internalGetProperties().getMap();
@@ -28877,7 +31129,6 @@ public final class Message {
     /**
      * <code>map&lt;string, string&gt; properties = 13;</code>
      */
-    @java.lang.Override
 
     public java.lang.String getPropertiesOrDefault(
         java.lang.String key,
@@ -28890,7 +31141,6 @@ public final class Message {
     /**
      * <code>map&lt;string, string&gt; properties = 13;</code>
      */
-    @java.lang.Override
 
     public java.lang.String getPropertiesOrThrow(
         java.lang.String key) {
@@ -29578,7 +31828,6 @@ public final class Message {
        * <code>int64 uuid = 1;</code>
        * @return The uuid.
        */
-      @java.lang.Override
       public long getUuid() {
         return uuid_;
       }
@@ -30442,7 +32691,7 @@ public final class Message {
        * <code>.ai_flow.MetricTypeProto metric_type = 9;</code>
        * @return The enum numeric value on the wire for metricType.
        */
-      @java.lang.Override public int getMetricTypeValue() {
+      public int getMetricTypeValue() {
         return metricType_;
       }
       /**
@@ -30451,7 +32700,6 @@ public final class Message {
        * @return This builder for chaining.
        */
       public Builder setMetricTypeValue(int value) {
-        
         metricType_ = value;
         onChanged();
         return this;
@@ -30460,7 +32708,6 @@ public final class Message {
        * <code>.ai_flow.MetricTypeProto metric_type = 9;</code>
        * @return The metricType.
        */
-      @java.lang.Override
       public com.aiflow.proto.Message.MetricTypeProto getMetricType() {
         @SuppressWarnings("deprecation")
         com.aiflow.proto.Message.MetricTypeProto result = com.aiflow.proto.Message.MetricTypeProto.valueOf(metricType_);
@@ -30878,7 +33125,6 @@ public final class Message {
        * <code>map&lt;string, string&gt; properties = 13;</code>
        */
 
-      @java.lang.Override
       public boolean containsProperties(
           java.lang.String key) {
         if (key == null) { throw new java.lang.NullPointerException(); }
@@ -30887,7 +33133,6 @@ public final class Message {
       /**
        * Use {@link #getPropertiesMap()} instead.
        */
-      @java.lang.Override
       @java.lang.Deprecated
       public java.util.Map<java.lang.String, java.lang.String> getProperties() {
         return getPropertiesMap();
@@ -30895,7 +33140,6 @@ public final class Message {
       /**
        * <code>map&lt;string, string&gt; properties = 13;</code>
        */
-      @java.lang.Override
 
       public java.util.Map<java.lang.String, java.lang.String> getPropertiesMap() {
         return internalGetProperties().getMap();
@@ -30903,7 +33147,6 @@ public final class Message {
       /**
        * <code>map&lt;string, string&gt; properties = 13;</code>
        */
-      @java.lang.Override
 
       public java.lang.String getPropertiesOrDefault(
           java.lang.String key,
@@ -30916,7 +33159,6 @@ public final class Message {
       /**
        * <code>map&lt;string, string&gt; properties = 13;</code>
        */
-      @java.lang.Override
 
       public java.lang.String getPropertiesOrThrow(
           java.lang.String key) {
@@ -31086,7 +33328,7 @@ public final class Message {
   /**
    * Protobuf type {@code ai_flow.MetricSummaryProto}
    */
-  public static final class MetricSummaryProto extends
+  public  static final class MetricSummaryProto extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ai_flow.MetricSummaryProto)
       MetricSummaryProtoOrBuilder {
@@ -31210,7 +33452,6 @@ public final class Message {
      * <code>int64 uuid = 1;</code>
      * @return The uuid.
      */
-    @java.lang.Override
     public long getUuid() {
       return uuid_;
     }
@@ -31221,7 +33462,6 @@ public final class Message {
      * <code>.google.protobuf.Int64Value metric_id = 2;</code>
      * @return Whether the metricId field is set.
      */
-    @java.lang.Override
     public boolean hasMetricId() {
       return metricId_ != null;
     }
@@ -31229,14 +33469,12 @@ public final class Message {
      * <code>.google.protobuf.Int64Value metric_id = 2;</code>
      * @return The metricId.
      */
-    @java.lang.Override
     public com.google.protobuf.Int64Value getMetricId() {
       return metricId_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : metricId_;
     }
     /**
      * <code>.google.protobuf.Int64Value metric_id = 2;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.Int64ValueOrBuilder getMetricIdOrBuilder() {
       return getMetricId();
     }
@@ -31247,7 +33485,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue metric_key = 3;</code>
      * @return Whether the metricKey field is set.
      */
-    @java.lang.Override
     public boolean hasMetricKey() {
       return metricKey_ != null;
     }
@@ -31255,14 +33492,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue metric_key = 3;</code>
      * @return The metricKey.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getMetricKey() {
       return metricKey_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : metricKey_;
     }
     /**
      * <code>.google.protobuf.StringValue metric_key = 3;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getMetricKeyOrBuilder() {
       return getMetricKey();
     }
@@ -31273,7 +33508,6 @@ public final class Message {
      * <code>.google.protobuf.StringValue metric_value = 4;</code>
      * @return Whether the metricValue field is set.
      */
-    @java.lang.Override
     public boolean hasMetricValue() {
       return metricValue_ != null;
     }
@@ -31281,14 +33515,12 @@ public final class Message {
      * <code>.google.protobuf.StringValue metric_value = 4;</code>
      * @return The metricValue.
      */
-    @java.lang.Override
     public com.google.protobuf.StringValue getMetricValue() {
       return metricValue_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : metricValue_;
     }
     /**
      * <code>.google.protobuf.StringValue metric_value = 4;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.StringValueOrBuilder getMetricValueOrBuilder() {
       return getMetricValue();
     }
@@ -31691,7 +33923,6 @@ public final class Message {
        * <code>int64 uuid = 1;</code>
        * @return The uuid.
        */
-      @java.lang.Override
       public long getUuid() {
         return uuid_;
       }
@@ -32172,6 +34403,16 @@ public final class Message {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ai_flow_JobProto_PropertiesEntry_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ai_flow_WorkflowProto_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ai_flow_WorkflowProto_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ai_flow_WorkflowProto_PropertiesEntry_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ai_flow_WorkflowProto_PropertiesEntry_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ai_flow_WorkflowExecutionProto_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -32241,6 +34482,11 @@ public final class Message {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ai_flow_RegisteredModelMetas_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ai_flow_ResultProto_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ai_flow_ResultProto_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ai_flow_MetricMetaProto_descriptor;
   private static final 
@@ -32314,7 +34560,7 @@ public final class Message {
       "tobuf.StringValue\0222\n\014version_desc\030\007 \001(\0132" +
       "\034.google.protobuf.StringValue\0221\n\rcurrent" +
       "_stage\030\010 \001(\0162\032.ai_flow.ModelVersionStage" +
-      "\"\342\003\n\010JobProto\022\014\n\004uuid\030\001 \001(\003\022\014\n\004name\030\002 \001(" +
+      "\"\237\004\n\010JobProto\022\014\n\004uuid\030\001 \001(\003\022\014\n\004name\030\002 \001(" +
       "\t\022:\n\025workflow_execution_id\030\003 \001(\0132\033.googl" +
       "e.protobuf.Int64Value\022&\n\tjob_state\030\004 \001(\016" +
       "2\023.ai_flow.StateProto\0225\n\nproperties\030\005 \003(" +
@@ -32324,130 +34570,143 @@ public final class Message {
       ".Int64Value\022-\n\010end_time\030\010 \001(\0132\033.google.p" +
       "rotobuf.Int64Value\022-\n\007log_uri\030\t \001(\0132\034.go" +
       "ogle.protobuf.StringValue\022/\n\tsignature\030\n" +
-      " \001(\0132\034.google.protobuf.StringValue\0321\n\017Pr" +
-      "opertiesEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(" +
-      "\t:\0028\001\"\200\004\n\026WorkflowExecutionProto\022\014\n\004uuid" +
-      "\030\001 \001(\003\022\014\n\004name\030\002 \001(\t\022/\n\nproject_id\030\003 \001(\013" +
-      "2\033.google.protobuf.Int64Value\022,\n\017executi" +
-      "on_state\030\004 \001(\0162\023.ai_flow.StateProto\022C\n\np" +
-      "roperties\030\005 \003(\0132/.ai_flow.WorkflowExecut" +
-      "ionProto.PropertiesEntry\022/\n\nstart_time\030\006" +
-      " \001(\0132\033.google.protobuf.Int64Value\022-\n\010end" +
-      "_time\030\007 \001(\0132\033.google.protobuf.Int64Value" +
-      "\022-\n\007log_uri\030\010 \001(\0132\034.google.protobuf.Stri" +
-      "ngValue\0223\n\rworkflow_json\030\t \001(\0132\034.google." +
-      "protobuf.StringValue\022/\n\tsignature\030\n \001(\0132" +
-      "\034.google.protobuf.StringValue\0321\n\017Propert" +
-      "iesEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001" +
-      "\"\323\002\n\014ProjectProto\022\014\n\004uuid\030\001 \001(\003\022\014\n\004name\030" +
-      "\002 \001(\t\0229\n\nproperties\030\003 \003(\0132%.ai_flow.Proj" +
-      "ectProto.PropertiesEntry\0222\n\014project_type" +
-      "\030\004 \001(\0132\034.google.protobuf.StringValue\022)\n\003" +
-      "uri\030\005 \001(\0132\034.google.protobuf.StringValue\022" +
-      "*\n\004user\030\006 \001(\0132\034.google.protobuf.StringVa" +
-      "lue\022.\n\010password\030\007 \001(\0132\034.google.protobuf." +
-      "StringValue\0321\n\017PropertiesEntry\022\013\n\003key\030\001 " +
-      "\001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"\307\003\n\rArtifactProto" +
-      "\022\014\n\004uuid\030\001 \001(\003\022\014\n\004name\030\002 \001(\t\022:\n\nproperti" +
-      "es\030\003 \003(\0132&.ai_flow.ArtifactProto.Propert" +
-      "iesEntry\0221\n\013data_format\030\004 \001(\0132\034.google.p" +
-      "rotobuf.StringValue\022/\n\tbatch_uri\030\005 \001(\0132\034" +
-      ".google.protobuf.StringValue\0220\n\nstream_u" +
-      "ri\030\006 \001(\0132\034.google.protobuf.StringValue\0221" +
-      "\n\013description\030\007 \001(\0132\034.google.protobuf.St" +
-      "ringValue\0220\n\013create_time\030\010 \001(\0132\033.google." +
-      "protobuf.Int64Value\0220\n\013update_time\030\t \001(\013" +
-      "2\033.google.protobuf.Int64Value\0321\n\017Propert" +
-      "iesEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001" +
-      "\"\242\001\n\024RegisteredModelParam\0220\n\nmodel_name\030" +
-      "\001 \001(\0132\034.google.protobuf.StringValue\022&\n\nm" +
-      "odel_type\030\002 \001(\0162\022.ai_flow.ModelType\0220\n\nm" +
-      "odel_desc\030\003 \001(\0132\034.google.protobuf.String" +
-      "Value\"\224\002\n\021ModelVersionParam\0220\n\nmodel_pat" +
-      "h\030\001 \001(\0132\034.google.protobuf.StringValue\0222\n" +
-      "\014model_metric\030\002 \001(\0132\034.google.protobuf.St" +
-      "ringValue\0222\n\014model_flavor\030\003 \001(\0132\034.google" +
-      ".protobuf.StringValue\0222\n\014version_desc\030\004 " +
-      "\001(\0132\034.google.protobuf.StringValue\0221\n\rcur" +
-      "rent_stage\030\005 \001(\0162\032.ai_flow.ModelVersionS" +
-      "tage\"w\n\016ModelMetaParam\0220\n\nmodel_name\030\001 \001" +
-      "(\0132\034.google.protobuf.StringValue\0223\n\rmode" +
-      "l_version\030\002 \001(\0132\034.google.protobuf.String" +
-      "Value\"A\n\010Response\022\023\n\013return_code\030\001 \001(\t\022\022" +
-      "\n\nreturn_msg\030\002 \001(\t\022\014\n\004data\030\003 \001(\t\"\203\001\n\023Reg" +
-      "isteredModelMeta\022\022\n\nmodel_name\030\001 \001(\t\022&\n\n" +
-      "model_type\030\002 \001(\0162\022.ai_flow.ModelType\0220\n\n" +
-      "model_desc\030\003 \001(\0132\034.google.protobuf.Strin" +
-      "gValue\"\363\002\n\020ModelVersionMeta\022\022\n\nmodel_nam" +
-      "e\030\001 \001(\t\022\025\n\rmodel_version\030\002 \001(\t\0220\n\nmodel_" +
-      "path\030\003 \001(\0132\034.google.protobuf.StringValue" +
-      "\0222\n\014model_metric\030\004 \001(\0132\034.google.protobuf" +
-      ".StringValue\0222\n\014model_flavor\030\005 \001(\0132\034.goo" +
-      "gle.protobuf.StringValue\0222\n\014version_desc" +
-      "\030\006 \001(\0132\034.google.protobuf.StringValue\0223\n\016" +
-      "version_status\030\007 \001(\0162\033.ai_flow.ModelVers" +
-      "ionStatus\0221\n\rcurrent_stage\030\010 \001(\0162\032.ai_fl" +
-      "ow.ModelVersionStage\"\201\001\n\025RegisteredModel" +
-      "Detail\0226\n\020registered_model\030\001 \001(\0132\034.ai_fl" +
-      "ow.RegisteredModelMeta\0220\n\rmodel_version\030" +
-      "\002 \001(\0132\031.ai_flow.ModelVersionMeta\"O\n\024Regi" +
-      "steredModelMetas\0227\n\021registered_models\030\001 " +
-      "\003(\0132\034.ai_flow.RegisteredModelMeta\"\241\005\n\017Me" +
-      "tricMetaProto\022\014\n\004uuid\030\001 \001(\003\022*\n\004name\030\002 \001(" +
-      "\0132\034.google.protobuf.StringValue\022/\n\ndatas" +
-      "et_id\030\003 \001(\0132\033.google.protobuf.Int64Value" +
-      "\0220\n\nmodel_name\030\004 \001(\0132\034.google.protobuf.S" +
-      "tringValue\0223\n\rmodel_version\030\005 \001(\0132\034.goog" +
-      "le.protobuf.StringValue\022+\n\006job_id\030\006 \001(\0132" +
-      "\033.google.protobuf.Int64Value\022/\n\nstart_ti" +
-      "me\030\007 \001(\0132\033.google.protobuf.Int64Value\022-\n" +
-      "\010end_time\030\010 \001(\0132\033.google.protobuf.Int64V" +
-      "alue\022-\n\013metric_type\030\t \001(\0162\030.ai_flow.Metr" +
-      "icTypeProto\022)\n\003uri\030\n \001(\0132\034.google.protob" +
-      "uf.StringValue\022*\n\004tags\030\013 \001(\0132\034.google.pr" +
-      "otobuf.StringValue\0228\n\022metric_description" +
-      "\030\014 \001(\0132\034.google.protobuf.StringValue\022<\n\n" +
-      "properties\030\r \003(\0132(.ai_flow.MetricMetaPro" +
-      "to.PropertiesEntry\0321\n\017PropertiesEntry\022\013\n" +
-      "\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"\270\001\n\022Metric" +
-      "SummaryProto\022\014\n\004uuid\030\001 \001(\003\022.\n\tmetric_id\030" +
-      "\002 \001(\0132\033.google.protobuf.Int64Value\0220\n\nme" +
-      "tric_key\030\003 \001(\0132\034.google.protobuf.StringV" +
-      "alue\0222\n\014metric_value\030\004 \001(\0132\034.google.prot" +
-      "obuf.StringValue*\300\003\n\nReturnCode\022\013\n\007SUCCE" +
-      "SS\020\000\022\022\n\016INTERNAL_ERROR\020\001\022\033\n\027TEMPORARILY_" +
-      "UNAVAILABLE\020\002\022\014\n\010IO_ERROR\020\003\022\017\n\013BAD_REQUE" +
-      "ST\020\004\022\034\n\027INVALID_PARAMETER_VALUE\020\350\007\022\027\n\022EN" +
-      "DPOINT_NOT_FOUND\020\351\007\022\026\n\021MALFORMED_REQUEST" +
-      "\020\352\007\022\022\n\rINVALID_STATE\020\353\007\022\026\n\021PERMISSION_DE" +
-      "NIED\020\354\007\022\025\n\020FEATURE_DISABLED\020\355\007\022\032\n\025CUSTOM" +
-      "ER_UNAUTHORIZED\020\356\007\022\033\n\026REQUEST_LIMIT_EXCE" +
-      "EDED\020\357\007\022\034\n\027RESOURCE_ALREADY_EXISTS\020\321\017\022\034\n" +
-      "\027RESOURCE_DOES_NOT_EXIST\020\322\017\022\023\n\016QUOTA_EXC" +
-      "EEDED\020\271\027\022\034\n\027MAX_BLOCK_SIZE_EXCEEDED\020\272\027\022\033" +
-      "\n\026MAX_READ_SIZE_EXCEEDED\020\273\027*\326\001\n\rDataType" +
-      "Proto\022\031\n\025DATA_TYPE_UNSPECIFIED\020\000\022\t\n\005INT3" +
-      "2\020\001\022\t\n\005INT64\020\002\022\013\n\007FLOAT32\020\003\022\013\n\007FLOAT64\020\004" +
-      "\022\n\n\006STRING\020\005\022\016\n\nINT32ARRAY\020\006\022\016\n\nINT64ARR" +
-      "AY\020\007\022\020\n\014FlOAT32ARRAY\020\010\022\020\n\014FLOAT64ARRAY\020\t" +
-      "\022\017\n\013STRINGARRAY\020\n\022\t\n\005BYTES\020\013\022\016\n\nBYTESARR" +
-      "AY\020\014*x\n\027ExampleSupportTypeProto\022$\n EXAMP" +
-      "LE_SUPPORT_TYPE_UNSPECIFIED\020\000\022\022\n\016EXAMPLE" +
-      "_STREAM\020\001\022\021\n\rEXAMPLE_BATCH\020\002\022\020\n\014EXAMPLE_" +
-      "BOTH\020\003*b\n\nStateProto\022\025\n\021STATE_UNSPECIFIE" +
-      "D\020\000\022\010\n\004INIT\020\001\022\014\n\010STARTING\020\002\022\013\n\007RUNNING\020\003" +
-      "\022\014\n\010FINISHED\020\004\022\n\n\006FAILED\020\005*F\n\rExecutionM" +
-      "ode\022\036\n\032EXECUTION_MODE_UNSPECIFIED\020\000\022\t\n\005B" +
-      "ATCH\020\001\022\n\n\006STREAM\020\002*C\n\tModelType\022\r\n\tNONE_" +
-      "TYPE\020\000\022\016\n\nCHECKPOINT\020\001\022\017\n\013SAVED_MODEL\020\002\022" +
-      "\006\n\002H5\020\003*}\n\022ModelVersionStatus\022\030\n\024PENDING" +
-      "_REGISTRATION\020\000\022\027\n\023FAILED_REGISTRATION\020\001" +
-      "\022\t\n\005READY\020\003\022\024\n\020PENDING_DELETION\020\004\022\023\n\017FAI" +
-      "LED_DELETION\020\005*\\\n\021ModelVersionStage\022\r\n\tG" +
-      "ENERATED\020\000\022\r\n\tVALIDATED\020\001\022\014\n\010DEPLOYED\020\002\022" +
-      "\016\n\nDEPRECATED\020\003\022\013\n\007DELETED\020\004*)\n\017MetricTy" +
-      "peProto\022\013\n\007DATASET\020\000\022\t\n\005MODEL\020\001B\030\n\020com.a" +
-      "iflow.proto\210\001\001\220\001\001b\006proto3"
+      " \001(\0132\034.google.protobuf.StringValue\022;\n\022wo" +
+      "rkflow_execution\030\013 \001(\0132\037.ai_flow.Workflo" +
+      "wExecutionProto\0321\n\017PropertiesEntry\022\013\n\003ke" +
+      "y\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"\342\001\n\rWorkflowP" +
+      "roto\022\014\n\004uuid\030\001 \001(\003\022\014\n\004name\030\002 \001(\t\0223\n\rwork" +
+      "flow_json\030\003 \001(\0132\034.google.protobuf.String" +
+      "Value\022:\n\nproperties\030\004 \003(\0132&.ai_flow.Work" +
+      "flowProto.PropertiesEntry\022\021\n\tnamespace\030\005" +
+      " \001(\t\0321\n\017PropertiesEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005" +
+      "value\030\002 \001(\t:\0028\001\"\300\004\n\026WorkflowExecutionPro" +
+      "to\022\014\n\004uuid\030\001 \001(\003\022\014\n\004name\030\002 \001(\t\022/\n\nprojec" +
+      "t_id\030\003 \001(\0132\033.google.protobuf.Int64Value\022" +
+      ",\n\017execution_state\030\004 \001(\0162\023.ai_flow.State" +
+      "Proto\022C\n\nproperties\030\005 \003(\0132/.ai_flow.Work" +
+      "flowExecutionProto.PropertiesEntry\022/\n\nst" +
+      "art_time\030\006 \001(\0132\033.google.protobuf.Int64Va" +
+      "lue\022-\n\010end_time\030\007 \001(\0132\033.google.protobuf." +
+      "Int64Value\022-\n\007log_uri\030\010 \001(\0132\034.google.pro" +
+      "tobuf.StringValue\0223\n\rworkflow_json\030\t \001(\013" +
+      "2\034.google.protobuf.StringValue\022/\n\tsignat" +
+      "ure\030\n \001(\0132\034.google.protobuf.StringValue\022" +
+      "\024\n\014execution_id\030\013 \001(\t\022(\n\010workflow\030\014 \001(\0132" +
+      "\026.ai_flow.WorkflowProto\0321\n\017PropertiesEnt" +
+      "ry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"\323\002\n\014P" +
+      "rojectProto\022\014\n\004uuid\030\001 \001(\003\022\014\n\004name\030\002 \001(\t\022" +
+      "9\n\nproperties\030\003 \003(\0132%.ai_flow.ProjectPro" +
+      "to.PropertiesEntry\0222\n\014project_type\030\004 \001(\013" +
+      "2\034.google.protobuf.StringValue\022)\n\003uri\030\005 " +
+      "\001(\0132\034.google.protobuf.StringValue\022*\n\004use" +
+      "r\030\006 \001(\0132\034.google.protobuf.StringValue\022.\n" +
+      "\010password\030\007 \001(\0132\034.google.protobuf.String" +
+      "Value\0321\n\017PropertiesEntry\022\013\n\003key\030\001 \001(\t\022\r\n" +
+      "\005value\030\002 \001(\t:\0028\001\"\307\003\n\rArtifactProto\022\014\n\004uu" +
+      "id\030\001 \001(\003\022\014\n\004name\030\002 \001(\t\022:\n\nproperties\030\003 \003" +
+      "(\0132&.ai_flow.ArtifactProto.PropertiesEnt" +
+      "ry\0221\n\013data_format\030\004 \001(\0132\034.google.protobu" +
+      "f.StringValue\022/\n\tbatch_uri\030\005 \001(\0132\034.googl" +
+      "e.protobuf.StringValue\0220\n\nstream_uri\030\006 \001" +
+      "(\0132\034.google.protobuf.StringValue\0221\n\013desc" +
+      "ription\030\007 \001(\0132\034.google.protobuf.StringVa" +
+      "lue\0220\n\013create_time\030\010 \001(\0132\033.google.protob" +
+      "uf.Int64Value\0220\n\013update_time\030\t \001(\0132\033.goo" +
+      "gle.protobuf.Int64Value\0321\n\017PropertiesEnt" +
+      "ry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"\242\001\n\024R" +
+      "egisteredModelParam\0220\n\nmodel_name\030\001 \001(\0132" +
+      "\034.google.protobuf.StringValue\022&\n\nmodel_t" +
+      "ype\030\002 \001(\0162\022.ai_flow.ModelType\0220\n\nmodel_d" +
+      "esc\030\003 \001(\0132\034.google.protobuf.StringValue\"" +
+      "\224\002\n\021ModelVersionParam\0220\n\nmodel_path\030\001 \001(" +
+      "\0132\034.google.protobuf.StringValue\0222\n\014model" +
+      "_metric\030\002 \001(\0132\034.google.protobuf.StringVa" +
+      "lue\0222\n\014model_flavor\030\003 \001(\0132\034.google.proto" +
+      "buf.StringValue\0222\n\014version_desc\030\004 \001(\0132\034." +
+      "google.protobuf.StringValue\0221\n\rcurrent_s" +
+      "tage\030\005 \001(\0162\032.ai_flow.ModelVersionStage\"w" +
+      "\n\016ModelMetaParam\0220\n\nmodel_name\030\001 \001(\0132\034.g" +
+      "oogle.protobuf.StringValue\0223\n\rmodel_vers" +
+      "ion\030\002 \001(\0132\034.google.protobuf.StringValue\"" +
+      "A\n\010Response\022\023\n\013return_code\030\001 \001(\t\022\022\n\nretu" +
+      "rn_msg\030\002 \001(\t\022\014\n\004data\030\003 \001(\t\"\203\001\n\023Registere" +
+      "dModelMeta\022\022\n\nmodel_name\030\001 \001(\t\022&\n\nmodel_" +
+      "type\030\002 \001(\0162\022.ai_flow.ModelType\0220\n\nmodel_" +
+      "desc\030\003 \001(\0132\034.google.protobuf.StringValue" +
+      "\"\363\002\n\020ModelVersionMeta\022\022\n\nmodel_name\030\001 \001(" +
+      "\t\022\025\n\rmodel_version\030\002 \001(\t\0220\n\nmodel_path\030\003" +
+      " \001(\0132\034.google.protobuf.StringValue\0222\n\014mo" +
+      "del_metric\030\004 \001(\0132\034.google.protobuf.Strin" +
+      "gValue\0222\n\014model_flavor\030\005 \001(\0132\034.google.pr" +
+      "otobuf.StringValue\0222\n\014version_desc\030\006 \001(\013" +
+      "2\034.google.protobuf.StringValue\0223\n\016versio" +
+      "n_status\030\007 \001(\0162\033.ai_flow.ModelVersionSta" +
+      "tus\0221\n\rcurrent_stage\030\010 \001(\0162\032.ai_flow.Mod" +
+      "elVersionStage\"\201\001\n\025RegisteredModelDetail" +
+      "\0226\n\020registered_model\030\001 \001(\0132\034.ai_flow.Reg" +
+      "isteredModelMeta\0220\n\rmodel_version\030\002 \001(\0132" +
+      "\031.ai_flow.ModelVersionMeta\"O\n\024Registered" +
+      "ModelMetas\0227\n\021registered_models\030\001 \003(\0132\034." +
+      "ai_flow.RegisteredModelMeta\"J\n\013ResultPro" +
+      "to\022$\n\006status\030\001 \001(\0162\024.ai_flow.StatusProto" +
+      "\022\025\n\rerror_message\030\002 \001(\t\"\241\005\n\017MetricMetaPr" +
+      "oto\022\014\n\004uuid\030\001 \001(\003\022*\n\004name\030\002 \001(\0132\034.google" +
+      ".protobuf.StringValue\022/\n\ndataset_id\030\003 \001(" +
+      "\0132\033.google.protobuf.Int64Value\0220\n\nmodel_" +
+      "name\030\004 \001(\0132\034.google.protobuf.StringValue" +
+      "\0223\n\rmodel_version\030\005 \001(\0132\034.google.protobu" +
+      "f.StringValue\022+\n\006job_id\030\006 \001(\0132\033.google.p" +
+      "rotobuf.Int64Value\022/\n\nstart_time\030\007 \001(\0132\033" +
+      ".google.protobuf.Int64Value\022-\n\010end_time\030" +
+      "\010 \001(\0132\033.google.protobuf.Int64Value\022-\n\013me" +
+      "tric_type\030\t \001(\0162\030.ai_flow.MetricTypeProt" +
+      "o\022)\n\003uri\030\n \001(\0132\034.google.protobuf.StringV" +
+      "alue\022*\n\004tags\030\013 \001(\0132\034.google.protobuf.Str" +
+      "ingValue\0228\n\022metric_description\030\014 \001(\0132\034.g" +
+      "oogle.protobuf.StringValue\022<\n\nproperties" +
+      "\030\r \003(\0132(.ai_flow.MetricMetaProto.Propert" +
+      "iesEntry\0321\n\017PropertiesEntry\022\013\n\003key\030\001 \001(\t" +
+      "\022\r\n\005value\030\002 \001(\t:\0028\001\"\270\001\n\022MetricSummaryPro" +
+      "to\022\014\n\004uuid\030\001 \001(\003\022.\n\tmetric_id\030\002 \001(\0132\033.go" +
+      "ogle.protobuf.Int64Value\0220\n\nmetric_key\030\003" +
+      " \001(\0132\034.google.protobuf.StringValue\0222\n\014me" +
+      "tric_value\030\004 \001(\0132\034.google.protobuf.Strin" +
+      "gValue*\300\003\n\nReturnCode\022\013\n\007SUCCESS\020\000\022\022\n\016IN" +
+      "TERNAL_ERROR\020\001\022\033\n\027TEMPORARILY_UNAVAILABL" +
+      "E\020\002\022\014\n\010IO_ERROR\020\003\022\017\n\013BAD_REQUEST\020\004\022\034\n\027IN" +
+      "VALID_PARAMETER_VALUE\020\350\007\022\027\n\022ENDPOINT_NOT" +
+      "_FOUND\020\351\007\022\026\n\021MALFORMED_REQUEST\020\352\007\022\022\n\rINV" +
+      "ALID_STATE\020\353\007\022\026\n\021PERMISSION_DENIED\020\354\007\022\025\n" +
+      "\020FEATURE_DISABLED\020\355\007\022\032\n\025CUSTOMER_UNAUTHO" +
+      "RIZED\020\356\007\022\033\n\026REQUEST_LIMIT_EXCEEDED\020\357\007\022\034\n" +
+      "\027RESOURCE_ALREADY_EXISTS\020\321\017\022\034\n\027RESOURCE_" +
+      "DOES_NOT_EXIST\020\322\017\022\023\n\016QUOTA_EXCEEDED\020\271\027\022\034" +
+      "\n\027MAX_BLOCK_SIZE_EXCEEDED\020\272\027\022\033\n\026MAX_READ" +
+      "_SIZE_EXCEEDED\020\273\027* \n\013StatusProto\022\006\n\002OK\020\000" +
+      "\022\t\n\005ERROR\020\001*\326\001\n\rDataTypeProto\022\031\n\025DATA_TY" +
+      "PE_UNSPECIFIED\020\000\022\t\n\005INT32\020\001\022\t\n\005INT64\020\002\022\013" +
+      "\n\007FLOAT32\020\003\022\013\n\007FLOAT64\020\004\022\n\n\006STRING\020\005\022\016\n\n" +
+      "INT32ARRAY\020\006\022\016\n\nINT64ARRAY\020\007\022\020\n\014FlOAT32A" +
+      "RRAY\020\010\022\020\n\014FLOAT64ARRAY\020\t\022\017\n\013STRINGARRAY\020" +
+      "\n\022\t\n\005BYTES\020\013\022\016\n\nBYTESARRAY\020\014*x\n\027ExampleS" +
+      "upportTypeProto\022$\n EXAMPLE_SUPPORT_TYPE_" +
+      "UNSPECIFIED\020\000\022\022\n\016EXAMPLE_STREAM\020\001\022\021\n\rEXA" +
+      "MPLE_BATCH\020\002\022\020\n\014EXAMPLE_BOTH\020\003*{\n\nStateP" +
+      "roto\022\025\n\021STATE_UNSPECIFIED\020\000\022\010\n\004INIT\020\001\022\014\n" +
+      "\010STARTING\020\002\022\013\n\007RUNNING\020\003\022\014\n\010FINISHED\020\004\022\n" +
+      "\n\006FAILED\020\005\022\013\n\007KILLING\020\006\022\n\n\006KILLED\020\007*F\n\rE" +
+      "xecutionMode\022\036\n\032EXECUTION_MODE_UNSPECIFI" +
+      "ED\020\000\022\t\n\005BATCH\020\001\022\n\n\006STREAM\020\002*C\n\tModelType" +
+      "\022\r\n\tNONE_TYPE\020\000\022\016\n\nCHECKPOINT\020\001\022\017\n\013SAVED" +
+      "_MODEL\020\002\022\006\n\002H5\020\003*}\n\022ModelVersionStatus\022\030" +
+      "\n\024PENDING_REGISTRATION\020\000\022\027\n\023FAILED_REGIS" +
+      "TRATION\020\001\022\t\n\005READY\020\003\022\024\n\020PENDING_DELETION" +
+      "\020\004\022\023\n\017FAILED_DELETION\020\005*\\\n\021ModelVersionS" +
+      "tage\022\r\n\tGENERATED\020\000\022\r\n\tVALIDATED\020\001\022\014\n\010DE" +
+      "PLOYED\020\002\022\016\n\nDEPRECATED\020\003\022\013\n\007DELETED\020\004*)\n" +
+      "\017MetricTypeProto\022\013\n\007DATASET\020\000\022\t\n\005MODEL\020\001" +
+      "B\"\n\020com.aiflow.protoZ\010/ai_flow\210\001\001\220\001\001b\006pr" +
+      "oto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -32501,19 +34760,31 @@ public final class Message {
     internal_static_ai_flow_JobProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ai_flow_JobProto_descriptor,
-        new java.lang.String[] { "Uuid", "Name", "WorkflowExecutionId", "JobState", "Properties", "JobId", "StartTime", "EndTime", "LogUri", "Signature", });
+        new java.lang.String[] { "Uuid", "Name", "WorkflowExecutionId", "JobState", "Properties", "JobId", "StartTime", "EndTime", "LogUri", "Signature", "WorkflowExecution", });
     internal_static_ai_flow_JobProto_PropertiesEntry_descriptor =
       internal_static_ai_flow_JobProto_descriptor.getNestedTypes().get(0);
     internal_static_ai_flow_JobProto_PropertiesEntry_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ai_flow_JobProto_PropertiesEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
-    internal_static_ai_flow_WorkflowExecutionProto_descriptor =
+    internal_static_ai_flow_WorkflowProto_descriptor =
       getDescriptor().getMessageTypes().get(7);
+    internal_static_ai_flow_WorkflowProto_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ai_flow_WorkflowProto_descriptor,
+        new java.lang.String[] { "Uuid", "Name", "WorkflowJson", "Properties", "Namespace", });
+    internal_static_ai_flow_WorkflowProto_PropertiesEntry_descriptor =
+      internal_static_ai_flow_WorkflowProto_descriptor.getNestedTypes().get(0);
+    internal_static_ai_flow_WorkflowProto_PropertiesEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ai_flow_WorkflowProto_PropertiesEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
+    internal_static_ai_flow_WorkflowExecutionProto_descriptor =
+      getDescriptor().getMessageTypes().get(8);
     internal_static_ai_flow_WorkflowExecutionProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ai_flow_WorkflowExecutionProto_descriptor,
-        new java.lang.String[] { "Uuid", "Name", "ProjectId", "ExecutionState", "Properties", "StartTime", "EndTime", "LogUri", "WorkflowJson", "Signature", });
+        new java.lang.String[] { "Uuid", "Name", "ProjectId", "ExecutionState", "Properties", "StartTime", "EndTime", "LogUri", "WorkflowJson", "Signature", "ExecutionId", "Workflow", });
     internal_static_ai_flow_WorkflowExecutionProto_PropertiesEntry_descriptor =
       internal_static_ai_flow_WorkflowExecutionProto_descriptor.getNestedTypes().get(0);
     internal_static_ai_flow_WorkflowExecutionProto_PropertiesEntry_fieldAccessorTable = new
@@ -32521,7 +34792,7 @@ public final class Message {
         internal_static_ai_flow_WorkflowExecutionProto_PropertiesEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_ai_flow_ProjectProto_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_ai_flow_ProjectProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ai_flow_ProjectProto_descriptor,
@@ -32533,7 +34804,7 @@ public final class Message {
         internal_static_ai_flow_ProjectProto_PropertiesEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_ai_flow_ArtifactProto_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_ai_flow_ArtifactProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ai_flow_ArtifactProto_descriptor,
@@ -32545,55 +34816,61 @@ public final class Message {
         internal_static_ai_flow_ArtifactProto_PropertiesEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_ai_flow_RegisteredModelParam_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_ai_flow_RegisteredModelParam_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ai_flow_RegisteredModelParam_descriptor,
         new java.lang.String[] { "ModelName", "ModelType", "ModelDesc", });
     internal_static_ai_flow_ModelVersionParam_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_ai_flow_ModelVersionParam_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ai_flow_ModelVersionParam_descriptor,
         new java.lang.String[] { "ModelPath", "ModelMetric", "ModelFlavor", "VersionDesc", "CurrentStage", });
     internal_static_ai_flow_ModelMetaParam_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_ai_flow_ModelMetaParam_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ai_flow_ModelMetaParam_descriptor,
         new java.lang.String[] { "ModelName", "ModelVersion", });
     internal_static_ai_flow_Response_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_ai_flow_Response_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ai_flow_Response_descriptor,
         new java.lang.String[] { "ReturnCode", "ReturnMsg", "Data", });
     internal_static_ai_flow_RegisteredModelMeta_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_ai_flow_RegisteredModelMeta_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ai_flow_RegisteredModelMeta_descriptor,
         new java.lang.String[] { "ModelName", "ModelType", "ModelDesc", });
     internal_static_ai_flow_ModelVersionMeta_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_ai_flow_ModelVersionMeta_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ai_flow_ModelVersionMeta_descriptor,
         new java.lang.String[] { "ModelName", "ModelVersion", "ModelPath", "ModelMetric", "ModelFlavor", "VersionDesc", "VersionStatus", "CurrentStage", });
     internal_static_ai_flow_RegisteredModelDetail_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(17);
     internal_static_ai_flow_RegisteredModelDetail_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ai_flow_RegisteredModelDetail_descriptor,
         new java.lang.String[] { "RegisteredModel", "ModelVersion", });
     internal_static_ai_flow_RegisteredModelMetas_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(18);
     internal_static_ai_flow_RegisteredModelMetas_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ai_flow_RegisteredModelMetas_descriptor,
         new java.lang.String[] { "RegisteredModels", });
+    internal_static_ai_flow_ResultProto_descriptor =
+      getDescriptor().getMessageTypes().get(19);
+    internal_static_ai_flow_ResultProto_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ai_flow_ResultProto_descriptor,
+        new java.lang.String[] { "Status", "ErrorMessage", });
     internal_static_ai_flow_MetricMetaProto_descriptor =
-      getDescriptor().getMessageTypes().get(18);
+      getDescriptor().getMessageTypes().get(20);
     internal_static_ai_flow_MetricMetaProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ai_flow_MetricMetaProto_descriptor,
@@ -32605,7 +34882,7 @@ public final class Message {
         internal_static_ai_flow_MetricMetaProto_PropertiesEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_ai_flow_MetricSummaryProto_descriptor =
-      getDescriptor().getMessageTypes().get(19);
+      getDescriptor().getMessageTypes().get(21);
     internal_static_ai_flow_MetricSummaryProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ai_flow_MetricSummaryProto_descriptor,

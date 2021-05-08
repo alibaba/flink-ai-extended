@@ -31,6 +31,7 @@ from ai_flow.rest_endpoint.protobuf.high_availability_pb2_grpc import HighAvaila
 from ai_flow.rest_endpoint.protobuf.metadata_service_pb2_grpc import MetadataServiceStub
 from ai_flow.rest_endpoint.protobuf.metric_service_pb2_grpc import MetricServiceStub
 from ai_flow.rest_endpoint.protobuf.model_center_service_pb2_grpc import ModelCenterServiceStub
+from ai_flow.rest_endpoint.protobuf.scheduling_service_pb2_grpc import SchedulingServiceStub
 from ai_flow.rest_endpoint.service.high_availability import proto_to_member, sleep_and_detecting_running
 from notification_service.base_notification import BaseEvent
 from ai_flow.notification.event_types import AI_FLOW_TYPE
@@ -39,6 +40,8 @@ from ai_flow.rest_endpoint.service.client.metadata_client import MetadataClient
 from ai_flow.rest_endpoint.service.client.model_center_client import ModelCenterClient
 from notification_service.client import NotificationClient
 from ai_flow.rest_endpoint.service.client.metric_client import MetricClient
+from ai_flow.rest_endpoint.service.client.scheduling_client import SchedulingClient
+
 
 if not hasattr(time, 'time_ns'):
     time.time_ns = lambda: int(time.time() * 1e9)
@@ -46,7 +49,7 @@ if not hasattr(time, 'time_ns'):
 _SERVER_URI = 'localhost:50051'
 
 
-class AIFlowClient(MetadataClient, ModelCenterClient, NotificationClient, DeployClient, MetricClient):
+class AIFlowClient(MetadataClient, ModelCenterClient, NotificationClient, DeployClient, MetricClient, SchedulingClient):
     """
     Client of an AIFlow Server that manages metadata store, model center and notification service.
     """
@@ -59,6 +62,7 @@ class AIFlowClient(MetadataClient, ModelCenterClient, NotificationClient, Deploy
         ModelCenterClient.__init__(self, server_uri)
         DeployClient.__init__(self, server_uri)
         MetricClient.__init__(self, server_uri)
+        SchedulingClient.__init__(self, server_uri)
         self.enable_ha = False
         self.list_member_interval_ms = 5000
         self.retry_interval_ms = 1000
@@ -223,6 +227,13 @@ class AIFlowClient(MetadataClient, ModelCenterClient, NotificationClient, Deploy
             server_uri,
             "metric_stub")
         self.metric_stub = metric_stub
+
+        scheduling_channel = grpc.insecure_channel(server_uri)
+        scheduling_stub = self._wrap_aiflow_rpcs(
+            SchedulingServiceStub(scheduling_channel),
+            server_uri,
+            "scheduling_stub")
+        self.scheduling_stub = scheduling_stub
 
     def disable_high_availability(self):
         if hasattr(self, "aiflow_ha_running"):

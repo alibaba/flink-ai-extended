@@ -20,6 +20,7 @@ syntax = "proto3";
 option java_generic_services = true;
 option java_package = "com.aiflow.proto";
 option py_generic_services = true;
+option go_package = "/ai_flow";
 
 import "message.proto";
 import "google/api/annotations.proto";

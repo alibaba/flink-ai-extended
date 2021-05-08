@@ -19,4 +19,5 @@
 project_name: test_project
 master_ip: localhost
 master_port: 50051
-airflow_deploy_path: /tmp/airflow/
+blob:
+  remote_repository: /tmp

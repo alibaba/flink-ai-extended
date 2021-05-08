@@ -45,6 +45,8 @@ class State(str, Enum):
     RUNNING = 'RUNNING'
     FINISHED = 'FINISHED'
     FAILED = 'FAILED'
+    KILLING = 'KILLING'
+    KILLED = 'KILLED'
 
 
 class JobMeta(Jsonable):

@@ -63,6 +63,17 @@ protoc -I/usr/local/include -I. \
   -I$GOPATH/src \
   -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
   --go_out=Mgoogle/api/annotations.proto=github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis/google/api,plugins=grpc:../go \
+  scheduling_service.proto
+
+protoc -I/usr/local/include -I. \
+  -I$GOPATH/src -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
+  --grpc-gateway_out=logtostderr=true:../go \
+  scheduling_service.proto
+
+protoc -I/usr/local/include -I. \
+  -I$GOPATH/src \
+  -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
+  --go_out=Mgoogle/api/annotations.proto=github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis/google/api,plugins=grpc:../go \
   metric_service.proto
 
 protoc -I/usr/local/include -I. \
@@ -136,6 +147,13 @@ python3 -m grpc.tools.protoc -I. \
   -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
   --python_out=.. \
   --grpc_python_out=.. \
+  scheduling_service.proto
+
+python3 -m grpc.tools.protoc -I. \
+  -I/usr/local/include \
+  -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
+  --python_out=.. \
+  --grpc_python_out=.. \
   metric_service.proto
 
 python3 -m grpc.tools.protoc -I. \
@@ -147,16 +165,18 @@ python3 -m grpc.tools.protoc -I. \
 
 cd ..
 
-sed -i '' 's/\_ "github.com\/grpc-ecosystem\/grpc-gateway\/third_party\/googleapis\/google\/api"/\/\/\_ "github.com\/grpc-ecosystem\/grpc-gateway\/third_party\/googleapis\/google\/api"/g' go/metadata_service.pb.go
-sed -i '' 's/\_ "github.com\/grpc-ecosystem\/grpc-gateway\/third_party\/googleapis\/google\/api"/\/\/\_ "github.com\/grpc-ecosystem\/grpc-gateway\/third_party\/googleapis\/google\/api"/g' go/model_center_service.pb.go
-sed -i '' 's/\_ "github.com\/grpc-ecosystem\/grpc-gateway\/third_party\/googleapis\/google\/api"/\/\/\_ "github.com\/grpc-ecosystem\/grpc-gateway\/third_party\/googleapis\/google\/api"/g' go/deploy_service.pb.go
-sed -i '' 's/\_ "github.com\/grpc-ecosystem\/grpc-gateway\/third_party\/googleapis\/google\/api"/\/\/\_ "github.com\/grpc-ecosystem\/grpc-gateway\/third_party\/googleapis\/google\/api"/g' go/metric_service.pb.go
+sed -i '' 's/\_ "github.com\/grpc-ecosystem\/grpc-gateway\/third_party\/googleapis\/google\/api"/\/\/\_ "github.com\/grpc-ecosystem\/grpc-gateway\/third_party\/googleapis\/google\/api"/g' go/ai_flow/metadata_service.pb.go
+sed -i '' 's/\_ "github.com\/grpc-ecosystem\/grpc-gateway\/third_party\/googleapis\/google\/api"/\/\/\_ "github.com\/grpc-ecosystem\/grpc-gateway\/third_party\/googleapis\/google\/api"/g' go/ai_flow/model_center_service.pb.go
+sed -i '' 's/\_ "github.com\/grpc-ecosystem\/grpc-gateway\/third_party\/googleapis\/google\/api"/\/\/\_ "github.com\/grpc-ecosystem\/grpc-gateway\/third_party\/googleapis\/google\/api"/g' go/ai_flow/deploy_service.pb.go
+sed -i '' 's/\_ "github.com\/grpc-ecosystem\/grpc-gateway\/third_party\/googleapis\/google\/api"/\/\/\_ "github.com\/grpc-ecosystem\/grpc-gateway\/third_party\/googleapis\/google\/api"/g' go/ai_flow/scheduling_service.pb.go
+sed -i '' 's/\_ "github.com\/grpc-ecosystem\/grpc-gateway\/third_party\/googleapis\/google\/api"/\/\/\_ "github.com\/grpc-ecosystem\/grpc-gateway\/third_party\/googleapis\/google\/api"/g' go/ai_flow/metric_service.pb.go
 rm -rf go/*.go-E
 
 sed -i -E 's/^import message_pb2 as message__pb2/from \. import message_pb2 as message__pb2/' *pb2*.py
 sed -i -E 's/^import metadata_service_pb2 as metadata__service__pb2/from \. import metadata_service_pb2 as metadata__service__pb2/' *pb2*.py
 sed -i -E 's/^import model_center_service_pb2 as model__center__service__pb2/from \. import model_center_service_pb2 as model__center__service__pb2/' *pb2*.py
 sed -i -E 's/^import deploy_service_pb2 as deploy__service__pb2/from \. import deploy_service_pb2 as deploy__service__pb2/' *pb2*.py
+sed -i -E 's/^import scheduling_service_pb2 as scheduling__service__pb2/from \. import scheduling_service_pb2 as scheduling__service__pb2/' *pb2*.py
 sed -i -E 's/^import metric_service_pb2 as metric__service__pb2/from \. import metric_service_pb2 as metric__service__pb2/' *pb2*.py
 sed -i -E 's/^import high_availability_pb2 as high__availability__pb2/from \. import high_availability_pb2 as high__availability__pb2/' *pb2*.py
 rm -rf *.py-E

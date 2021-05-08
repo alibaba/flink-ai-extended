@@ -16,15 +16,12 @@
 ## specific language governing permissions and limitations
 ## under the License.
 ##
-
-workflow_name: test_workflow
-task_1:
-  platform: local
-  engine: cmd_line
-  job_name: task_1
-
-task_2:
-  platform: local
-  engine: python
-  job_name: task_2
-
+master_ip: localhost
+master_port: 50051
+db_uri: sqlite:///aiflow.db
+db_type: sql_lite
+start_scheduling_service: False
+scheduler:
+  scheduler_class_name: test.TestScheduler
+  notification_service_uri: localhost:9999
+  repository: /tmp/repo

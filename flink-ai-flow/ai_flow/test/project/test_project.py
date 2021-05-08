@@ -19,24 +19,11 @@
 import unittest
 
 from ai_flow.common.path_util import get_file_dir
-from ai_flow.project.blob_manager import BlobManagerFactory
 from ai_flow.project.project_description import get_project_description_from
 from ai_flow.api.configuration import set_project_config_file
 
 
-class ProjectTest(unittest.TestCase):
-
-    def test_project_upload_download_local(self):
-        project_path = get_file_dir(__file__)
-        project_desc = get_project_description_from(project_path + "/../")
-
-        # blob_server.type = local
-        blob_manager = BlobManagerFactory.get_blob_manager(project_desc.project_config)
-        uploaded_path = blob_manager.upload_blob('1', project_path)
-        self.assertEqual(uploaded_path, project_path)
-
-        downloaded_path = blob_manager.download_blob('1', uploaded_path)
-        self.assertEqual(project_path, downloaded_path)
+class TestProjectConfig(unittest.TestCase):
 
     def test_load_project_config(self):
         project_path = get_file_dir(__file__)

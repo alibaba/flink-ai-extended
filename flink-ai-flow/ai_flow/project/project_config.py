@@ -42,7 +42,10 @@ class ProjectConfig(AIFlowConfiguration):
         self["project_name"] = value
 
     def get_project_uuid(self):
-        return self["project_uuid"]
+        if "project_uuid" in self:
+            return self["project_uuid"]
+        else:
+            return None
 
     def set_project_uuid(self, value):
         self["project_uuid"] = value
@@ -64,6 +67,15 @@ class ProjectConfig(AIFlowConfiguration):
 
     def set_notification_service_uri(self, uri):
         self["notification_uri"] = uri
+
+    def get_uploaded_project_path(self):
+        if "uploaded_project_path" in self:
+            return self["uploaded_project_path"]
+        else:
+            return self.get_master_uri()
+
+    def set_uploaded_project_path(self, uri):
+        self["uploaded_project_path"] = uri
 
     def get_schedule_interval(self):
         if "schedule_interval" in self:

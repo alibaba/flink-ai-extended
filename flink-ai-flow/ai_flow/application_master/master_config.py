@@ -98,3 +98,39 @@ class MasterConfig(AIFlowConfiguration):
 
     def get_notification_uri(self):
         return self.get('notification_uri')
+
+    def get_scheduler_config(self):
+        return self.get('scheduler')
+
+    def set_scheduler_config(self, value):
+        self['scheduler'] = value
+
+    def start_meta_service(self):
+        if "start_meta_service" in self and self['start_meta_service'] is False:
+            return False
+        else:
+            return True
+
+    def start_model_center_service(self):
+        if "start_model_center_service" in self and self['start_model_center_service'] is False:
+            return False
+        else:
+            return True
+
+    def start_metric_service(self):
+        if "start_metric_service" in self and self['start_metric_service'] is False:
+            return False
+        else:
+            return True
+
+    def start_deploy_service(self):
+        if "start_deploy_service" in self and self['start_deploy_service'] is False:
+            return False
+        else:
+            return True
+
+    def start_scheduling_service(self):
+        if "start_scheduling_service" in self and self['start_scheduling_service'] is False:
+            return False
+        else:
+            return True

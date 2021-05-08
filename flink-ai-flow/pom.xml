@@ -98,6 +98,8 @@
                         <exclude>lib/**/*</exclude>
                         <exclude>examples/**/*</exclude>
                         <exclude>python_ai_flow/test/**/*</exclude>
+                        <exclude>tests/temp/**/*</exclude>
+                        <exclude>tests/resources/**/*</exclude>
                     </excludes>
                 </configuration>
             </plugin>

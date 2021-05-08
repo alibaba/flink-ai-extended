@@ -20,14 +20,13 @@ from ai_flow.api.configuration import _default_project_config, ensure_project_re
 from ai_flow.api.execution import AirflowOperation
 from ai_flow.rest_endpoint.service.client.aiflow_client import AIFlowClient
 
-
 _default_ai_flow_client = None
 _default_master_uri = 'localhost:50051'
 
 _default_airflow_operation_client = None
 
-def get_ai_flow_client():
 
+def get_ai_flow_client():
     """ Get AI flow Client. """
 
     global _default_ai_flow_client, _default_master_uri
