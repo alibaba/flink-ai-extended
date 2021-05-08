@@ -154,7 +154,7 @@ class SqlModelVersionRelation(base):
     __tablename__ = 'model_version_relation'
 
     version = Column(String(255), primary_key=True)
-    model_id = Column(BigInteger, ForeignKey('model_relation.uuid', onupdate='cascade'))
+    model_id = Column(BigInteger, ForeignKey('model_relation.uuid', onupdate='cascade'), primary_key=True)
     workflow_execution_id = Column(BigInteger, ForeignKey('workflow_execution.uuid', onupdate='cascade'))
     is_deleted = Column(String(256), default='False')
 
